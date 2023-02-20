@@ -21,14 +21,12 @@ export class ProductDetailledComponent {
     this.selectedSize = (select as HTMLSelectElement).value;
   }
 
-  buy() {
+  addToCart() {
     this.cartService.addCartItem(this.products[+this.selectedSize]);
     this.selectedSize = '';
+    let newCart = this.cartService.getCartItems();
+    localStorage.setItem('cart', JSON.stringify(newCart));
   }
-
-  // alert(message: string) {
-  //   alert(message);
-  // }
 
   fetchData(reference: string | null) {
     if (reference) {

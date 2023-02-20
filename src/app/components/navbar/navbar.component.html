@@ -2,21 +2,25 @@
   <h1 style="text-align: center">
     <a (click)="backToMenu()">{{ title }}</a>
   </h1>
-  <div class="cart">
-    <div *ngIf="items.length < 1" class="cart-icon">
-      <i class="fa-solid fa-cart-shopping fa-3x"></i>
+
+  <div class="icons">
+    <div class="search-mobile">
+      <i class="fa-solid fa-search fa-3x"></i>
+    </div>
+    <div class="profile">
+      <i class="fa-solid fa-user fa-3x"></i>
     </div>
 
-    <div *ngIf="items.length > 0" class="cart-icon">
-      <div class="cart-amount" [@cartItemCount]="animationState">
-        <span>{{ items.length }}</span>
+    <div class="cart" (click)="goToPanier()">
+      <div *ngIf="cartItems.length < 1" class="cart-icon">
+        <i class="fa-solid fa-cart-shopping fa-3x"></i>
       </div>
-      <i class="fa-solid fa-cart-shopping fa-3x"></i>
+      <div *ngIf="cartItems.length > 0" class="cart-icon">
+        <div class="cart-amount" [@cartItemCount]="animationState">
+          <span>{{ cartItems.length }}</span>
+        </div>
+        <i class="fa-solid fa-cart-shopping fa-3x"></i>
+      </div>
     </div>
-
-    <p>
-      <span>{{ items.length }}</span> item in cart
-    </p>
-    <button (click)="goToPanier()">Voir le panier</button>
   </div>
 </nav>

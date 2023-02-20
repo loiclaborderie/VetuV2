@@ -14,5 +14,12 @@ export class CartService {
     return this.cartItems;
   }
 
+  loadCartItemsFromLocalStorage() {
+    if (localStorage.getItem('cart')) {
+      let savedCart = localStorage.getItem('cart') as string;
+      return (this.cartItems = JSON.parse(savedCart));
+    }
+  }
+
   constructor() {}
 }

@@ -14,6 +14,9 @@ export class CartComponent {
   ngOnInit(): void {
     this.cartItems = this.cartService.getCartItems();
     console.log(this.cartItems);
+    if (this.cartItems.length == 0) {
+      this.cartItems = this.cartService.loadCartItemsFromLocalStorage();
+    }
     this.totalPrice = this.cartItems.reduce((acc, item) => acc + item.prix, 0);
   }
 }
