@@ -1,0 +1,99 @@
+.product-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  background: rgb(157, 157, 157);
+}
+a.link {
+  text-decoration: none;
+  color: inherit;
+}
+.carte {
+  font-size: clamp(0.67rem, 1em, 2vw);
+  text-align: center;
+  color: #040037;
+  position: relative;
+}
+.product-description {
+  padding-top: clamp(0.25em, 0.3vh, 0.5rem);
+}
+.product-description > * {
+  display: block;
+  padding-block: clamp(0.2rem, 0.3rem, 0.4rem);
+}
+/* .product-description:not(:has(.additional-info)) > * {
+    padding-block: clamp(0.7rem, 0.75rem, 0.8rem);
+  } */
+/* Ligne du dessus optionelle, je l'ai mise en car le pseudo selecteur has ne fonctionne pas sur tous les navigateurs */
+
+.carte a.test-hover {
+  pointer-events: auto;
+}
+
+.buy-btn {
+  min-width: 4rem;
+  max-width: 90%;
+  display: inline-block;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 13px;
+  border: 1px solid rgb(179, 178, 194);
+  text-decoration: none;
+  color: inherit;
+  transition-property: color, background-color, border;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+}
+#btn-small-screen {
+  margin-block: 0.5rem;
+  padding: 1rem 3rem;
+  text-align: center;
+  display: inline-block;
+}
+#btn-large-screen {
+  font-size: 16px;
+}
+
+.buy-btn:hover {
+  background: #040037;
+  border-color: #040037;
+  color: white;
+  border: none;
+}
+.btn-container {
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 0px;
+  bottom: 115px;
+  width: 101%;
+  overflow: hidden;
+  position: absolute;
+  transition: 0.3s;
+}
+.btn-container > * {
+  opacity: 0;
+}
+.product-price {
+  font-weight: 700;
+}
+.additional-info {
+  font-size: 0.9em;
+  text-decoration: underline;
+}
+
+@media screen and (min-width: 1024px) {
+  #btn-small-screen {
+    display: none !important;
+  }
+  .carte .test-hover:hover ~ .btn-container,
+  .btn-container:hover {
+    height: 130px;
+  }
+  .carte .test-hover:hover ~ .btn-container > *,
+  .btn-container:hover.btn-container > * {
+    transition: 0.75s;
+    opacity: 1;
+  }
+}

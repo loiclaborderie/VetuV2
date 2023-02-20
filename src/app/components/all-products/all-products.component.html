@@ -1,0 +1,14 @@
+<button (click)="console()">console</button>
+<div
+  class="centered"
+  *ngIf="!products"
+  style="display: flex; justify-content: center"
+>
+  <app-loading></app-loading>
+</div>
+<div *ngIf="products" class="grid">
+  <app-one-product
+    *ngFor="let product of products"
+    [product]="product"
+  ></app-one-product>
+</div>

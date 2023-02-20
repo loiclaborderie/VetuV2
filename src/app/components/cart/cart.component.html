@@ -1,0 +1,13 @@
+<h2>Panier</h2>
+<div *ngIf="cartItems.length < 1">
+  <p>Votre panier est vide pour le moment ;)</p>
+</div>
+
+<div class="cart" *ngIf="cartItems.length > 0">
+  <h4>{{ totalPrice }}€</h4>
+  <ul>
+    <li *ngFor="let cartItem of cartItems">
+      {{ cartItem.titre }} - {{ cartItem.taille }} - {{ cartItem.prix }}€
+    </li>
+  </ul>
+</div>

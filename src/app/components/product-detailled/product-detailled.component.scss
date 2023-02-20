@@ -1,0 +1,238 @@
+img {
+  max-width: 100%;
+}
+
+section.product-page {
+  padding-top: 0.5rem;
+  font-size: calc(10px + 0.4vw);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1em;
+  color: #040037;
+}
+.product-page .cover-img {
+  position: relative;
+}
+.mySlides {
+  display: none;
+}
+.mySlides.showByDefault {
+  display: block;
+}
+.carte .link {
+  text-decoration: none;
+  color: inherit;
+}
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  margin-inline: 10px;
+  padding: 16px;
+  color: black;
+  font-weight: bold;
+  font-size: 24px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.product-page .cover-img img {
+  object-fit: cover;
+  height: 100vh;
+  width: 100%;
+  background: radial-gradient(
+      farthest-side at top left,
+      rgba(174, 255, 216, 0.75),
+      transparent
+    ),
+    radial-gradient(
+      farthest-side at bottom left,
+      rgba(255, 200, 80, 0.75),
+      transparent
+    ),
+    radial-gradient(
+        farthest-corner at bottom right,
+        rgba(231, 111, 81, 0.75),
+        transparent
+      )
+      #003b44;
+}
+.cover-img:hover .prev,
+.cover-img:hover .next {
+  transform: scale(1.5);
+  font-size: 24px;
+  color: grey;
+}
+
+.product-page .product-details {
+  padding-inline: 3em;
+  margin: 4em auto 1em;
+  display: flex;
+  flex-direction: column;
+}
+.product-page .product-details > * {
+  padding-block: 0.5em;
+}
+.product-page .product-details .price,
+.product-details .title,
+.product-details .categorie {
+  text-align: center;
+  padding-block: 3vh;
+}
+.product-details .price span {
+  font-weight: normal;
+  font-size: 0.8em;
+  padding-left: 2rem;
+  color: #464646;
+}
+
+.product-details .product-description {
+  padding: 3rem 1rem;
+}
+.product-description h2 {
+  padding-bottom: 1rem;
+}
+.product-description p {
+  color: #2d2d2d;
+  word-spacing: 0.07em;
+  line-height: 1.4em;
+}
+
+.product-details .cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding-block: 3rem;
+}
+.product-details button.buy-cart {
+  padding: 1em;
+  width: 325px;
+  max-width: 100%;
+  margin-inline: auto;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid #222134;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.color-picker {
+  width: 325px;
+  max-width: 100%;
+}
+.color-pick button {
+  width: 100%;
+}
+
+button.buy-cart:hover {
+  border: 1px solid #222134;
+  background: rgba(4, 0, 55, 0.8);
+}
+
+button.buy-cart span {
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+}
+
+.product-details .color-pick {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+select.select {
+  width: 100%;
+  color: rgb(4, 0, 55);
+  outline: 1px solid rgb(4, 0, 55);
+  font-size: 130%;
+  font-family: "Jost", sans-serif, serif;
+  line-height: 170%;
+  padding-top: 5px;
+  padding-left: 17px;
+  padding-right: 17px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+.select option {
+  color: #fff;
+  background-color: rgb(4, 0, 55);
+  border: none;
+  cursor: pointer;
+}
+.select:hover {
+  color: #fff;
+  background-color: rgb(4, 0, 55);
+  transition-duration: 0.45s;
+}
+
+.product-details .buy-cart {
+  border: 1px solid white;
+  background: rgb(4, 0, 55);
+  color: white;
+}
+button[type="submit"].buy-cart:disabled {
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
+}
+h4.categorie {
+  text-transform: uppercase;
+  padding-bottom: 1rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .product-page .cover-img img {
+    max-width: 100%;
+    min-height: 120vh;
+    /* min-height: 90vh; */
+    /* aspect-ratio: 3/4; */
+    object-fit: cover;
+  }
+}
+@media screen and (max-width: 768px) {
+  section.product-page {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .product-page .product-details {
+    padding-inline: 2em;
+    margin: 2em auto 1em;
+  }
+}
+
+// @keyframes test {
+//   0% {
+//     color: black;
+//   }
+//   100% {
+//     color: grey;
+//   }
+// }

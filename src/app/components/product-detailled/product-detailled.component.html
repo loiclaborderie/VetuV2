@@ -1,0 +1,72 @@
+<main *ngIf="!product" class="centered">
+  <div style="display: flex; justify-content: center; padding-top: 2rem">
+    <app-loading></app-loading>
+  </div>
+</main>
+
+<main *ngIf="product">
+  <section class="product-page">
+    <div class="cover-img">
+      <div
+        [ngClass]="slideIndex == 1 ? 'showByDefault' : ''"
+        class="mySlides fade"
+      >
+        <img src="assets/{{ product.photo }}/asset1.jpeg" alt="image" />
+      </div>
+      <div class="mySlides fade">
+        <img src="assets/{{ product.photo }}/asset2.jpeg" alt="image" />
+      </div>
+      <div class="mySlides fade">
+        <img src="assets/{{ product.photo }}/asset3.jpeg" alt="image" />
+      </div>
+      <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+      <a class="next" (click)="plusSlides(1)">&#10095;</a>
+    </div>
+    <div class="product-details">
+      <div class="title">
+        <h2>
+          {{ product.titre.toUpperCase() }}
+        </h2>
+      </div>
+      <div class="price">
+        <h3>
+          {{ product.prix }}€
+          <span>{{ product.stock }} encore en stock !</span>
+        </h3>
+      </div>
+      <h4 class="categorie">
+        {{ product.categorie.toUpperCase() }} POUR
+        <span *ngIf="product.public == 'f'">FEMMES</span>
+        <span *ngIf="product.public == 'm'">HOMMES</span>
+        <span *ngIf="product.public == 'mixte'">TOUS</span>
+      </h4>
+      <div class="cta">
+        <div class="color-picker">
+          <select (change)="selectSize()" class="select" name="choseSize">
+            <option disabled selected>Choisir une taille</option>
+            <option
+              *ngFor="let item of products; let i = index"
+              value="{{ i }}"
+            >
+              Taille {{ item.taille }}
+            </option>
+          </select>
+        </div>
+        <button
+          [disabled]="selectedSize == ''"
+          (click)="buy()"
+          type="submit"
+          class="buy-cart"
+        >
+          <span>Ajouter au panier</span>
+        </button>
+      </div>
+      <div class="product-description">
+        <h2>Description</h2>
+        <p>
+          {{ product.description }}
+        </p>
+      </div>
+    </div>
+  </section>
+</main>

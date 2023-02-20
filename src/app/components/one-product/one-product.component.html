@@ -1,0 +1,33 @@
+<div class="carte">
+  <a class="test-hover" routerLink="{{ product.reference }}">
+    <div *ngIf="!product" class="product-img"></div>
+    <img
+      *ngIf="product"
+      src="assets/{{ product.photo }}/asset{{ rand(3) }}.jpeg"
+      alt=""
+      class="product-img"
+    />
+  </a>
+  <div class="btn-container">
+    <a id="btn-large-screen" class="buy-btn" href="#"> Ajouter au panier </a>
+  </div>
+  <div class="product-description">
+    <a class="link" href="#">
+      <span class="product-name">
+        {{ product.titre.toUpperCase().slice(0, 20) }}
+        <span *ngIf="product.titre.length > 20">...</span>
+      </span>
+    </a>
+    <span class="product-price"> {{ product.prix }}€ </span>
+    <span class="product-rating"
+      >Avis clients :
+      {{ rand(10, 10) }}
+      / 20
+    </span>
+    <a class="buy-btn" id="btn-small-screen" href="#">Ajouter</a>
+    <span class="additional-info">
+      {{ product.stock }}
+      encore en stock
+    </span>
+  </div>
+</div>
