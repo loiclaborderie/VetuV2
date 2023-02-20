@@ -11,9 +11,10 @@ import { OneProductComponent } from './components/one-product/one-product.compon
 import { ProductDetailledComponent } from './components/product-detailled/product-detailled.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingComponent } from './components/loading/loading.component';
-import { ProductDetailledTestComponent } from './components/product-detailled-test/product-detailled-test.component';
+
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CartComponent } from './components/cart/cart.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -22,9 +23,9 @@ import { CartComponent } from './components/cart/cart.component';
     OneProductComponent,
     ProductDetailledComponent,
     LoadingComponent,
-    ProductDetailledTestComponent,
     NavbarComponent,
     CartComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
