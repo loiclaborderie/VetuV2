@@ -11,6 +11,12 @@ export class CartComponent {
   totalPrice!: number;
   constructor(private cartService: CartService) {}
 
+  console() {
+    this.cartItems.map((item) => {
+      //how to check if this item is here more than once?
+    });
+  }
+
   ngOnInit(): void {
     this.cartItems = this.cartService.getCartItems();
     console.log(this.cartItems);

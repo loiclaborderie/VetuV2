@@ -4,10 +4,12 @@ import { AllProductsComponent } from './components/all-products/all-products.com
 import { CartComponent } from './components/cart/cart.component';
 import { ProductDetailledComponent } from './components/product-detailled/product-detailled.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/products', pathMatch: 'full' },
   { path: 'products', component: AllProductsComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'cart', component: CartComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'products/:reference', component: ProductDetailledComponent },
