@@ -51,7 +51,7 @@ export class NavbarComponent {
   }
 
   ngDoCheck() {
-    if (this.currentItemCount !== this.cartItems.length) {
+    if (this.cartItems && this.currentItemCount !== this.cartItems.length) {
       this.prevItemCount = this.currentItemCount;
       this.currentItemCount = this.cartItems.length;
       this.animationState = 'active';

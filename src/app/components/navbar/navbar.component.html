@@ -12,10 +12,10 @@
     </div>
 
     <div class="cart" (click)="goToPanier()">
-      <div *ngIf="cartItems.length < 1" class="cart-icon">
+      <div *ngIf="!cartItems" class="cart-icon">
         <i class="fa-solid fa-cart-shopping fa-3x"></i>
       </div>
-      <div *ngIf="cartItems.length > 0" class="cart-icon">
+      <div *ngIf="cartItems" class="cart-icon">
         <div class="cart-amount" [@cartItemCount]="animationState">
           <span>{{ cartItems.length }}</span>
         </div>

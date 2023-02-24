@@ -25,6 +25,7 @@ export class AllProductsComponent {
   fetchProducts() {
     this.productService.getProducts().subscribe((data) => {
       this.products = data;
+      console.log(data);
       localStorage.setItem('products', JSON.stringify(data));
     });
   }

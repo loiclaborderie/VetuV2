@@ -4,7 +4,7 @@ import { AllProductsComponent } from './components/all-products/all-products.com
 import { CartComponent } from './components/cart/cart.component';
 import { ProductDetailledComponent } from './components/product-detailled/product-detailled.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/products', pathMatch: 'full' },

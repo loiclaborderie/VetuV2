@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -6,5 +8,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent {
-  user = 'Loic Laborderie';
+  user!: any;
+
+  testConsole() {
+    console.log(this.user);
+  }
+
+  ngOnInit(): void {
+    this.userService.getUser().subscribe((data: any) => {
+      if (data === null) {
+        this.router.navigate(['/login']);
+      }
+      this.user = data;
+    });
+  }
+
+  constructor(private userService: UserService, private router: Router) {}
 }
