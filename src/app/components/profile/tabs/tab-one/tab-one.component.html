@@ -1,1 +1,35 @@
-<h1>Mes information personnelles</h1>
+<div class="container">
+  <h1>Mes information personnelles</h1>
+  <form>
+    <div class="form-group">
+      <label for="nom">Nom :</label>
+      <input id="nom" name="nom" type="text" placeholder="ex: Doe" />
+    </div>
+    <div class="form-group">
+      <label for="prenom">Prénom :</label>
+      <input id="prenom" name="prenom" type="text" placeholder="ex: John" />
+    </div>
+    <div class="form-group">
+      <label for="email">Email :</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        placeholder="ex: john.doe@gmail.com"
+      />
+    </div>
+    <div class="form-group">
+      <fieldset>
+        <legend>Votre civilité :</legend>
+        <div class="flex">
+          <input type="radio" id="femme" name="civilite" value="f" />
+          <label for="femme">Femme</label>
+        </div>
+        <div class="flex">
+          <input type="radio" id="homme" name="civilite" value="m" />
+          <label for="homme">Homme</label>
+        </div>
+      </fieldset>
+    </div>
+  </form>
+</div>
