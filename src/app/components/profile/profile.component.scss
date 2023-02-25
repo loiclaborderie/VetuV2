@@ -1,0 +1,36 @@
+nav a {
+  display: block;
+  font-size: clamp(0.85rem, 2.3vw, 20px);
+  text-decoration: none;
+  color: rgb(23, 23, 23);
+  padding-top: clamp(1rem, 3vh, 50px);
+  margin-left: clamp(1rem, 5vw, 50px);
+}
+
+.header-profile {
+  margin: 2rem auto;
+  padding: 2rem 1rem 1rem;
+  max-width: 1400px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #4f4f4f3a;
+}
+h1 {
+  text-transform: capitalize;
+  font-size: clamp(1rem, 3vw, 30px);
+}
+button.sign-out {
+  font-size: clamp(0.85rem, 2.3vw, 20px);
+  background: #a59a20b3;
+  border: none;
+  padding: 0.7em clamp(1rem, 2vw, 1.7em);
+  border-radius: 25px;
+  color: #f4f4f4;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+button.sign-out:hover {
+  background: #dea807;
+}

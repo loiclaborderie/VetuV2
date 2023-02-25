@@ -20,6 +20,7 @@ import { Token } from 'src/app/_interfaces/token';
 export class LoginComponent {
   submitted = false;
   submittedGood = false;
+  errormsg = '';
 
   // passwordPatternValidator(
   //   control: AbstractControl
@@ -41,6 +42,7 @@ export class LoginComponent {
 
   onSubmit(): void {
     this.submitted = true;
+    this.submittedGood = true;
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       console.log(email, password);
@@ -50,9 +52,12 @@ export class LoginComponent {
           this.tokenService.saveToken(data.token);
           this.router.navigate(['/profile']);
         },
-        (err: any) => console.log(err)
+        (err: any) => {
+          this.submittedGood = false;
+          console.log(err);
+          this.errormsg = 'Votre identifiant ou mot de passe sont incorrects';
+        }
       );
-      this.submittedGood = true;
       this.loginForm.reset();
     } else {
       console.log('Form is invalid');

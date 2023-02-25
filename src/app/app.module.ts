@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +16,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoginComponent } from './components/login/login.component';
+import { TabOneComponent } from './components/profile/tabs/tab-one/tab-one.component';
+import { TabTwoComponent } from './components/profile/tabs/tab-two/tab-two.component';
+import { TabThreeComponent } from './components/profile/tabs/tab-three/tab-three.component';
+import { TabFourComponent } from './components/profile/tabs/tab-four/tab-four.component';
 
 @NgModule({
   declarations: [
@@ -29,15 +32,19 @@ import { LoginComponent } from './components/login/login.component';
     CartComponent,
     ProfileComponent,
     LoginComponent,
+    TabOneComponent,
+    TabTwoComponent,
+    TabThreeComponent,
+    TabFourComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

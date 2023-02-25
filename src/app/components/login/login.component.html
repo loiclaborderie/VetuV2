@@ -1,6 +1,11 @@
-<app-loading *ngIf="submittedGood"></app-loading>
+<div class="div-center" style="margin-top: 4rem" *ngIf="submittedGood">
+  <app-loading></app-loading>
+</div>
 <div *ngIf="!submittedGood" class="form-container">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="error" style="color: crimson" *ngIf="errormsg">
+      {{ errormsg }}
+    </div>
     <div class="group">
       <input type="mail" formControlName="email" placeholder="email" />
       <div

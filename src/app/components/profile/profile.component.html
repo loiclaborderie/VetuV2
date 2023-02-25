@@ -1,3 +1,28 @@
-<h1 *ngIf="user">Bienvenue {{ user.prenom }} {{ user.nom }}</h1>
-<app-loading *ngIf="!user"></app-loading>
-<button (click)="testConsole()">Console me</button>
+<div class="div-center" style="margin-top: 4rem" *ngIf="!user">
+  <app-loading></app-loading>
+</div>
+<div class="container" *ngIf="user">
+  <nav>
+    <a routerLink="/"
+      ><i class="fa-solid fa-arrow-left fa-xl"></i> Retour au menu</a
+    >
+  </nav>
+  <div class="header-profile">
+    <h1>Bienvenue {{ user.prenom }} {{ user.nom }}</h1>
+    <button class="sign-out">Déconnexion</button>
+  </div>
+  <mat-tab-group>
+    <mat-tab label="Tab 1">
+      <app-tab-one></app-tab-one>
+    </mat-tab>
+    <mat-tab label="Tab 2">
+      <app-tab-two></app-tab-two>
+    </mat-tab>
+    <mat-tab label="Tab 3">
+      <app-tab-three></app-tab-three>
+    </mat-tab>
+    <mat-tab label="Tab 4">
+      <app-tab-four [user]="user"></app-tab-four>
+    </mat-tab>
+  </mat-tab-group>
+</div>
