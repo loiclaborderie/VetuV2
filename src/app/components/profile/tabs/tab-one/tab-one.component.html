@@ -124,6 +124,12 @@
         >
       </div>
     </div>
+    <div class="success-msg" *ngIf="successMsg">
+      <span>{{ successMsg }}</span>
+    </div>
+    <div class="error-msg" *ngIf="failureMsg">
+      <span>{{ failureMsg }}</span>
+    </div>
     <div class="btn-container">
       <button
         [ngClass]="updating ? 'updating' : ''"

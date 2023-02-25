@@ -57,3 +57,15 @@ button.submit:disabled:hover {
   color: crimson;
   // font-size: clamp(0.8rem, 1.4vw, 1.2rem);
 }
+.error-msg {
+  color: crimson;
+  padding-block: 1rem;
+  font-size: clamp(0.8rem, 1.4vw, 1.2rem);
+  font-weight: 600;
+}
+.success-msg {
+  color: rgb(20, 220, 130);
+  padding-block: 1rem;
+  font-size: clamp(0.8rem, 1.4vw, 1.2rem);
+  font-weight: 600;
+}

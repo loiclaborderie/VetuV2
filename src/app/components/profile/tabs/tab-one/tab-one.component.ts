@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-tab-one',
@@ -11,9 +12,11 @@ export class TabOneComponent {
   user!: any;
   updating = false;
   message = 'Modifier';
+  successMsg: string = '';
+  failureMsg: string = '';
   userForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private userService: UserService) {}
 
   ngOnInit() {
     this.userForm = this.fb.group({
@@ -46,11 +49,24 @@ export class TabOneComponent {
         formData.entries()
       );
       console.log(data);
-      this.user = { ...this.user, ...data };
+      const finalData = { ...this.user, ...data };
+      this.user = finalData;
+      this.userService.updateUser(finalData).subscribe(
+        (data: any) => {
+          console.log(data);
+          this.successMsg = data.message;
+        },
+        (error: any) => {
+          console.log(error);
+          this.failureMsg = 'Il y a eu un problème lors de votre demande';
+        }
+      );
     } else {
       console.log('Ready to update');
       this.message = 'Enregistrer';
       this.updating = true;
+      this.successMsg = '';
+      this.failureMsg = '';
     }
   }
 

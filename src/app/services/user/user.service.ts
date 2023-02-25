@@ -25,8 +25,17 @@ export class UserService {
     }
     return of(null);
   }
-  // setUserId(id: number) {
-  //   this.userId = id;
-  // }
+
+  updateUser(obj: any) {
+    const id = obj.id;
+    const updatedObj = { ...obj, code_postal: obj.codePostal };
+    delete updatedObj.id;
+    delete updatedObj.password;
+    delete updatedObj.roles;
+    delete updatedObj.userIdentifier;
+    delete updatedObj.codePostal;
+    return this.http.put(`http://localhost:8000/userUpdate/${id}`, updatedObj);
+  }
+
   constructor(private http: HttpClient, private router: Router) {}
 }
