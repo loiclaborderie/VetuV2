@@ -12,6 +12,14 @@
         placeholder="ex: Doe"
         formControlName="nom"
       />
+      <div class="error" *ngIf="updating && form['nom'].errors">
+        <span *ngIf="form['nom'].hasError('minlength')"
+          >Votre nom doit faire au moins 3 caractères</span
+        >
+        <span *ngIf="form['nom'].hasError('required')"
+          >Un nom est nécessaire</span
+        >
+      </div>
     </div>
     <div class="form-group">
       <label for="prenom">Prénom :</label>
@@ -23,6 +31,14 @@
         type="text"
         placeholder="ex: John"
       />
+      <div class="error" *ngIf="updating && form['prenom'].errors">
+        <span *ngIf="form['prenom'].hasError('minlength')"
+          >Votre prenom doit faire au moins 3 caractères</span
+        >
+        <span *ngIf="form['prenom'].hasError('required')"
+          >Un prenom est nécessaire</span
+        >
+      </div>
     </div>
     <div class="form-group">
       <label for="pseudo">Pseudo :</label>
@@ -34,6 +50,14 @@
         type="text"
         placeholder="ex: JoeRoegan68"
       />
+      <div class="error" *ngIf="updating && form['pseudo'].errors">
+        <span *ngIf="form['pseudo'].hasError('minlength')"
+          >Votre pseudo doit faire au moins 3 caractères</span
+        >
+        <span *ngIf="form['pseudo'].hasError('required')"
+          >Un pseudo est nécessaire</span
+        >
+      </div>
     </div>
     <div class="form-group">
       <fieldset>
@@ -73,6 +97,15 @@
         type="email"
         placeholder="ex: john.doe@gmail.com"
       />
+      <div class="error" *ngIf="updating && form['email'].errors">
+        <span *ngIf="form['email'].hasError('email')"
+          >Le format d'email devrait plutôt ressembler à :
+          john.doe@gmail.com</span
+        >
+        <span *ngIf="form['email'].hasError('required')"
+          >Une adresse email est nécessaire</span
+        >
+      </div>
     </div>
     <div class="form-group">
       <label for="telephone">Téléphone :</label>
@@ -84,12 +117,19 @@
         type="tel"
         placeholder="ex: +33 6 68 53 17 07"
       />
+      <div class="error" *ngIf="updating && form['telephone'].errors">
+        <span
+          >Votre numéro de téléphone devrait ressembler à : +33 6 68 53 17
+          07</span
+        >
+      </div>
     </div>
     <div class="btn-container">
       <button
         [ngClass]="updating ? 'updating' : ''"
         class="submit"
         (click)="updateInfos($event)"
+        [disabled]="updating && !userForm.valid"
       >
         <span>{{ message }}</span>
       </button>

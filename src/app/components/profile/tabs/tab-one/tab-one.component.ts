@@ -35,7 +35,7 @@ export class TabOneComponent {
   }
 
   updateInfos(e: Event) {
-    e.preventDefault();
+    // e.preventDefault();
     if (this.updating) {
       console.log('Updating infos');
       this.updating = false;
@@ -46,6 +46,7 @@ export class TabOneComponent {
         formData.entries()
       );
       console.log(data);
+      this.user = { ...this.user, ...data };
     } else {
       console.log('Ready to update');
       this.message = 'Enregistrer';
@@ -53,6 +54,9 @@ export class TabOneComponent {
     }
   }
 
+  get form() {
+    return this.userForm.controls;
+  }
   testConsole() {
     console.log(this.user);
   }
