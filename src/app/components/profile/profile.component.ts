@@ -10,10 +10,6 @@ import { UserService } from 'src/app/services/user/user.service';
 export class ProfileComponent {
   user!: any;
 
-  testConsole() {
-    console.log(this.user);
-  }
-
   ngOnInit(): void {
     this.userService.getUser().subscribe((data: any) => {
       if (data === null) {

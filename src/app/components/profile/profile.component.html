@@ -8,12 +8,12 @@
     >
   </nav>
   <div class="header-profile">
-    <h1>Bienvenue {{ user.prenom }} {{ user.nom }}</h1>
+    <h1>Bienvenue {{ user.prenom }}</h1>
     <button class="sign-out">Déconnexion</button>
   </div>
   <mat-tab-group>
     <mat-tab label="Informations">
-      <app-tab-one></app-tab-one>
+      <app-tab-one [user]="user"></app-tab-one>
     </mat-tab>
     <mat-tab label="Moyens de paiements">
       <app-tab-two></app-tab-two>

@@ -8,4 +8,8 @@ import { Component, Input } from '@angular/core';
 export class TabFourComponent {
   @Input()
   user: any;
+
+  testConsole() {
+    console.log(this.user);
+  }
 }

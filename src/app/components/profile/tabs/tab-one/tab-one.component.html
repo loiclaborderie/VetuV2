@@ -1,35 +1,98 @@
 <div class="container">
   <h1>Mes information personnelles</h1>
-  <form>
+  <button (click)="testConsole()">Console</button>
+  <form [formGroup]="userForm">
     <div class="form-group">
       <label for="nom">Nom :</label>
-      <input id="nom" name="nom" type="text" placeholder="ex: Doe" />
+      <input
+        id="nom"
+        [readOnly]="!updating"
+        name="nom"
+        type="text"
+        placeholder="ex: Doe"
+        formControlName="nom"
+      />
     </div>
     <div class="form-group">
       <label for="prenom">Prénom :</label>
-      <input id="prenom" name="prenom" type="text" placeholder="ex: John" />
+      <input
+        id="prenom"
+        name="prenom"
+        formControlName="prenom"
+        [readOnly]="!updating"
+        type="text"
+        placeholder="ex: John"
+      />
     </div>
     <div class="form-group">
-      <label for="email">Email :</label>
+      <label for="pseudo">Pseudo :</label>
       <input
-        id="email"
-        name="email"
-        type="email"
-        placeholder="ex: john.doe@gmail.com"
+        formControlName="pseudo"
+        id="pseudo"
+        name="pseudo"
+        [readOnly]="!updating"
+        type="text"
+        placeholder="ex: JoeRoegan68"
       />
     </div>
     <div class="form-group">
       <fieldset>
         <legend>Votre civilité :</legend>
         <div class="flex">
-          <input type="radio" id="femme" name="civilite" value="f" />
+          <input
+            required
+            type="radio"
+            id="femme"
+            name="civilite"
+            [readOnly]="!updating"
+            value="f"
+            [checked]="user.civilite === 'f'"
+          />
           <label for="femme">Femme</label>
         </div>
         <div class="flex">
-          <input type="radio" id="homme" name="civilite" value="m" />
+          <input
+            type="radio"
+            [readOnly]="!updating"
+            id="homme"
+            name="civilite"
+            value="m"
+            [checked]="user.civilite === 'm'"
+          />
           <label for="homme">Homme</label>
         </div>
       </fieldset>
+    </div>
+    <div class="form-group">
+      <label for="email">Email :</label>
+      <input
+        formControlName="email"
+        id="email"
+        [readOnly]="!updating"
+        name="email"
+        type="email"
+        placeholder="ex: john.doe@gmail.com"
+      />
+    </div>
+    <div class="form-group">
+      <label for="telephone">Téléphone :</label>
+      <input
+        formControlName="telephone"
+        id="telephone"
+        name="telephone"
+        [readOnly]="!updating"
+        type="tel"
+        placeholder="ex: +33 6 68 53 17 07"
+      />
+    </div>
+    <div class="btn-container">
+      <button
+        [ngClass]="updating ? 'updating' : ''"
+        class="submit"
+        (click)="updateInfos($event)"
+      >
+        <span>{{ message }}</span>
+      </button>
     </div>
   </form>
 </div>
