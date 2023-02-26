@@ -16,7 +16,7 @@ export class UserService {
     if (this.user) {
       return of(this.user);
     } else if (localStorage.getItem('user')) {
-      const id = localStorage.getItem('user');
+      const id: string | null = localStorage.getItem('user');
       return this.getUserById(Number(id)).pipe(
         tap((data: any) => {
           this.user = data;
