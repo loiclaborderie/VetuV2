@@ -134,10 +134,13 @@
       <button
         [ngClass]="updating ? 'updating' : ''"
         class="submit"
-        (click)="updateInfos($event)"
+        (click)="updateInfos()"
         [disabled]="updating && !userForm.valid"
       >
         <span>{{ message }}</span>
+      </button>
+      <button (click)="cancel()" style="background: red" *ngIf="updating">
+        Annuler
       </button>
     </div>
   </form>

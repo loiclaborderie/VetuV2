@@ -8,3 +8,64 @@ h1 {
   font-size: clamp(1.2rem, 3vw, 2.5em);
   font-weight: 700;
 }
+.form-group label {
+  display: block;
+}
+.flex {
+  display: flex;
+}
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+button.submit {
+  width: 100%;
+  max-width: 320px;
+  padding: 1rem 2rem;
+  display: grid;
+  font-size: clamp(1rem, 1.7vw, 1.5rem);
+  place-items: center;
+  border-radius: 12px;
+  cursor: pointer;
+  color: #f3f3f3;
+  background: hsl(206, 99%, 32%);
+  transition: 0.3s ease-in-out;
+  font-weight: 600;
+}
+button.submit:hover {
+  background: #f3f3f3;
+  color: hsl(206, 99%, 22%);
+  border: 1px solid hsl(206, 99%, 12%);
+}
+button.submit.updating {
+  color: #f3f3f3;
+  background: hsl(153, 99%, 32%);
+}
+button.submit.updating:hover {
+  background: #f3f3f3;
+  color: hsl(153, 99%, 32%);
+  border: 1px solid hsl(206, 10%, 14%);
+}
+button.submit:disabled,
+button.submit:disabled:hover {
+  background: hsl(210, 7%, 22%);
+  color: rgba(255, 255, 255, 0.673);
+  cursor: not-allowed;
+}
+.error {
+  color: crimson;
+  // font-size: clamp(0.8rem, 1.4vw, 1.2rem);
+}
+.error-msg {
+  color: crimson;
+  padding-block: 1rem;
+  font-size: clamp(0.8rem, 1.4vw, 1.2rem);
+  font-weight: 600;
+}
+.success-msg {
+  color: rgb(20, 220, 130);
+  padding-block: 1rem;
+  font-size: clamp(0.8rem, 1.4vw, 1.2rem);
+  font-weight: 600;
+}

@@ -37,8 +37,7 @@ export class TabInfoComponent {
     });
   }
 
-  updateInfos(e: Event) {
-    // e.preventDefault();
+  updateInfos() {
     if (this.updating) {
       console.log('Updating infos');
       this.updating = false;
@@ -68,6 +67,12 @@ export class TabInfoComponent {
       this.successMsg = '';
       this.failureMsg = '';
     }
+  }
+
+  cancel() {
+    this.updating = false;
+    this.userForm.reset(this.user); // reset the form fields to their original values
+    this.message = 'Modifier';
   }
 
   get form() {
