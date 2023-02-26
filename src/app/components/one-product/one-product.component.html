@@ -3,7 +3,7 @@
     <div *ngIf="!product" class="product-img"></div>
     <img
       *ngIf="product"
-      src="assets/{{ product.photo }}/asset{{ rand(3) }}.jpeg"
+      src="assets/{{ product.photo }}/asset2.jpeg"
       alt=""
       class="product-img"
     />
@@ -19,11 +19,7 @@
       </span>
     </a>
     <span class="product-price"> {{ product.prix }}€ </span>
-    <span class="product-rating"
-      >Avis clients :
-      {{ rand(10, 10) }}
-      / 20
-    </span>
+    <span class="product-rating">Avis clients : {{ product.note }} </span>
     <a class="buy-btn" id="btn-small-screen" href="#">Ajouter</a>
     <span class="additional-info">
       {{ product.stock }}
