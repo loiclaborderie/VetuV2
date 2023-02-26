@@ -3,11 +3,11 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
-  selector: 'app-tab-one',
-  templateUrl: './tab-one.component.html',
-  styleUrls: ['./tab-one.component.scss'],
+  selector: 'app-tab-info',
+  templateUrl: './tab-info.component.html',
+  styleUrls: ['./tab-info.component.scss'],
 })
-export class TabOneComponent {
+export class TabInfoComponent {
   @Input()
   user!: any;
   updating = false;

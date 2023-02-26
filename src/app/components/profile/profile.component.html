@@ -13,16 +13,13 @@
   </div>
   <mat-tab-group>
     <mat-tab label="Informations">
-      <app-tab-one [user]="user"></app-tab-one>
-    </mat-tab>
-    <mat-tab label="Moyens de paiements">
-      <app-tab-two></app-tab-two>
+      <app-tab-info [user]="user"></app-tab-info>
     </mat-tab>
     <mat-tab label="Adresse">
-      <app-tab-three></app-tab-three>
+      <app-tab-address [user]="user"></app-tab-address>
     </mat-tab>
     <mat-tab label="Commandes">
-      <app-tab-four [user]="user"></app-tab-four>
+      <app-tab-orders [user]="user"></app-tab-orders>
     </mat-tab>
   </mat-tab-group>
 </div>

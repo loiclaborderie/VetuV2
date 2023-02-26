@@ -16,10 +16,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoginComponent } from './components/login/login.component';
-import { TabOneComponent } from './components/profile/tabs/tab-one/tab-one.component';
-import { TabTwoComponent } from './components/profile/tabs/tab-two/tab-two.component';
-import { TabThreeComponent } from './components/profile/tabs/tab-three/tab-three.component';
-import { TabFourComponent } from './components/profile/tabs/tab-four/tab-four.component';
+import { TabInfoComponent } from './components/profile/tabs/tab-info/tab-info.component';
+import { TabOrdersComponent } from './components/profile/tabs/tab-orders/tab-orders.component';
+import { TabAddressComponent } from './components/profile/tabs/tab-address/tab-address.component';
 
 @NgModule({
   declarations: [
@@ -32,10 +31,9 @@ import { TabFourComponent } from './components/profile/tabs/tab-four/tab-four.co
     CartComponent,
     ProfileComponent,
     LoginComponent,
-    TabOneComponent,
-    TabTwoComponent,
-    TabThreeComponent,
-    TabFourComponent,
+    TabInfoComponent,
+    TabOrdersComponent,
+    TabAddressComponent,
   ],
   imports: [
     BrowserModule,
