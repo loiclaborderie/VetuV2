@@ -8,16 +8,14 @@
   <section class="product-page">
     <div class="cover-img">
       <div
-        [ngClass]="slideIndex == 1 ? 'showByDefault' : ''"
+        *ngFor="let item of products; let i = index"
+        [style.display]="i === slideIndex - 1 ? 'block' : 'none'"
         class="mySlides fade"
       >
-        <img src="assets/{{ product.photo }}/asset1.jpeg" alt="image" />
-      </div>
-      <div class="mySlides fade">
-        <img src="assets/{{ product.photo }}/asset2.jpeg" alt="image" />
-      </div>
-      <div class="mySlides fade">
-        <img src="assets/{{ product.photo }}/asset3.jpeg" alt="image" />
+        <img
+          src="assets/{{ product.photo }}/asset{{ i + 1 }}.jpeg"
+          alt="image"
+        />
       </div>
       <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
       <a class="next" (click)="plusSlides(1)">&#10095;</a>

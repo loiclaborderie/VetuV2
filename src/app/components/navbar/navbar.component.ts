@@ -36,7 +36,7 @@ import {
 })
 export class NavbarComponent {
   title = 'vetu';
-  cartItems: any[] = [];
+  countItems = 0;
   currentItemCount: number = 0;
   prevItemCount: number = 0;
   animationState: string = 'inactive'; // Add this line
@@ -44,16 +44,21 @@ export class NavbarComponent {
   constructor(private router: Router, private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.cartItems = this.cartService.getCartItems();
-    if (this.cartItems.length == 0) {
-      this.cartItems = this.cartService.loadCartItemsFromLocalStorage();
-    }
+    this.updateCount();
+  }
+
+  consoleNum() {
+    console.log(this.countItems);
+  }
+  updateCount() {
+    this.countItems = this.cartService.getCountItems();
   }
 
   ngDoCheck() {
-    if (this.cartItems && this.currentItemCount !== this.cartItems.length) {
+    this.updateCount();
+    if (this.currentItemCount !== this.countItems) {
       this.prevItemCount = this.currentItemCount;
-      this.currentItemCount = this.cartItems.length;
+      this.currentItemCount = this.countItems;
       this.animationState = 'active';
       setTimeout(() => (this.animationState = 'inactive'), 200);
     }

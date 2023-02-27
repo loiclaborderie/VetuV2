@@ -48,17 +48,14 @@ export class ProductDetailledComponent {
   }
 
   showSlides(n: NumberSymbol) {
-    let slides = document.getElementsByClassName('mySlides');
+    let slides: HTMLCollectionOf<Element> =
+      document.getElementsByClassName('mySlides');
     if (n > slides.length) {
       this.slideIndex = 1;
     }
     if (n < 1) {
       this.slideIndex = slides.length;
     }
-    for (let i = 0; i < slides.length; i++) {
-      (slides[i] as HTMLElement).style.display = 'none';
-    }
-    (slides[this.slideIndex - 1] as HTMLElement).style.display = 'block';
   }
 
   constructor(
@@ -72,6 +69,5 @@ export class ProductDetailledComponent {
     const reference: string | null =
       this.route.snapshot.paramMap.get('reference');
     this.fetchData(reference);
-    this.showSlides(this.slideIndex);
   }
 }

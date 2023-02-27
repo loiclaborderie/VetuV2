@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CartService } from 'src/app/services/cart/cart.service';
+import { OrdersService } from 'src/app/services/orders/orders.service';
+import { UsercartService } from 'src/app/services/usercart/usercart.service';
 
 @Component({
   selector: 'app-cart',
@@ -8,21 +10,54 @@ import { CartService } from 'src/app/services/cart/cart.service';
 })
 export class CartComponent {
   cartItems: any[] = [];
+  userCart: any[] = [];
   totalPrice!: number;
-  constructor(private cartService: CartService) {}
+
+  constructor(
+    private cartService: CartService,
+    private orderService: OrdersService,
+    private userCartService: UsercartService
+  ) {}
 
   console() {
-    this.cartItems.map((item) => {
-      //how to check if this item is here more than once?
-    });
+    console.log(this.cartItems);
   }
 
   ngOnInit(): void {
     this.cartItems = this.cartService.getCartItems();
-    console.log(this.cartItems);
-    if (this.cartItems.length == 0) {
-      this.cartItems = this.cartService.loadCartItemsFromLocalStorage();
+    if (this.cartItems) {
+      this.totalPrice = this.cartItems.reduce(
+        (acc, item) => acc + item.prix * item.quantite,
+        0
+      );
     }
-    this.totalPrice = this.cartItems.reduce((acc, item) => acc + item.prix, 0);
+
+    //On va regarder si on a un utilisateur connecté pour pouvoir aller récuperer son panier
+    if (localStorage.getItem('user') && !this.userCartService.userCartFetched) {
+      console.log(this.userCartService.userCartFetched + 'is now set to true');
+      this.userCartService.userCartFetched = true; // set flag to true
+      console.log(this.userCartService.userCartFetched);
+      this.orderService
+        .getOrdersByUserId(Number(localStorage.getItem('user')))
+        .subscribe((data: any) => {
+          const ordersEnCours = data.filter(
+            (order: any) => order.statut === 'en cours'
+          );
+          console.log(ordersEnCours);
+          const newItems = ordersEnCours[0].details.map(
+            (item: any) => item.produit
+          );
+          console.log(newItems);
+          newItems.forEach((element: any) => {
+            console.log('fetch is supposed to happen once only');
+            this.cartService.addCartItem(element);
+          });
+          this.cartItems = this.cartService.getCartItems();
+          this.totalPrice = this.cartItems.reduce(
+            (acc, item) => acc + item.prix * item.quantite,
+            0
+          );
+        });
+    }
   }
 }

@@ -2,6 +2,7 @@
   <h1 style="text-align: center">
     <a (click)="backToMenu()">{{ title }}</a>
   </h1>
+  <button (click)="consoleNum()">CONSOLE NUMBER</button>
 
   <div class="icons">
     <div class="search-mobile">
@@ -12,12 +13,12 @@
     </div>
 
     <div class="cart" (click)="goToPanier()">
-      <div *ngIf="!cartItems" class="cart-icon">
+      <div *ngIf="countItems === 0" class="cart-icon">
         <i class="fa-solid fa-cart-shopping fa-3x"></i>
       </div>
-      <div *ngIf="cartItems" class="cart-icon">
+      <div *ngIf="countItems > 0" class="cart-icon">
         <div class="cart-amount" [@cartItemCount]="animationState">
-          <span>{{ cartItems.length }}</span>
+          <span>{{ countItems }}</span>
         </div>
         <i class="fa-solid fa-cart-shopping fa-3x"></i>
       </div>
