@@ -20,6 +20,15 @@ export class TabOrdersComponent {
     console.log(this.pastOrders);
   }
 
+  sendAllItemsToDb() {
+    if (localStorage.getItem('cart')) {
+      let items = JSON.parse(localStorage.getItem('cart') || '[]');
+      items.map((item: any) => {
+        console.log(`Item n°${item.id}, quantité: ${item.quantite}`);
+      });
+    }
+  }
+
   ngOnInit(): void {
     if (this.auth.hasntConnectedYet) {
       this.orderService.getOrdersByUserId(this.user.id).subscribe((data) => {
@@ -38,12 +47,19 @@ export class TabOrdersComponent {
 
           console.log('no ongoing orders');
           console.log('on va donc la créer');
-          this.orderService.createOrder(this.user.id).subscribe((data) => {
+          this.orderService.createOrder(this.user.id).subscribe((data: any) => {
             console.log('commande créée');
             console.log(data);
+            this.orderService.orderId = data.created;
+            console.log('on rajoute les items du localStorage si existants');
+            // this.sendAllItemsToDb();
           });
         } else {
           console.log('il y a bien une commande');
+          this.orderService.orderId = this.ongoingArray[0].id;
+          console.log(this.orderService.orderId);
+          console.log('on rajoute les items du localStorage si existants');
+          // this.sendAllItemsToDb();
         }
         this.auth.hasntConnectedYet = false;
         // Ca permet de ne fetch ces données qu'une fois

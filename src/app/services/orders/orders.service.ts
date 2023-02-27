@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class OrdersService {
   baseUrl = 'http://127.0.0.1:8000/commande';
+  public orderId!: number;
 
   createOrder(id: number) {
     return this.http.post(`${this.baseUrl}/create/${id}`, null);

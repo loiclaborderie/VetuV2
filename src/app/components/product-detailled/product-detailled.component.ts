@@ -26,6 +26,7 @@ export class ProductDetailledComponent {
     this.selectedSize = '';
     let newCart = this.cartService.getCartItems();
     if (localStorage.getItem('user')) {
+      // On n'utilise plus le localStorage si l'utilisateur est co
       return;
     } else {
       localStorage.setItem('cart', JSON.stringify(newCart));
