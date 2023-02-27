@@ -10,7 +10,6 @@ import { UsercartService } from 'src/app/services/usercart/usercart.service';
 })
 export class CartComponent {
   cartItems: any[] = [];
-  userCart: any[] = [];
   totalPrice!: number;
 
   constructor(
@@ -32,27 +31,37 @@ export class CartComponent {
       );
     }
 
-    //On va regarder si on a un utilisateur connecté pour pouvoir aller récuperer son panier
-    if (localStorage.getItem('user') && !this.userCartService.userCartFetched) {
-      console.log(this.userCartService.userCartFetched + 'is now set to true');
-      this.userCartService.userCartFetched = true; // set flag to true
-      console.log(this.userCartService.userCartFetched);
-      this.orderService
-        .getCurrentOrderByUser(Number(localStorage.getItem('user')))
-        .subscribe((data: any) => {
-          console.log(data);
-          const newItems = data.details.map((item: any) => item.produit);
-          console.log(newItems);
-          newItems.forEach((element: any) => {
-            console.log('fetch is supposed to happen once only');
-            this.cartService.addCartItem(element);
-          });
-          this.cartItems = this.cartService.getCartItems();
-          this.totalPrice = this.cartItems.reduce(
-            (acc, item) => acc + item.prix * item.quantite,
-            0
-          );
-        });
+    if (this.orderService.orderId) {
+      localStorage.setItem(
+        'orderId',
+        JSON.stringify(this.orderService.orderId)
+      );
+      this.cartService.loadCartItemsFromDb();
+      this.cartItems = this.cartService.getCartItems();
     }
+
+    //On va regarder si on a un utilisateur connecté pour pouvoir aller récuperer son panier
+
+    // if (localStorage.getItem('user') && !this.userCartService.userCartFetched) {
+    //   console.log(this.userCartService.userCartFetched + 'is now set to true');
+    //   this.userCartService.userCartFetched = true; // set flag to true
+    //   console.log(this.userCartService.userCartFetched);
+    //   this.orderService
+    //     .getCurrentOrderByUser(Number(localStorage.getItem('user')))
+    //     .subscribe((data: any) => {
+    //       console.log(data);
+    //       const newItems = data.details.map((item: any) => item.produit);
+    //       console.log(newItems);
+    //       newItems.forEach((element: any) => {
+    //         console.log('fetch is supposed to happen once only');
+    //         this.cartService.addCartItem(element);
+    //       });
+    //       this.cartItems = this.cartService.getCartItems();
+    //       this.totalPrice = this.cartItems.reduce(
+    //         (acc, item) => acc + item.prix * item.quantite,
+    //         0
+    //       );
+    //     });
+    // }
   }
 }

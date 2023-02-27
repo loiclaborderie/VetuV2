@@ -22,8 +22,28 @@ export class OrdersService {
     );
   }
 
+  addLocalCartItemToDb(item: any) {
+    const content = {
+      id_produit: item.id,
+      quantite: item.quantite,
+    };
+
+    return this.http.post(
+      `http://127.0.0.1:8000/detailcommande/add/${this.orderId}`,
+      JSON.stringify(content)
+    );
+  }
+
+  // deleteCurrentOrder(){
+
+  // }
+
   getCurrentOrderByUser(id: number) {
     return this.http.get(`http://127.0.0.1:8000/getCurrentOrderByUser/${id}`);
   }
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    if (localStorage.getItem('orderId')) {
+      this.orderId = JSON.parse(localStorage.getItem('orderId') || '0');
+    }
+  }
 }

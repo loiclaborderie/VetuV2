@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { CartService } from 'src/app/services/cart/cart.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 
 @Component({
@@ -20,12 +21,18 @@ export class TabOrdersComponent {
     console.log(this.pastOrders);
   }
 
+  // Cette fonction envoie tous les elements du panier dans le localstorage vers la database
   sendAllItemsToDb() {
     if (localStorage.getItem('cart')) {
       let items = JSON.parse(localStorage.getItem('cart') || '[]');
       items.map((item: any) => {
-        console.log(`Item n°${item.id}, quantité: ${item.quantite}`);
+        console.log(item);
+        this.orderService.addLocalCartItemToDb(item).subscribe();
       });
+      console.log('fini');
+      localStorage.removeItem('cart');
+    } else {
+      console.log('rien de trouvé dans le localStorage');
     }
   }
 
@@ -51,15 +58,21 @@ export class TabOrdersComponent {
             console.log('commande créée');
             console.log(data);
             this.orderService.orderId = data.created;
+            localStorage.setItem('orderId', data.created);
+            this.cartService.loadCartItemsFromDb();
+            // On rajoute cette ligne pour bien dire au navigateur de retenir cette commande, sinon, si l'utilisateur ne se connecte pas on ne pas pas chercher son id de commande
             console.log('on rajoute les items du localStorage si existants');
-            // this.sendAllItemsToDb();
+            this.sendAllItemsToDb();
           });
         } else {
           console.log('il y a bien une commande');
           this.orderService.orderId = this.ongoingArray[0].id;
+          localStorage.setItem('orderId', this.ongoingArray[0].id);
+          // On rajoute cette ligne pour bien dire au navigateur de retenir cette commande, sinon, si l'utilisateur ne se connecte pas on ne pas pas chercher son id de commande
           console.log(this.orderService.orderId);
+          this.cartService.loadCartItemsFromDb();
           console.log('on rajoute les items du localStorage si existants');
-          // this.sendAllItemsToDb();
+          this.sendAllItemsToDb();
         }
         this.auth.hasntConnectedYet = false;
         // Ca permet de ne fetch ces données qu'une fois
@@ -67,5 +80,9 @@ export class TabOrdersComponent {
     }
   }
 
-  constructor(private orderService: OrdersService, private auth: AuthService) {}
+  constructor(
+    private orderService: OrdersService,
+    private auth: AuthService,
+    private cartService: CartService
+  ) {}
 }

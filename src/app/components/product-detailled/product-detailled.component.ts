@@ -2,6 +2,7 @@ import { NumberSymbol } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart/cart.service';
+import { OrdersService } from 'src/app/services/orders/orders.service';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -27,7 +28,14 @@ export class ProductDetailledComponent {
     let newCart = this.cartService.getCartItems();
     if (localStorage.getItem('user')) {
       // On n'utilise plus le localStorage si l'utilisateur est co
-      return;
+      const productData = this.products[+this.selectedSize];
+      const content = {
+        id: productData.id,
+        quantite: 1,
+      };
+      this.orderService.addLocalCartItemToDb(content).subscribe((data) => {
+        console.log(data);
+      });
     } else {
       localStorage.setItem('cart', JSON.stringify(newCart));
     }
@@ -66,6 +74,7 @@ export class ProductDetailledComponent {
   constructor(
     private router: Router,
     private productService: ProductService,
+    private orderService: OrdersService,
     private route: ActivatedRoute,
     private cartService: CartService
   ) {}

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { UsercartService } from '../usercart/usercart.service';
 
 @Injectable({
   providedIn: 'root',
@@ -41,14 +42,34 @@ export class CartService {
     }
   }
 
+  getProductsFromCommandeId(id: number) {
+    return this.http.get(`http://127.0.0.1:8000/detailcommande/get/${id}`);
+  }
+
   loadCartItemsFromLocalStorage() {
     if (localStorage.getItem('cart')) {
-      let savedCart = localStorage.getItem('cart') as string;
-      this.cartItems = JSON.parse(savedCart);
+      this.cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
     }
   }
 
-  constructor(http: HttpClient) {
+  loadCartItemsFromDb() {
+    if (localStorage.getItem('orderId') && !this.userCartService.dataLoaded) {
+      let commandeId = JSON.parse(localStorage.getItem('orderId') || '[]');
+      this.userCartService.dataLoaded = true;
+      console.log(commandeId);
+      this.getProductsFromCommandeId(commandeId).subscribe((data: any) => {
+        this.cartItems = data;
+        console.log(this.cartItems);
+      });
+    }
+  }
+
+  constructor(
+    private http: HttpClient,
+    private userCartService: UsercartService
+  ) {
     this.loadCartItemsFromLocalStorage();
+    // rajouter la méthode loadCartItemsFromDb pour aller fetch toutes les commandes et visualiser le nombres d'objets dans le panier au launch
+    this.loadCartItemsFromDb();
   }
 }

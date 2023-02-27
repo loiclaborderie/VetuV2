@@ -5,5 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class UsercartService {
   public userCartFetched = false;
+  public dataLoaded = false;
   constructor() {}
 }
