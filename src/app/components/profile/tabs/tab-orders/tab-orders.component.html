@@ -1,43 +1,30 @@
-<div class="container">
-  <div class="test" *ngIf="orderArray">
+<div class="container" *ngIf="!pastOrders">
+  <div class="test">
+    <p>Vous n'avez effectué aucune commande pour le moment</p>
+  </div>
+</div>
+
+<div class="container" *ngIf="pastOrders">
+  <button (click)="console()">COnsole</button>
+  <div class="count-commande">
     <p>
-      <span>{{ orderArray.length }}</span> commande<span
-        *ngIf="orderArray.length > 1"
+      <span>{{ pastOrders.length }}</span> commande<span
+        *ngIf="pastOrders.length > 1"
         >s</span
       >
-      enregistrée<span *ngIf="orderArray.length > 1">s</span>
+      passée<span *ngIf="pastOrders.length > 1">s</span>
     </p>
-  </div>
-  <button (click)="console()">Console</button>
-  <div class="test" *ngIf="!orderArray">
-    <p>Aucune commande enregistrée</p>
+    <button (click)="console()">Console</button>
   </div>
 
-  <section *ngIf="ongoingArray" class="en-cours commande">
+  <section class="commande">
     <h4>
-      Commande en cours <strong>({{ ongoingArray.length }})</strong>
-    </h4>
-    <p>Total : {{ ongoingArray[0].montant }}€</p>
-    <p>Produits :</p>
-    <ul *ngFor="let item of ongoingArray[0].details">
-      <li>Id : {{ item.produit.id }}</li>
-      <li>Nom : {{ item.produit.titre }}</li>
-      <li>Prix : {{ item.produit.prix }}</li>
-      <li>Taille : {{ item.produit.taille }}</li>
-      <img
-        src="assets/{{ item.produit.photo }}/asset1.jpeg"
-        alt="{{ item.produit.titre }}"
-      />
-    </ul>
-  </section>
-  <section *ngIf="finishedArray" class="en-cours commande">
-    <h4>
-      Commande<span *ngIf="finishedArray.length > 1">s</span> précédente<span
-        *ngIf="finishedArray.length > 1"
+      Commande<span *ngIf="pastOrders.length > 1">s</span> précédente<span
+        *ngIf="pastOrders.length > 1"
         >s</span
-      ><strong> ({{ finishedArray.length }})</strong>
+      ><strong> ({{ pastOrders.length }})</strong>
     </h4>
-    <div class="commandes-show" *ngFor="let commande of finishedArray">
+    <div class="commandes-show" *ngFor="let commande of pastOrders">
       <p>Total : {{ commande.montant }}€</p>
       <p>Produits :</p>
       <ul *ngFor="let item of commande.details">

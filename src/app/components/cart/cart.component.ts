@@ -38,15 +38,10 @@ export class CartComponent {
       this.userCartService.userCartFetched = true; // set flag to true
       console.log(this.userCartService.userCartFetched);
       this.orderService
-        .getOrdersByUserId(Number(localStorage.getItem('user')))
+        .getCurrentOrderByUser(Number(localStorage.getItem('user')))
         .subscribe((data: any) => {
-          const ordersEnCours = data.filter(
-            (order: any) => order.statut === 'en cours'
-          );
-          console.log(ordersEnCours);
-          const newItems = ordersEnCours[0].details.map(
-            (item: any) => item.produit
-          );
+          console.log(data);
+          const newItems = data.details.map((item: any) => item.produit);
           console.log(newItems);
           newItems.forEach((element: any) => {
             console.log('fetch is supposed to happen once only');

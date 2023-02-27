@@ -8,7 +8,10 @@ import { Token } from 'src/app/_interfaces/token';
   providedIn: 'root',
 })
 export class AuthService {
+  public hasntConnectedYet = true;
+
   constructor(private http: HttpClient) {}
+
   login(email: string, password: string): Observable<Token> {
     const content = {
       email: email,

@@ -25,7 +25,11 @@ export class ProductDetailledComponent {
     this.cartService.addCartItem(this.products[+this.selectedSize]);
     this.selectedSize = '';
     let newCart = this.cartService.getCartItems();
-    localStorage.setItem('cart', JSON.stringify(newCart));
+    if (localStorage.getItem('user')) {
+      return;
+    } else {
+      localStorage.setItem('cart', JSON.stringify(newCart));
+    }
   }
 
   fetchData(reference: string | null) {
