@@ -37,7 +37,7 @@ export class LoginComponent {
 
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.email, Validators.required]],
-    password: ['', [Validators.required]],
+    password: ['', [Validators.required, Validators.minLength(3)]],
   });
 
   onSubmit(): void {
@@ -54,11 +54,12 @@ export class LoginComponent {
         },
         (err: any) => {
           this.submittedGood = false;
+          this.submitted = false;
           console.log(err);
-          this.errormsg = 'Votre identifiant ou mot de passe sont incorrects';
+          this.errormsg = 'Votre email ou mot de passe sont incorrects';
+          this.loginForm.patchValue({ password: '' });
         }
       );
-      this.loginForm.reset();
     } else {
       console.log('Form is invalid');
       this.submittedGood = false;
