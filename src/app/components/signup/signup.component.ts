@@ -20,6 +20,7 @@ export class SignupComponent {
   submittedGood = false;
   errorMsg: string = '';
   userForm!: FormGroup;
+  alertMsg: any = '';
 
   constructor(
     private fb: FormBuilder,
@@ -99,6 +100,13 @@ export class SignupComponent {
       const password = this.userForm.value.password;
       this.authService.register(this.userForm.value).subscribe(
         (data: any) => {
+          if (data.status === false) {
+            this.errorMsg = data.message;
+            this.submittedGood = false;
+            this.submitted = false;
+            return;
+          }
+          console.log(data);
           console.log('Votre inscription est un succès');
           this.submittedGood = true;
           this.submitted = false;
