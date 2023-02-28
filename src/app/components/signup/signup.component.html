@@ -216,22 +216,22 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="codePostal">Code Postal :</label>
+    <label for="code_postal">Code Postal :</label>
     <input
-      id="codePostal"
-      name="codePostal"
+      id="code_postal"
+      name="code_postal"
       type="number"
       placeholder="ex: 06000"
-      formControlName="codePostal"
+      formControlName="code_postal"
     />
     <div
       class="error"
-      *ngIf="submitted && !submittedGood && form['codePostal'].errors"
+      *ngIf="submitted && !submittedGood && form['code_postal'].errors"
     >
-      <span *ngIf="form['codePostal'].hasError('pattern')"
+      <span *ngIf="form['code_postal'].hasError('pattern')"
         >Votre code postal doit être composé de 5 chiffres exclusivement</span
       >
-      <span *ngIf="form['codePostal'].hasError('required')"
+      <span *ngIf="form['code_postal'].hasError('required')"
         >Un code postal est nécessaire</span
       >
     </div>

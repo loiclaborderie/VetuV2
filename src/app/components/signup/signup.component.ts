@@ -5,6 +5,10 @@ import {
   FormGroup,
   AbstractControl,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { TokenService } from 'src/app/services/token/token.service';
+import { Token } from 'src/app/_interfaces/token';
 
 @Component({
   selector: 'app-signup',
@@ -17,7 +21,12 @@ export class SignupComponent {
   errorMsg: string = '';
   userForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private tokenService: TokenService,
+    private router: Router
+  ) {}
 
   passwordPatternValidator(
     control: AbstractControl
@@ -76,7 +85,7 @@ export class SignupComponent {
         ],
       ],
       ville: ['', [Validators.required, Validators.minLength(2)]],
-      codePostal: ['', [Validators.required, Validators.pattern(/^\d{5}$/)]],
+      code_postal: ['', [Validators.required, Validators.pattern(/^\d{5}$/)]],
     });
   }
 
@@ -84,23 +93,39 @@ export class SignupComponent {
     this.submitted = true;
     this.submittedGood = true;
     if (this.userForm.valid) {
-      // const { email, password } = this.loginForm.value;
-      // console.log(email, password);
-      // this.authService.login(email, password).subscribe(
-      //   (data: Token) => {
-      //     localStorage.setItem('user', JSON.stringify(data.userId));
-      //     this.tokenService.saveToken(data.token);
-      //     this.router.navigate(['/profile']);
-      //   },
-      //   (err: any) => {
-      //     this.submittedGood = false;
-      //     this.submitted = false;
-      //     console.log(err);
-      //     this.errormsg = 'Votre email ou mot de passe sont incorrects';
-      //     this.loginForm.patchValue({ password: '' });
-      //   }
-      // );
       alert('le form est valide');
+      console.log(JSON.stringify(this.userForm.value));
+      const email = this.userForm.value.email;
+      const password = this.userForm.value.password;
+      this.authService.register(this.userForm.value).subscribe(
+        (data: any) => {
+          console.log('Votre inscription est un succès');
+          this.submittedGood = true;
+          this.submitted = false;
+          console.log('Vous allez normalement être rédirigé');
+          this.authService.login(email, password).subscribe(
+            (data: Token) => {
+              console.log('Vous êtes connecté');
+              localStorage.setItem('user', JSON.stringify(data.userId));
+              this.tokenService.saveToken(data.token);
+              this.router.navigate(['/profile']);
+            },
+            (err: any) => {
+              console.log('Il y a eu une erreur lors de votre connexion');
+              this.submittedGood = false;
+              this.submitted = false;
+              console.log(err);
+            }
+          );
+        },
+        (err: any) => {
+          console.log('Il y a eu une erreur lors de votre inscription');
+          this.submittedGood = false;
+          this.submitted = false;
+          this.errorMsg = 'Il y a eu une erreur lors de votre inscription';
+        }
+      );
+      // Ca va servir à ensuite se connecter et puis à le rediriger vers son profil
     } else {
       console.log('Form is invalid');
       this.submittedGood = false;

@@ -22,4 +22,8 @@ export class AuthService {
       content
     );
   }
+
+  register(content: any) {
+    return this.http.post('http://127.0.0.1:8000/user/create', content);
+  }
 }
