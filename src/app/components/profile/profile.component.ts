@@ -20,5 +20,14 @@ export class ProfileComponent {
     });
   }
 
+  signOut() {
+    if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      localStorage.removeItem('orderId');
+      this.router.navigate(['/login']);
+    }
+  }
+
   constructor(private userService: UserService, private router: Router) {}
 }

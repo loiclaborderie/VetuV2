@@ -22,6 +22,21 @@ export class CartComponent {
     console.log(this.cartItems);
   }
 
+  deleteOrder() {
+    if (
+      confirm('voulez-vous vraiment supprimer vider votre commande en cours ?')
+    ) {
+      console.log('Il veut vraiment la supprimer là');
+      //On supprime de la base de données
+      this.orderService.deleteCurrentOrder().subscribe((data) => {
+        console.log(data);
+      });
+      this.cartService.resetCartItems();
+      this.cartItems = this.cartService.getCartItems();
+      this.totalPrice = 0;
+    }
+  }
+
   ngOnInit(): void {
     this.cartItems = this.cartService.getCartItems();
     if (this.cartItems) {

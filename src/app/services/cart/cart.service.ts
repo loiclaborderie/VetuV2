@@ -20,6 +20,10 @@ export class CartService {
     console.log(this.cartItems);
   }
 
+  resetCartItems() {
+    this.cartItems = [];
+  }
+
   getCartItems() {
     return this.cartItems;
   }

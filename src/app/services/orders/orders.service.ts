@@ -34,13 +34,14 @@ export class OrdersService {
     );
   }
 
-  // deleteCurrentOrder(){
-
-  // }
+  deleteCurrentOrder() {
+    return this.http.delete(`${this.baseUrl}/delete/${this.orderId}`);
+  }
 
   getCurrentOrderByUser(id: number) {
     return this.http.get(`http://127.0.0.1:8000/getCurrentOrderByUser/${id}`);
   }
+
   constructor(private http: HttpClient) {
     if (localStorage.getItem('orderId')) {
       this.orderId = JSON.parse(localStorage.getItem('orderId') || '0');

@@ -9,7 +9,7 @@
   </nav>
   <div class="header-profile">
     <h1>Bienvenue {{ user.prenom }}</h1>
-    <button class="sign-out">Déconnexion</button>
+    <button (click)="signOut()" class="sign-out">Déconnexion</button>
   </div>
   <mat-tab-group>
     <mat-tab label="Informations">
