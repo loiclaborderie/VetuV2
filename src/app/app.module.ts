@@ -19,6 +19,7 @@ import { LoginComponent } from './components/login/login.component';
 import { TabInfoComponent } from './components/profile/tabs/tab-info/tab-info.component';
 import { TabOrdersComponent } from './components/profile/tabs/tab-orders/tab-orders.component';
 import { TabAddressComponent } from './components/profile/tabs/tab-address/tab-address.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { TabAddressComponent } from './components/profile/tabs/tab-address/tab-a
     TabInfoComponent,
     TabOrdersComponent,
     TabAddressComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

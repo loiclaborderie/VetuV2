@@ -1,0 +1,38 @@
+.error {
+  color: crimson;
+}
+.container {
+  margin: 4rem auto 2rem;
+  width: 90%;
+  max-width: 1400px;
+}
+h1 {
+  text-align: center;
+  font-size: clamp(1.2rem, 3vw, 2.5em);
+  font-weight: 700;
+}
+.form-group label {
+  display: block;
+}
+.flex {
+  display: flex;
+}
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+button.submit {
+  width: 100%;
+  max-width: 320px;
+  padding: 1rem 2rem;
+  display: grid;
+  font-size: clamp(1rem, 1.7vw, 1.5rem);
+  place-items: center;
+  border-radius: 12px;
+  cursor: pointer;
+  color: #f3f3f3;
+  background: hsl(206, 99%, 32%);
+  transition: 0.3s ease-in-out;
+  font-weight: 600;
+}

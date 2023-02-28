@@ -1,0 +1,242 @@
+<form [formGroup]="userForm">
+  <div class="form-group">
+    <label for="nom">Nom :</label>
+    <input
+      id="nom"
+      name="nom"
+      type="text"
+      placeholder="ex: Doe"
+      formControlName="nom"
+    />
+    <div
+      class="error"
+      *ngIf="submitted && !submittedGood && form['nom'].errors"
+    >
+      <span *ngIf="form['nom'].hasError('minlength')"
+        >Votre nom doit faire au moins 3 caractères</span
+      >
+      <span *ngIf="form['nom'].hasError('required')"
+        >Un nom est nécessaire</span
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="prenom">Prénom :</label>
+    <input
+      id="prenom"
+      name="prenom"
+      formControlName="prenom"
+      type="text"
+      placeholder="ex: John"
+    />
+    <div
+      class="error"
+      *ngIf="submitted && !submittedGood && form['prenom'].errors"
+    >
+      <span *ngIf="form['prenom'].hasError('minlength')"
+        >Votre prenom doit faire au moins 3 caractères</span
+      >
+      <span *ngIf="form['prenom'].hasError('required')"
+        >Un prenom est nécessaire</span
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <fieldset>
+      <legend>Votre civilité :</legend>
+      <div class="flex">
+        <input
+          required
+          type="radio"
+          id="femme"
+          formControlName="civilite"
+          value="f"
+        />
+        <label for="femme">Femme</label>
+      </div>
+      <div class="flex">
+        <input type="radio" id="homme" formControlName="civilite" value="m" />
+        <label for="homme">Homme</label>
+      </div>
+    </fieldset>
+    <div
+      class="error"
+      *ngIf="submitted && !submittedGood && form['civilite'].errors"
+    >
+      <span>Vous devez choisir un genre</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="pseudo">Pseudo :</label>
+    <input
+      formControlName="pseudo"
+      id="pseudo"
+      name="pseudo"
+      type="text"
+      placeholder="ex: JoeRoegan68"
+    />
+    <div
+      class="error"
+      *ngIf="submitted && !submittedGood && form['pseudo'].errors"
+    >
+      <span *ngIf="form['pseudo'].hasError('minlength')"
+        >Votre pseudo doit faire au moins 3 caractères</span
+      >
+      <span *ngIf="form['pseudo'].hasError('required')"
+        >Un pseudo est nécessaire</span
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="email">Email :</label>
+    <input
+      formControlName="email"
+      id="email"
+      name="email"
+      type="email"
+      placeholder="ex: john.doe@gmail.com"
+    />
+    <div
+      class="error"
+      *ngIf="submitted && !submittedGood && form['email'].errors"
+    >
+      <span *ngIf="form['email'].hasError('email')"
+        >Le format d'email devrait plutôt ressembler à :
+        john.doe@gmail.com</span
+      >
+      <span *ngIf="form['email'].hasError('required')"
+        >Une adresse email est nécessaire</span
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Mot de passe :</label>
+    <input
+      formControlName="password"
+      id="password"
+      name="password"
+      type="password"
+      placeholder="Minimum de 8 caractères, 1 majuscule et 1 chiffre"
+    />
+    <div
+      class="error"
+      *ngIf="submitted && !submittedGood && form['password'].errors"
+    >
+      <span *ngIf="form['password'].hasError('passwordPattern')"
+        >Votre mot de passe doit faire un minimum de 8 caractères, avec 1
+        majuscule et 1 chiffre</span
+      >
+      <span *ngIf="form['password'].hasError('required')"
+        >Une mot de passe est nécessaire</span
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Confimer le mot de passe :</label>
+    <input
+      formControlName="confirmPassword"
+      id="confirmPassword"
+      name="confirmPassword"
+      type="password"
+      placeholder="Minimum de 8 caractères, 1 majuscule et 1 chiffre"
+    />
+    <div
+      class="error"
+      *ngIf="
+        (userForm.controls['confirmPassword'].touched &&
+          userForm.controls['confirmPassword'].invalid) ||
+        (submitted &&
+          !submittedGood &&
+          form['confirmPassword'].hasError('required'))
+      "
+    >
+      <span>Ce mot de passe doit être identique au premier</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="telephone">Téléphone :</label>
+    <input
+      formControlName="telephone"
+      id="telephone"
+      name="telephone"
+      type="tel"
+      placeholder="ex: +33 6 68 53 17 07"
+    />
+    <div
+      class="error"
+      *ngIf="submitted && !submittedGood && form['telephone'].errors"
+    >
+      <span
+        >Votre numéro de téléphone devrait ressembler à : +33 6 68 53 17
+        07</span
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="adresse">Adresse :</label>
+    <input
+      id="adresse"
+      name="adresse"
+      type="text"
+      placeholder="ex: 8 rue de la Protection"
+      formControlName="adresse"
+    />
+    <div
+      class="error"
+      *ngIf="submitted && !submittedGood && form['adresse'].errors"
+    >
+      <span *ngIf="form['adresse'].hasError('pattern')"
+        >Votre adresse doit faire entre 20 et 150 caractères, sans inclure de
+        caractères spéciaux</span
+      >
+      <span *ngIf="form['adresse'].hasError('required')"
+        >Une adresse est nécessaire</span
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="ville">Ville :</label>
+    <input
+      id="ville"
+      name="ville"
+      type="text"
+      placeholder="ex: 8 rue de la Protection"
+      formControlName="ville"
+    />
+    <div
+      class="error"
+      *ngIf="submitted && !submittedGood && form['ville'].errors"
+    >
+      <span *ngIf="form['ville'].hasError('minlength')"
+        >Votre ville doit faire au moins 2 caractères</span
+      >
+      <span *ngIf="form['ville'].hasError('required')"
+        >Une ville est nécessaire</span
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="codePostal">Code Postal :</label>
+    <input
+      id="codePostal"
+      name="codePostal"
+      type="number"
+      placeholder="ex: 06000"
+      formControlName="codePostal"
+    />
+    <div
+      class="error"
+      *ngIf="submitted && !submittedGood && form['codePostal'].errors"
+    >
+      <span *ngIf="form['codePostal'].hasError('pattern')"
+        >Votre code postal doit être composé de 5 chiffres exclusivement</span
+      >
+      <span *ngIf="form['codePostal'].hasError('required')"
+        >Un code postal est nécessaire</span
+      >
+    </div>
+  </div>
+  <div class="btn-container">
+    <button (click)="onSubmit()" type="submit" class="submit">Valider</button>
+  </div>
+</form>
