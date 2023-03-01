@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ModalService } from 'src/app/services/modal/modal.service';
 
 @Component({
   selector: 'app-one-product',
@@ -8,11 +9,7 @@ import { Component, Input } from '@angular/core';
 export class OneProductComponent {
   @Input()
   product: any;
-  rand(num: number, num2?: number): number {
-    if (num2) {
-      return num2 + Math.floor(Math.random() * num + 1);
-    } else {
-      return Math.floor(Math.random() * num + 1);
-    }
-  }
+
+  productSizes: any;
+  constructor(protected modalService: ModalService) {}
 }

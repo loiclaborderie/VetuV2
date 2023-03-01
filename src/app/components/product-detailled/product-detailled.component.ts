@@ -17,9 +17,9 @@ export class ProductDetailledComponent {
   selectedSize: string = '';
 
   selectSize() {
-    let select = document.querySelector('select.select');
-    console.log(select);
-    this.selectedSize = (select as HTMLSelectElement).value;
+    this.selectedSize = (
+      document.querySelector('select.select') as HTMLSelectElement
+    ).value;
   }
 
   addToCart() {

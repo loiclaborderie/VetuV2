@@ -1,4 +1,5 @@
 <div class="carte">
+  <h1>{{ product.reference }}</h1>
   <a class="test-hover" routerLink="{{ product.reference }}">
     <div *ngIf="!product" class="product-img"></div>
     <img
@@ -9,7 +10,13 @@
     />
   </a>
   <div class="btn-container">
-    <a id="btn-large-screen" class="buy-btn" href="#"> Ajouter au panier </a>
+    <a
+      id="btn-large-screen"
+      class="buy-btn"
+      (click)="modalService.open('modal-' + product.reference)"
+    >
+      Ajouter au panier
+    </a>
   </div>
   <div class="product-description">
     <a class="link" href="#">
@@ -27,3 +34,9 @@
     </span>
   </div>
 </div>
+
+<app-modal *ngIf="product" [id]="'modal-' + product.reference">
+  <h1>A custom modal popup</h1>
+  <p>Home page text: {{ product.reference }}</p>
+  <button (click)="modalService.close()">Close</button>
+</app-modal>

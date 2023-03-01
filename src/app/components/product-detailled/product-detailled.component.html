@@ -45,8 +45,15 @@
             <option
               *ngFor="let item of products; let i = index"
               value="{{ i }}"
+              [disabled]="item.stock === 0"
             >
-              Taille {{ item.taille }}
+              Taille {{ item.taille }} -
+              <small *ngIf="item.stock === 0">Indisponible</small>
+              <small *ngIf="item.stock > 0"
+                >Encore {{ item.stock }} disponible<span *ngIf="item.stock > 1"
+                  >s</span
+                ></small
+              >
             </option>
           </select>
         </div>

@@ -168,7 +168,7 @@ select.select {
   width: 100%;
   color: rgb(4, 0, 55);
   outline: 1px solid rgb(4, 0, 55);
-  font-size: 130%;
+  font-size: calc(10px + 0.6vw);
   font-family: "Jost", sans-serif, serif;
   line-height: 170%;
   padding-top: 5px;
@@ -226,6 +226,11 @@ h4.categorie {
     padding-inline: 2em;
     margin: 2em auto 1em;
   }
+}
+
+small {
+  font-size: 0.8em;
+  color: #464646;
 }
 
 // @keyframes test {
