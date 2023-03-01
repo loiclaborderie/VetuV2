@@ -69,3 +69,11 @@ button.submit:disabled:hover {
   font-size: clamp(0.8rem, 1.4vw, 1.2rem);
   font-weight: 600;
 }
+
+form.password input {
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  border-radius: 7px;
+  outline: none;
+  border: 1px solid hsl(206, 10%, 14%);
+}

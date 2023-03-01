@@ -1,9 +1,11 @@
 <div class="container">
   <h1>Mes information personnelles</h1>
   <button (click)="testConsole()">Console</button>
-  <form [formGroup]="userForm">
+  <form class="data" [formGroup]="userForm">
     <div class="form-group">
-      <label for="nom">Nom :</label>
+      <label for="nom"
+        >Nom<i class="fa-solid fa-circle-info fa-xs"></i> :</label
+      >
       <input
         id="nom"
         [readOnly]="!updating"
@@ -61,7 +63,10 @@
     </div>
     <div class="form-group">
       <fieldset>
-        <legend>Votre civilité :</legend>
+        <legend>
+          Votre civilité<i class="fa-solid fa-circle-info fa-xs"></i> :
+        </legend>
+
         <div class="flex">
           <input
             required
@@ -108,7 +113,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="telephone">Téléphone :</label>
+      <label for="telephone">Téléphone (facultatif) :</label>
       <input
         formControlName="telephone"
         id="telephone"
@@ -149,85 +154,102 @@
   <button *ngIf="!passwordChange" (click)="passwordChange = true">
     Changer de mot de passe
   </button>
-  <div *ngIf="passwordChange">
-    <h1>TEST</h1>
+  <div *ngIf="passwordChangeMsg">
+    <span [ngClass]="passwordChangeMsg.status ? 'success-msg' : 'error-msg'">{{
+      passwordChangeMsg.message
+    }}</span>
+  </div>
 
-    <form [formGroup]="passwordForm">
+  <form *ngIf="passwordChange" class="password" [formGroup]="passwordForm">
+    <div class="form-group">
+      <label for="password">Mot de passe :</label>
+      <input
+        formControlName="password"
+        id="password"
+        name="password"
+        type="{{ showPassword1 ? 'text' : 'password' }}"
+        placeholder="Minimum de 8 caractères, 1 majuscule et 1 chiffre"
+      /><i
+        class="fa fa-eye"
+        [ngClass]="{ 'fa-eye-slash': showPassword1 }"
+        (click)="showPassword1 = !showPassword1"
+      ></i>
+      <div
+        class="error"
+        *ngIf="submitted && submittedGood && passForm['password'].errors"
+      >
+        <span *ngIf="passForm['password'].hasError('passwordPattern')"
+          >Votre mot de passe fait un minimum de 8 caractères, avec 1 majuscule
+          et 1 chiffre</span
+        >
+        <span *ngIf="passForm['password'].hasError('required')"
+          >Une mot de passe est nécessaire</span
+        >
+      </div>
+    </div>
+    <div formGroupName="newpasswordForm">
       <div class="form-group">
-        <label for="password">Mot de passe :</label>
+        <label for="newPassword"
+          >Nouveau mot de passe<i class="fa-solid fa-circle-info fa-xs"></i>
+          :</label
+        >
         <input
-          formControlName="password"
-          id="password"
-          name="password"
-          type="password"
+          formControlName="newPassword"
+          id="newPassword"
+          name="newPassword"
+          type="{{ showPassword2 ? 'text' : 'password' }}"
           placeholder="Minimum de 8 caractères, 1 majuscule et 1 chiffre"
         />
+        <i
+          class="fa fa-eye"
+          [ngClass]="{ 'fa-eye-slash': showPassword2 }"
+          (click)="showPassword2 = !showPassword2"
+        ></i>
         <div
           class="error"
-          *ngIf="submitted && submittedGood && passForm['password'].errors"
+          *ngIf="
+            submitted && submittedGood && newpassword['newPassword'].errors
+          "
         >
-          <span *ngIf="passForm['password'].hasError('passwordPattern')"
-            >Votre mot de passe fait un minimum de 8 caractères, avec 1
-            majuscule et 1 chiffre</span
+          <span *ngIf="newpassword['newPassword'].hasError('passwordPattern')"
+            >Votre nouveau mot de passe doit faire un minimum de 8 caractères,
+            avec 1 majuscule et 1 chiffre</span
           >
-          <span *ngIf="passForm['password'].hasError('required')"
-            >Une mot de passe est nécessaire</span
+          <span *ngIf="newpassword['newPassword'].hasError('required')"
+            >Un nouveau mot de passe est nécessaire</span
           >
         </div>
       </div>
-      <div formGroupName="newpasswordForm">
-        <div class="form-group">
-          <label for="newPassword">Nouveau mot de passe :</label>
-          <input
-            formControlName="newPassword"
-            id="newPassword"
-            name="newPassword"
-            type="password"
-            placeholder="Minimum de 8 caractères, 1 majuscule et 1 chiffre"
-          />
-          <div
-            class="error"
-            *ngIf="
-              submitted && submittedGood && newpassword['newPassword'].errors
-            "
-          >
-            <span *ngIf="newpassword['newPassword'].hasError('passwordPattern')"
-              >Votre nouveau mot de passe doit faire un minimum de 8 caractères,
-              avec 1 majuscule et 1 chiffre</span
-            >
-            <span *ngIf="newpassword['newPassword'].hasError('required')"
-              >Un nouveau mot de passe est nécessaire</span
-            >
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="confirmNewPassword"
-            >Confimer le nouveau mot de passe :</label
-          >
-          <input
-            formControlName="confirmNewPassword"
-            id="confirmNewPassword"
-            name="confirmNewPassword"
-            type="password"
-            placeholder="Minimum de 8 caractères, 1 majuscule et 1 chiffre"
-          />
-          <div
-            class="error"
-            *ngIf="
-              newpassword['confirmNewPassword'].touched &&
-              newpassword['confirmNewPassword'].errors
-            "
-          >
-            <span>Les mots de passe doivent être identiques</span>
-          </div>
+      <div class="form-group">
+        <label for="confirmNewPassword"
+          >Confimer le nouveau mot de passe :</label
+        >
+        <input
+          formControlName="confirmNewPassword"
+          id="confirmNewPassword"
+          name="confirmNewPassword"
+          type="{{ showPassword3 ? 'text' : 'password' }}"
+          placeholder="Minimum de 8 caractères, 1 majuscule et 1 chiffre"
+        />
+        <i
+          class="fa fa-eye"
+          [ngClass]="{ 'fa-eye-slash': showPassword3 }"
+          (click)="showPassword3 = !showPassword3"
+        ></i>
+        <div
+          class="error"
+          *ngIf="
+            newpassword['newPassword'].touched &&
+            newpassword['confirmNewPassword'].errors
+          "
+        >
+          <span>Les mots de passe doivent être identiques</span>
         </div>
       </div>
-      <div class="buttons">
-        <button (click)="cancelPasswordChange()">Annuler</button>
-        <button (click)="confirmPasswordChange()">
-          Confirmer le changement
-        </button>
-      </div>
-    </form>
-  </div>
+    </div>
+    <div class="buttons">
+      <button (click)="cancelPasswordChange()">Annuler</button>
+      <button (click)="confirmPasswordChange()">Confirmer le changement</button>
+    </div>
+  </form>
 </div>

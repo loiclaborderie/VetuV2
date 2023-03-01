@@ -37,5 +37,7 @@ export class UserService {
     return this.http.put(`http://localhost:8000/userUpdate/${id}`, updatedObj);
   }
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+    this.userId = Number(localStorage.getItem('user' || '0'));
+  }
 }

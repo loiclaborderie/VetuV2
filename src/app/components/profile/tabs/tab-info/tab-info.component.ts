@@ -8,7 +8,9 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { changePasswordResponse } from 'src/app/_interfaces/changePasswordResponse';
 
 @Component({
   selector: 'app-tab-info',
@@ -23,11 +25,15 @@ export class TabInfoComponent {
   successMsg: string = '';
   failureMsg: string = '';
   passwordChange: boolean = false;
+  passwordChangeMsg!: changePasswordResponse;
   userForm!: FormGroup;
   passwordForm!: FormGroup;
   newpasswordForm!: FormGroup;
   submitted = false;
   submittedGood = false;
+  showPassword1 = false;
+  showPassword2 = false;
+  showPassword3 = false;
 
   passwordPatternValidator(
     control: AbstractControl
@@ -55,7 +61,11 @@ export class TabInfoComponent {
     }
   };
 
-  constructor(private fb: FormBuilder, private userService: UserService) {}
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.userForm = this.fb.group({
@@ -95,7 +105,7 @@ export class TabInfoComponent {
       console.log('Updating infos');
       this.updating = false;
       this.message = 'Modifier';
-      const form = document.querySelector('form') as HTMLFormElement;
+      const form = document.querySelector('form.data') as HTMLFormElement;
       const formData = new FormData(form) as any;
       const data: { [key: string]: any } = Object.fromEntries(
         formData.entries()
@@ -128,11 +138,25 @@ export class TabInfoComponent {
     if (this.passwordForm.invalid) {
       return;
     }
-    console.log('this worked');
-    // const form = document.querySelector('form') as HTMLFormElement;
-    // const formData = new FormData(form) as any;
-    // const data: { [key: string]: any } = Object.fromEntries(formData.entries());
-    // console.log(data);
+    console.log(this.userService.userId);
+    alert('this worked');
+    const form = document.querySelector('form.password') as HTMLFormElement;
+    const formData = new FormData(form) as any;
+    const data: { [key: string]: any } = Object.fromEntries(formData.entries());
+    console.log(data);
+    this.authService
+      .changePassword(data)
+      .subscribe((data: changePasswordResponse) => {
+        if (data.status === false) {
+          this.passwordChangeMsg = data;
+          this.passwordChange = true;
+          this.submittedGood = false;
+        } else {
+          this.cancelPasswordChange();
+          this.passwordChangeMsg = data;
+        }
+      });
+
     // const finalData = { ...this.user, ...data };
     // this.user = finalData;
     // this.userService.updateUser(finalData).subscribe(
