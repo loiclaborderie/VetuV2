@@ -23,12 +23,12 @@ export class ProductDetailledComponent {
   }
 
   addToCart() {
-    this.cartService.addCartItem(this.products[+this.selectedSize]);
+    const productData = this.products[+this.selectedSize];
+    this.cartService.addCartItem(productData);
     this.selectedSize = '';
     let newCart = this.cartService.getCartItems();
     if (localStorage.getItem('user')) {
       // On n'utilise plus le localStorage si l'utilisateur est co
-      const productData = this.products[+this.selectedSize];
       const content = {
         id: productData.id,
         quantite: 1,

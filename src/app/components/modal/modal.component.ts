@@ -1,5 +1,7 @@
 import { Component, ElementRef, Input, ViewEncapsulation } from '@angular/core';
+import { CartService } from 'src/app/services/cart/cart.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
+import { OrdersService } from 'src/app/services/orders/orders.service';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -13,11 +15,14 @@ export class ModalComponent {
   isOpen = false;
   private element: any;
   data: any;
+  selectedSize = '';
 
   constructor(
     private modalService: ModalService,
     private el: ElementRef,
-    private productService: ProductService
+    private productService: ProductService,
+    private cartService: CartService,
+    private orderService: OrdersService
   ) {
     this.element = el.nativeElement;
   }
@@ -35,6 +40,36 @@ export class ModalComponent {
         this.close();
       }
     });
+  }
+
+  selectSize() {
+    this.selectedSize = (
+      document.querySelector('select.select') as HTMLSelectElement
+    ).value;
+    console.log(this.selectedSize);
+    console.log(this.data[this.selectedSize].id);
+  }
+
+  addToCart() {
+    const productData = this.data[+this.selectedSize];
+    this.cartService.addCartItem(productData);
+    this.selectedSize = '';
+    let newCart = this.cartService.getCartItems();
+
+    if (localStorage.getItem('user')) {
+      // On n'utilise plus le localStorage si l'utilisateur est co
+      const content = {
+        id: productData.id,
+        quantite: 1,
+      };
+      this.orderService.addLocalCartItemToDb(content).subscribe((data) => {
+        console.log(data);
+      });
+    } else {
+      localStorage.setItem('cart', JSON.stringify(newCart));
+      console.log('added to localstorage');
+    }
+    this.close();
   }
 
   ngOnDestroy() {
