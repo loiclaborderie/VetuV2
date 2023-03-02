@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class OrdersService {
   baseUrl = 'http://127.0.0.1:8000/commande';
-  public orderId!: number;
+  public orderId: number | null = null;
 
   createOrder(id: number) {
     return this.http.post(`${this.baseUrl}/create/${id}`, null);
@@ -44,7 +44,7 @@ export class OrdersService {
 
   constructor(private http: HttpClient) {
     if (localStorage.getItem('orderId')) {
-      this.orderId = JSON.parse(localStorage.getItem('orderId') || '0');
+      this.orderId = JSON.parse(localStorage.getItem('orderId') || 'null');
     }
   }
 }
