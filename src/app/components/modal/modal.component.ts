@@ -70,8 +70,8 @@ export class ModalComponent {
       localStorage.setItem('cart', JSON.stringify(newCart));
       console.log('added to localstorage');
     }
-    // this.selectedSize = '';
-    // select.selectedIndex = 0;
+    this.selectedSize = '';
+    select.value = select.getAttribute('data-default') || "''";
     this.close();
   }
 
@@ -84,7 +84,7 @@ export class ModalComponent {
   }
 
   open() {
-    if (this.id) {
+    if (this.id && !this.data) {
       let number: number = +this.id.replace('modal-', '');
       this.productService.getProduct(number).subscribe((data) => {
         this.data = data;

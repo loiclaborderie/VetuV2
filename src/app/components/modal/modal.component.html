@@ -6,7 +6,12 @@
       <p>{{ data[0].prix }}€</p>
       <div class="cta">
         <div class="color-picker">
-          <select class="select" (change)="selectSize()" name="choseSize">
+          <select
+            class="select"
+            data-default="Choisir une taille"
+            (change)="selectSize()"
+            name="choseSize"
+          >
             <option disabled selected>Choisir une taille</option>
             <option
               *ngFor="let item of data; let i = index"
