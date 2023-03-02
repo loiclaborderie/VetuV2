@@ -43,17 +43,18 @@ export class ModalComponent {
   }
 
   selectSize() {
-    this.selectedSize = (
-      document.querySelector('select.select') as HTMLSelectElement
-    ).value;
-    console.log(this.selectedSize);
+    let select = document.querySelector('select.select') as HTMLSelectElement;
+    this.selectedSize = select.value;
+    console.log(select, this.selectedSize);
     console.log(this.data[this.selectedSize].id);
   }
 
   addToCart() {
+    let select = document.querySelector('select.select') as HTMLSelectElement;
     const productData = this.data[+this.selectedSize];
     this.cartService.addCartItem(productData);
     this.selectedSize = '';
+    select.selectedIndex = 0;
     let newCart = this.cartService.getCartItems();
 
     if (localStorage.getItem('user')) {
