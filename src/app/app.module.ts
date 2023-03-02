@@ -21,6 +21,7 @@ import { TabOrdersComponent } from './components/profile/tabs/tab-orders/tab-ord
 import { TabAddressComponent } from './components/profile/tabs/tab-address/tab-address.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { PasswordModalComponent } from './components/password-modal/password-modal.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ModalComponent } from './components/modal/modal.component';
     TabAddressComponent,
     SignupComponent,
     ModalComponent,
+    PasswordModalComponent,
   ],
   imports: [
     BrowserModule,

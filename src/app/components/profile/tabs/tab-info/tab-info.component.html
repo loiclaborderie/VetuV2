@@ -151,105 +151,10 @@
   </form>
 
   <!-- ICI 2E FORMULAIRE CHANGEMENT MDP -->
-  <button *ngIf="!passwordChange" (click)="passwordChange = true">
+  <button (click)="modalPasswordService.open('modal-1')">
     Changer de mot de passe
   </button>
-  <div *ngIf="passwordChangeMsg">
-    <span [ngClass]="passwordChangeMsg.status ? 'success-msg' : 'error-msg'">{{
-      passwordChangeMsg.message
-    }}</span>
-  </div>
-
-  <form *ngIf="passwordChange" class="password" [formGroup]="passwordForm">
-    <div class="form-group">
-      <label for="password">Mot de passe :</label>
-      <input
-        formControlName="password"
-        id="password"
-        name="password"
-        type="{{ showPassword1 ? 'text' : 'password' }}"
-        placeholder="Minimum de 8 caractères, 1 majuscule et 1 chiffre"
-      /><i
-        class="fa fa-eye"
-        [ngClass]="{ 'fa-eye-slash': showPassword1 }"
-        (click)="showPassword1 = !showPassword1"
-      ></i>
-      <div
-        class="error"
-        *ngIf="submitted && submittedGood && passForm['password'].errors"
-      >
-        <span *ngIf="passForm['password'].hasError('passwordPattern')"
-          >Votre mot de passe fait un minimum de 8 caractères, avec 1 majuscule
-          et 1 chiffre</span
-        >
-        <span *ngIf="passForm['password'].hasError('required')"
-          >Une mot de passe est nécessaire</span
-        >
-      </div>
-    </div>
-    <div formGroupName="newpasswordForm">
-      <div class="form-group">
-        <label for="newPassword"
-          >Nouveau mot de passe<i class="fa-solid fa-circle-info fa-xs"></i>
-          :</label
-        >
-        <input
-          formControlName="newPassword"
-          id="newPassword"
-          name="newPassword"
-          type="{{ showPassword2 ? 'text' : 'password' }}"
-          placeholder="Minimum de 8 caractères, 1 majuscule et 1 chiffre"
-        />
-        <i
-          class="fa fa-eye"
-          [ngClass]="{ 'fa-eye-slash': showPassword2 }"
-          (click)="showPassword2 = !showPassword2"
-        ></i>
-        <div
-          class="error"
-          *ngIf="
-            submitted && submittedGood && newpassword['newPassword'].errors
-          "
-        >
-          <span *ngIf="newpassword['newPassword'].hasError('passwordPattern')"
-            >Votre nouveau mot de passe doit faire un minimum de 8 caractères,
-            avec 1 majuscule et 1 chiffre</span
-          >
-          <span *ngIf="newpassword['newPassword'].hasError('required')"
-            >Un nouveau mot de passe est nécessaire</span
-          >
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="confirmNewPassword"
-          >Confimer le nouveau mot de passe :</label
-        >
-        <input
-          formControlName="confirmNewPassword"
-          id="confirmNewPassword"
-          name="confirmNewPassword"
-          type="{{ showPassword3 ? 'text' : 'password' }}"
-          placeholder="Minimum de 8 caractères, 1 majuscule et 1 chiffre"
-        />
-        <i
-          class="fa fa-eye"
-          [ngClass]="{ 'fa-eye-slash': showPassword3 }"
-          (click)="showPassword3 = !showPassword3"
-        ></i>
-        <div
-          class="error"
-          *ngIf="
-            newpassword['newPassword'].touched &&
-            newpassword['confirmNewPassword'].errors
-          "
-        >
-          <span>Les mots de passe doivent être identiques</span>
-        </div>
-      </div>
-    </div>
-    <div class="buttons">
-      <button (click)="cancelPasswordChange()">Annuler</button>
-      <button (click)="confirmPasswordChange()">Confirmer le changement</button>
-    </div>
-  </form>
 </div>
+<app-password-modal id="modal-1">
+  <button (click)="modalPasswordService.close()">Close</button>
+</app-password-modal>
