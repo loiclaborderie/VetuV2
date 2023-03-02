@@ -43,18 +43,18 @@ export class ModalComponent {
   }
 
   selectSize() {
+    console.log(this.data);
     let select = document.querySelector('select.select') as HTMLSelectElement;
+    console.log(select, select.value);
     this.selectedSize = select.value;
-    console.log(select, this.selectedSize);
-    console.log(this.data[this.selectedSize].id);
+    console.log(this.selectedSize);
+    // console.log(this.data[this.selectedSize].id);
   }
 
   addToCart() {
     let select = document.querySelector('select.select') as HTMLSelectElement;
     const productData = this.data[+this.selectedSize];
     this.cartService.addCartItem(productData);
-    this.selectedSize = '';
-    select.selectedIndex = 0;
     let newCart = this.cartService.getCartItems();
 
     if (localStorage.getItem('user')) {
@@ -70,6 +70,8 @@ export class ModalComponent {
       localStorage.setItem('cart', JSON.stringify(newCart));
       console.log('added to localstorage');
     }
+    this.selectedSize = '';
+    // select.selectedIndex = 0;
     this.close();
   }
 

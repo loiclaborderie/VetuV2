@@ -26,7 +26,12 @@
     </a>
     <span class="product-price"> {{ product.prix }}€ </span>
     <span class="product-rating">Avis clients : {{ product.note }} </span>
-    <a class="buy-btn" id="btn-small-screen" href="#">Ajouter</a>
+    <a
+      class="buy-btn"
+      id="btn-small-screen"
+      (click)="modalService.open('modal-' + product.reference)"
+      >Ajouter</a
+    >
     <span class="additional-info">
       {{ product.stock }}
       encore en stock
