@@ -15,6 +15,7 @@ export class ProfileComponent {
   user!: any;
 
   ngOnInit(): void {
+    console.log(this.auth.hasntConnectedYet);
     this.userService.getUser().subscribe((data: any) => {
       if (data === null) {
         this.router.navigate(['/login']);

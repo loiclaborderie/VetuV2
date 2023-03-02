@@ -6,15 +6,21 @@ import { ProductDetailledComponent } from './components/product-detailled/produc
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { alreadyAuthGuard } from './guard/alreadyauth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/products', pathMatch: 'full' },
   { path: 'products', component: AllProductsComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
+  { path: 'login', component: LoginComponent, canActivate: [alreadyAuthGuard] },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    canActivate: [alreadyAuthGuard],
+  },
   { path: 'cart', component: CartComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'products/:reference', component: ProductDetailledComponent },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

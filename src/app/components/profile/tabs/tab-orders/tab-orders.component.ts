@@ -75,6 +75,7 @@ export class TabOrdersComponent {
           this.sendAllItemsToDb();
         }
         this.auth.hasntConnectedYet = false;
+        console.log(this.auth.hasntConnectedYet);
         // Ca permet de ne fetch ces données qu'une fois
       });
     }
