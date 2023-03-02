@@ -70,7 +70,7 @@ export class ModalComponent {
       localStorage.setItem('cart', JSON.stringify(newCart));
       console.log('added to localstorage');
     }
-    this.selectedSize = '';
+    // this.selectedSize = '';
     // select.selectedIndex = 0;
     this.close();
   }
