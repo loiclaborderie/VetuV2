@@ -1,27 +1,153 @@
-<nav>
-  <h1 style="text-align: center">
-    <a (click)="backToMenu()">{{ title }}</a>
-  </h1>
-  <button (click)="consoleNum()">CONSOLE NUMBER</button>
-
-  <div class="icons">
-    <div class="search-mobile">
-      <i class="fa-solid fa-search fa-3x"></i>
-    </div>
-    <div class="profile" routerLink="profile">
-      <i class="fa-solid fa-user fa-3x"></i>
-    </div>
-
-    <div class="cart" (click)="goToPanier()">
-      <div *ngIf="countItems === 0" class="cart-icon">
-        <i class="fa-solid fa-cart-shopping fa-3x"></i>
-      </div>
-      <div *ngIf="countItems > 0" class="cart-icon">
-        <div class="cart-amount" [@cartItemCount]="animationState">
-          <span>{{ countItems }}</span>
+<header class="header">
+  <!-- Barre de navigation -->
+  <nav #headerNav [ngClass]="scrolldown ? 'scrolldown' : ''" class="header-nav">
+    <div class="logo">
+      <div class="header-content">
+        <div class="hamburger-lines" id="menu">
+          <span class="line line1"></span>
+          <span class="line line2"></span>
+          <span class="line line3"></span>
         </div>
-        <i class="fa-solid fa-cart-shopping fa-3x"></i>
+      </div>
+      <nav class="categories">
+        <div class="close">
+          <i class="fa-solid fa-xmark fa-2x close-btn"></i>
+        </div>
+        <ul class="dropdownList">
+          <li>
+            <div class="cat-femmes">
+              <button class="dropdown-btn">
+                <span>Produits femmes</span>
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container">
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="cat-hommes">
+              <button class="dropdown-btn">
+                <span>Produits hommes</span>
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container">
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="cat-mixtes">
+              <button class="dropdown-btn">
+                <span>Produits mixtes</span>
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container">
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="cat-filles">
+              <button class="dropdown-btn">
+                <span>Produits filles</span>
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container">
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="cat-garcons">
+              <button class="dropdown-btn">
+                <span>Produits garçons</span>
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container">
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+                <a href="#">lorem ipsum dolor est machina 2</a>
+                <a href="#">lorem ipsum dolor est machina 3</a>
+                <a href="#">lorem ipsum dolor est machina 1</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="menu-pattern"></div>
+        <div id="bg-image"></div>
+      </nav>
+      <h1>
+        <a (click)="backToMenu()">{{ title }}</a>
+      </h1>
+    </div>
+    <form>
+      <div class="searchbar">
+        <input class="search" type="search" placeholder="Rechercher" />
+        <i class="fa-solid fa-search fa-1_5x"></i>
+      </div>
+    </form>
+    <div class="icons">
+      <div class="search-mobile">
+        <i class="fa-solid fa-search fa-3x"></i>
+      </div>
+      <div class="profile" routerLink="profile">
+        <i class="fa-solid fa-user fa-3x"></i>
+      </div>
+
+      <div class="cart" (click)="goToPanier()">
+        <div *ngIf="countItems === 0" class="cart-icon">
+          <i class="fa-solid fa-cart-shopping fa-3x"></i>
+        </div>
+        <div *ngIf="countItems > 0" class="cart-icon">
+          <div class="cart-amount" [@cartItemCount]="animationState">
+            <span>{{ countItems }}</span>
+          </div>
+          <i class="fa-solid fa-cart-shopping fa-3x"></i>
+        </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+  <!--Fin de la barre de navigation-->
+</header>

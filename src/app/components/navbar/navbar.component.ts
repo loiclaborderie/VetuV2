@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Inject,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart/cart.service';
 import {
@@ -7,8 +13,9 @@ import {
   transition,
   animate,
   style,
-  keyframes,
 } from '@angular/animations';
+import { fromEvent, map, throttleTime } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -35,16 +42,56 @@ import {
   ],
 })
 export class NavbarComponent {
+  scrolldown = false;
+  lastScrollTop: number = Infinity;
   title = 'vetu';
   countItems = 0;
   currentItemCount: number = 0;
   prevItemCount: number = 0;
   animationState: string = 'inactive'; // Add this line
+  headerHeight!: any;
 
-  constructor(private router: Router, private cartService: CartService) {}
+  constructor(
+    // @Inject(DOCUMENT) private document: Document,
+    private router: Router,
+    private cartService: CartService
+  ) {}
+  @ViewChild('headerNav') headerNav!: ElementRef;
+
+  @HostListener('window:DOMContentLoaded')
+  onDomContentLoaded() {
+    let header = this.headerNav.nativeElement as HTMLElement;
+    console.log(header);
+    let headerHauteur = header.offsetHeight;
+    console.log(headerHauteur);
+    this.headerHeight = headerHauteur;
+    console.log(this.headerHeight);
+    document.body.style.paddingTop = this.headerHeight + 'px';
+  }
 
   ngOnInit(): void {
+    console.log(this.headerHeight);
+    // let header = document.querySelector('header.header') as HTMLElement;
+    // console.log(header);
+    // let headerHeight = header.getBoundingClientRect().height;
     this.updateCount();
+
+    fromEvent(window, 'scroll')
+      .pipe(
+        throttleTime(250),
+        map(() => window.scrollY, console.log(window))
+      )
+      .subscribe((scroll) => {
+        if (scroll > this.lastScrollTop && scroll > this.headerHeight) {
+          this.scrolldown = true;
+          console.log('scrolling down');
+        } else {
+          this.scrolldown = false;
+          console.log('scrolling up');
+        }
+        this.lastScrollTop = scroll;
+        console.log(this.scrolldown);
+      });
   }
 
   consoleNum() {
