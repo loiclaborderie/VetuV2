@@ -10,6 +10,8 @@ export class ModalPasswordService {
   add(modal: PasswordModalComponent) {
     // ensure component has a unique id attribute
     if (!modal.id || this.modals.find((x) => x.id === modal.id)) {
+      console.log(modal.id);
+      this.modals.map((modal) => console.log(modal.id));
       throw new Error('modal must have a unique id attribute');
     }
 
@@ -19,7 +21,7 @@ export class ModalPasswordService {
 
   remove(modal: PasswordModalComponent) {
     // remove modal from array of active modals
-    this.modals = this.modals.filter((x) => x === modal);
+    this.modals = this.modals.filter((x) => x.id !== modal.id);
   }
 
   open(id: string) {

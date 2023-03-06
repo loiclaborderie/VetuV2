@@ -89,7 +89,6 @@ export class NavbarComponent {
   }
 
   ngAfterViewInit(): void {
-    alert('afterviewinit');
     let header = this.headerNav.nativeElement as HTMLElement;
     console.log(header);
     let headerHauteur = header.offsetHeight;
@@ -145,7 +144,6 @@ export class NavbarComponent {
   ngOnDestroy(): void {
     if (this.scrollEvent) {
       this.scrollEvent.unsubscribe();
-      this.scrollEvent = null;
     }
     this.lastScrollTop = Infinity;
     document.body.style.paddingTop = '0px';
