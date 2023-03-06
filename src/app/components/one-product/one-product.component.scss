@@ -43,6 +43,7 @@ a.link {
   transition-property: color, background-color, border;
   transition-duration: 0.3s;
   transition-timing-function: ease-in-out;
+  cursor: pointer;
 }
 #btn-small-screen {
   margin-block: 0.5rem;

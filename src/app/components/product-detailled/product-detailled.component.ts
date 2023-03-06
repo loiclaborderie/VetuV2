@@ -83,5 +83,6 @@ export class ProductDetailledComponent {
     const reference: string | null =
       this.route.snapshot.paramMap.get('reference');
     this.fetchData(reference);
+    // console.log('fetching data');
   }
 }

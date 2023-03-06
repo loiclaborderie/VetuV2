@@ -16,4 +16,12 @@ export class ProductService {
   getAllCategories() {
     return this.http.get<any[]>(`${this.apiUrl}/categories`);
   }
+  getProductsByCategory(category: string) {
+    return this.http.get<any[]>(`${this.apiUrl}/categorie/${category}`);
+  }
+  getProductsByCategoryAndGenre(category: string, genre: string) {
+    return this.http.get<any[]>(
+      `${this.apiUrl}/categorie/${category}/${genre}`
+    );
+  }
 }

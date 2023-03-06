@@ -22,9 +22,14 @@
               </button>
               <div class="dropdown-container" #dropdownContainer>
                 <ng-container *ngFor="let categorie of categories">
-                  <a href="#" *ngIf="categorie.public === 'f'">{{
-                    categorie.categorie
-                  }}</a>
+                  <a
+                    routerLink="products/categorie/{{ categorie.categorie }}/{{
+                      categorie.public
+                    }}"
+                    (click)="toggleMenu()"
+                    *ngIf="categorie.public === 'f'"
+                    >{{ categorie.categorie }}</a
+                  >
                 </ng-container>
               </div>
             </div>
@@ -37,9 +42,14 @@
               </button>
               <div class="dropdown-container" #dropdownContainer>
                 <ng-container *ngFor="let categorie of categories">
-                  <a href="#" *ngIf="categorie.public === 'm'">{{
-                    categorie.categorie
-                  }}</a>
+                  <a
+                    routerLink="products/categorie/{{ categorie.categorie }}/{{
+                      categorie.public
+                    }}"
+                    (click)="toggleMenu()"
+                    *ngIf="categorie.public === 'm'"
+                    >{{ categorie.categorie }}</a
+                  >
                 </ng-container>
               </div>
             </div>
@@ -52,9 +62,14 @@
               </button>
               <div class="dropdown-container" #dropdownContainer>
                 <ng-container *ngFor="let categorie of categories">
-                  <a href="#" *ngIf="categorie.public === 'mixte'">{{
-                    categorie.categorie
-                  }}</a>
+                  <a
+                    routerLink="products/categorie/{{ categorie.categorie }}/{{
+                      categorie.public
+                    }}"
+                    (click)="toggleMenu()"
+                    *ngIf="categorie.public === 'mixte'"
+                    >{{ categorie.categorie }}</a
+                  >
                 </ng-container>
               </div>
             </div>

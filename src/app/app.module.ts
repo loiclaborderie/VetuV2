@@ -22,6 +22,7 @@ import { TabAddressComponent } from './components/profile/tabs/tab-address/tab-a
 import { SignupComponent } from './components/signup/signup.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { PasswordModalComponent } from './components/password-modal/password-modal.component';
+import { AllResultsComponent } from './components/all-results/all-results.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { PasswordModalComponent } from './components/password-modal/password-mod
     SignupComponent,
     ModalComponent,
     PasswordModalComponent,
+    AllResultsComponent,
   ],
   imports: [
     BrowserModule,

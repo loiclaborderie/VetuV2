@@ -1,5 +1,5 @@
 <div class="carte">
-  <a class="test-hover" routerLink="{{ product.reference }}">
+  <a class="test-hover" routerLink="/products/{{ product.reference }}">
     <div *ngIf="!product" class="product-img"></div>
     <img
       *ngIf="product"
@@ -18,7 +18,7 @@
     </a>
   </div>
   <div class="product-description">
-    <a class="link" href="#">
+    <a class="link" routerLink="/products/{{ product.reference }}">
       <span class="product-name">
         {{ product.titre.toUpperCase().slice(0, 20) }}
         <span *ngIf="product.titre.length > 20">...</span>
