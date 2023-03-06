@@ -16,7 +16,7 @@ import {
   animate,
   style,
 } from '@angular/animations';
-import { fromEvent, map, throttleTime } from 'rxjs';
+import { fromEvent, map, auditTime } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { ProductService } from 'src/app/services/product/product.service';
 
@@ -123,15 +123,22 @@ export class NavbarComponent {
   ngOnInit(): void {
     this.updateCount();
 
+    // check if the page is at the top of the page
+    this.scrolldown = window.pageYOffset > 0 ? true : false;
+
+    // create observable for scroll events
     let observable = fromEvent(window, 'scroll').pipe(
-      throttleTime(250),
-      map(() => window.scrollY, console.log(window))
+      auditTime(250),
+      map(() => window.scrollY)
     );
+
     this.scrollEvent = observable.subscribe((scroll: any) => {
       console.log(scroll, this.lastScrollTop, this.headerHeight);
       if (scroll > this.lastScrollTop) {
         this.scrolldown = true;
         console.log('scrolling down');
+      } else if (scroll < this.headerHeight || window.pageYOffset === 0) {
+        this.scrolldown = false;
       } else {
         this.scrolldown = false;
         console.log('scrolling up');
