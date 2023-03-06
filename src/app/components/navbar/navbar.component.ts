@@ -3,7 +3,9 @@ import {
   ElementRef,
   HostListener,
   Inject,
+  QueryList,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart/cart.service';
@@ -50,6 +52,45 @@ export class NavbarComponent {
   prevItemCount: number = 0;
   animationState: string = 'inactive'; // Add this line
   headerHeight!: any;
+  menuOpened = false;
+  categories = [
+    {
+      categorie: 'tshirts',
+      public: 'm',
+    },
+    {
+      categorie: 'tshirts',
+      public: 'f',
+    },
+    {
+      categorie: 'jeans',
+      public: 'm',
+    },
+    {
+      categorie: 'costumes',
+      public: 'f',
+    },
+    {
+      categorie: 'costumes',
+      public: 'm',
+    },
+    {
+      categorie: 'jeans',
+      public: 'f',
+    },
+    {
+      categorie: 'tshirts',
+      public: 'mixte',
+    },
+    {
+      categorie: 't-shirt',
+      public: 'mixte',
+    },
+    {
+      categorie: 'jeans',
+      public: 'h',
+    },
+  ];
 
   constructor(
     // @Inject(DOCUMENT) private document: Document,
@@ -57,6 +98,24 @@ export class NavbarComponent {
     private cartService: CartService
   ) {}
   @ViewChild('headerNav') headerNav!: ElementRef;
+  @ViewChildren('dropdownContainer') dropdownContainers!: QueryList<ElementRef>;
+
+  toggleDropdown(i: number) {
+    const dropdownContainer =
+      this.dropdownContainers.toArray()[i].nativeElement;
+    const background = document.querySelector('#bg-image') as HTMLElement;
+    console.log(dropdownContainer);
+    if (
+      dropdownContainer.style.display === 'none' ||
+      dropdownContainer.style.display === ''
+    ) {
+      dropdownContainer.style.display = 'flex';
+      background.classList.add('active');
+    } else {
+      dropdownContainer.style.display = 'none';
+      background.classList.remove('active');
+    }
+  }
 
   @HostListener('window:DOMContentLoaded')
   onDomContentLoaded() {
@@ -67,6 +126,15 @@ export class NavbarComponent {
     this.headerHeight = headerHauteur;
     console.log(this.headerHeight);
     document.body.style.paddingTop = this.headerHeight + 'px';
+  }
+
+  toggleMenu() {
+    this.menuOpened = !this.menuOpened;
+    if (this.menuOpened) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
   }
 
   ngOnInit(): void {
