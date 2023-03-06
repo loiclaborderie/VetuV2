@@ -18,6 +18,7 @@ import {
 } from '@angular/animations';
 import { fromEvent, map, throttleTime } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
+import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
   selector: 'app-navbar',
@@ -53,50 +54,19 @@ export class NavbarComponent {
   animationState: string = 'inactive'; // Add this line
   headerHeight!: any;
   menuOpened = false;
-  categories = [
-    {
-      categorie: 'tshirts',
-      public: 'm',
-    },
-    {
-      categorie: 'tshirts',
-      public: 'f',
-    },
-    {
-      categorie: 'jeans',
-      public: 'm',
-    },
-    {
-      categorie: 'costumes',
-      public: 'f',
-    },
-    {
-      categorie: 'costumes',
-      public: 'm',
-    },
-    {
-      categorie: 'jeans',
-      public: 'f',
-    },
-    {
-      categorie: 'tshirts',
-      public: 'mixte',
-    },
-    {
-      categorie: 't-shirt',
-      public: 'mixte',
-    },
-    {
-      categorie: 'jeans',
-      public: 'h',
-    },
-  ];
+  categories: any[] = [];
 
   constructor(
     // @Inject(DOCUMENT) private document: Document,
     private router: Router,
-    private cartService: CartService
-  ) {}
+    private cartService: CartService,
+    private productService: ProductService
+  ) {
+    this.productService.getAllCategories().subscribe((data) => {
+      this.categories = data;
+      console.log(data);
+    });
+  }
   @ViewChild('headerNav') headerNav!: ElementRef;
   @ViewChildren('dropdownContainer') dropdownContainers!: QueryList<ElementRef>;
 
@@ -138,10 +108,6 @@ export class NavbarComponent {
   }
 
   ngOnInit(): void {
-    console.log(this.headerHeight);
-    // let header = document.querySelector('header.header') as HTMLElement;
-    // console.log(header);
-    // let headerHeight = header.getBoundingClientRect().height;
     this.updateCount();
 
     fromEvent(window, 'scroll')

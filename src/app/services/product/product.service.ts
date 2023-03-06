@@ -13,4 +13,7 @@ export class ProductService {
   getProduct(reference: number) {
     return this.http.get<any[]>(`${this.apiUrl}/reference/${reference}`);
   }
+  getAllCategories() {
+    return this.http.get<any[]>(`${this.apiUrl}/categories`);
+  }
 }
