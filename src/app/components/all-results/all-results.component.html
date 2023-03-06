@@ -2,7 +2,7 @@
   <h2>Recherche en cours...</h2>
   <app-loading></app-loading>
 </div>
-<div *ngIf="products">
+<div *ngIf="products && products.length > 0">
   <h2>Résultats trouvés :</h2>
   <div class="grid">
     <app-one-product
@@ -10,4 +10,8 @@
       [product]="product"
     ></app-one-product>
   </div>
+</div>
+<div class="container-small" *ngIf="products && products.length == 0">
+  <p>Aucun résultat trouvé.</p>
+  <a routerLink="/products">Retourner aux produits</a>
 </div>

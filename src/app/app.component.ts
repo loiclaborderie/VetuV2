@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CartComponent } from './components/cart/cart.component';
 

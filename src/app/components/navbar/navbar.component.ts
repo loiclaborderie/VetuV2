@@ -55,6 +55,7 @@ export class NavbarComponent {
   headerHeight!: any;
   menuOpened = false;
   categories: any[] = [];
+  scrollEvent: any;
 
   constructor(
     // @Inject(DOCUMENT) private document: Document,
@@ -87,13 +88,13 @@ export class NavbarComponent {
     }
   }
 
-  @HostListener('window:DOMContentLoaded')
-  onDomContentLoaded() {
+  ngAfterViewInit(): void {
+    alert('afterviewinit');
     let header = this.headerNav.nativeElement as HTMLElement;
     console.log(header);
     let headerHauteur = header.offsetHeight;
     console.log(headerHauteur);
-    this.headerHeight = headerHauteur;
+    this.headerHeight = headerHauteur || 80;
     console.log(this.headerHeight);
     document.body.style.paddingTop = this.headerHeight + 'px';
   }
@@ -123,22 +124,31 @@ export class NavbarComponent {
   ngOnInit(): void {
     this.updateCount();
 
-    fromEvent(window, 'scroll')
-      .pipe(
-        throttleTime(250),
-        map(() => window.scrollY, console.log(window))
-      )
-      .subscribe((scroll) => {
-        if (scroll > this.lastScrollTop && scroll > this.headerHeight) {
-          this.scrolldown = true;
-          console.log('scrolling down');
-        } else {
-          this.scrolldown = false;
-          console.log('scrolling up');
-        }
-        this.lastScrollTop = scroll;
-        console.log(this.scrolldown);
-      });
+    let observable = fromEvent(window, 'scroll').pipe(
+      throttleTime(250),
+      map(() => window.scrollY, console.log(window))
+    );
+    this.scrollEvent = observable.subscribe((scroll: any) => {
+      console.log(scroll, this.lastScrollTop, this.headerHeight);
+      if (scroll > this.lastScrollTop) {
+        this.scrolldown = true;
+        console.log('scrolling down');
+      } else {
+        this.scrolldown = false;
+        console.log('scrolling up');
+      }
+      this.lastScrollTop = scroll;
+      console.log(this.scrolldown);
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.scrollEvent) {
+      this.scrollEvent.unsubscribe();
+      this.scrollEvent = null;
+    }
+    this.lastScrollTop = Infinity;
+    document.body.style.paddingTop = '0px';
   }
 
   consoleNum() {
