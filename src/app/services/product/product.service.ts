@@ -24,4 +24,7 @@ export class ProductService {
       `${this.apiUrl}/categorie/${category}/${genre}`
     );
   }
+  getProductsBySearchTerm(term: string) {
+    return this.http.get<any[]>(`${this.apiUrl}/search/${term}`);
+  }
 }

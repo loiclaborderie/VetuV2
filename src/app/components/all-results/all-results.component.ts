@@ -17,6 +17,7 @@ export class AllResultsComponent {
     this.route.paramMap.subscribe((params) => {
       const category: string | null = params.get('category');
       const genre: string | null = params.get('genre');
+      const term: string | null = params.get('term');
       if (genre && category) {
         this.productService
           .getProductsByCategoryAndGenre(category, genre)
@@ -38,6 +39,13 @@ export class AllResultsComponent {
             this.products = data;
             console.log(this.products);
           });
+        console.log('category');
+        // this.products = category;
+      } else if (term) {
+        this.productService.getProductsBySearchTerm(term).subscribe((data) => {
+          this.products = data;
+          console.log(this.products);
+        });
         console.log('category');
         // this.products = category;
       } else {

@@ -82,10 +82,22 @@
         <a (click)="backToMenu()">{{ title }}</a>
       </h1>
     </div>
-    <form>
+    <form class="search">
       <div class="searchbar">
-        <input class="search" type="search" placeholder="Rechercher" />
-        <i class="fa-solid fa-search fa-1_5x"></i>
+        <input
+          class="search"
+          type="search"
+          placeholder="Rechercher..."
+          minlength="3"
+          (keydown.enter)="test()"
+        />
+        <!-- <ul class="resultBox" *ngIf="searchResults">
+          <li *ngFor="let result of searchResults">
+            <a>{{ result.titre }}</a>
+          </li>
+        </ul> -->
+        <input type="submit" name="submit" hidden />
+        <i class="fa-solid fa-search fa-1_5x" (click)="test()"></i>
       </div>
     </form>
     <div class="icons">

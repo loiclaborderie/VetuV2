@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'products/:reference', component: ProductDetailledComponent },
   { path: 'products/categorie/:category', component: AllResultsComponent },
+  { path: 'products/search/:term', component: AllResultsComponent },
   {
     path: 'products/categorie/:category/:genre',
     component: AllResultsComponent,

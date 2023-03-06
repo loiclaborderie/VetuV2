@@ -98,6 +98,19 @@ export class NavbarComponent {
     document.body.style.paddingTop = this.headerHeight + 'px';
   }
 
+  test() {
+    let search = document.querySelector('input.search') as HTMLInputElement;
+    console.log(search.value);
+    if (search.value) {
+      if (search.value.length > 2) {
+        this.router.navigate(['/products/search/' + search.value]);
+        search.value = '';
+      } else {
+        console.log('la requete est trop courte');
+      }
+    }
+  }
+
   toggleMenu() {
     this.menuOpened = !this.menuOpened;
     if (this.menuOpened) {
