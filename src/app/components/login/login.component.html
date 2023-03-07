@@ -3,13 +3,13 @@
 </div>
 <div *ngIf="!submittedGood" class="form-container">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="error" style="color: crimson" *ngIf="errormsg">
+    <div class="error text-center" style="color: crimson" *ngIf="errormsg">
       {{ errormsg }}
     </div>
     <div class="group">
       <input type="mail" formControlName="email" placeholder="email" />
       <div
-        style="color: crimson"
+        class="error"
         *ngIf="form['email'].errors && submitted && !submittedGood"
       >
         <div *ngIf="form['email'].hasError('required')">Email is required</div>
@@ -23,7 +23,7 @@
         placeholder="mot de passe"
       />
       <div
-        style="color: crimson"
+        class="error"
         *ngIf="form['password'].errors && submitted && !submittedGood"
       >
         <div *ngIf="form['password'].hasError('required')">

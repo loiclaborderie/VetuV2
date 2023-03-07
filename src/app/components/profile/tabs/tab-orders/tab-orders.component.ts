@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
@@ -38,6 +39,7 @@ export class TabOrdersComponent {
 
   ngOnInit(): void {
     if (this.auth.hasntConnectedYet) {
+      this.snackBar.open(`Bienvenue ${this.user.prenom}`, 'OK');
       this.orderService.getOrdersByUserId(this.user.id).subscribe((data) => {
         console.log('fetched all the array');
         this.orderArray = data;
@@ -84,6 +86,7 @@ export class TabOrdersComponent {
   constructor(
     private orderService: OrdersService,
     private auth: AuthService,
-    private cartService: CartService
+    private cartService: CartService,
+    private snackBar: MatSnackBar
   ) {}
 }

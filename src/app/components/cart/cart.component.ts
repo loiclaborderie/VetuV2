@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { UsercartService } from 'src/app/services/usercart/usercart.service';
@@ -15,7 +16,8 @@ export class CartComponent {
   constructor(
     private cartService: CartService,
     private orderService: OrdersService,
-    private userCartService: UsercartService
+    private userCartService: UsercartService,
+    private snackBar: MatSnackBar
   ) {}
 
   console() {
@@ -34,6 +36,7 @@ export class CartComponent {
       this.cartService.resetCartItems();
       this.cartItems = this.cartService.getCartItems();
       this.totalPrice = 0;
+      this.snackBar.open(`Votre panier a été supprimé`, 'OK');
     }
   }
 

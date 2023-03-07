@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CartService } from 'src/app/services/cart/cart.service';
@@ -36,6 +37,7 @@ export class ProfileComponent {
       // localStorage.setItem('cart', JSON.stringify(cartItems));
       // }
       this.router.navigate(['/login']);
+      this.snackBar.open(`Vous avez été déconnecté`, 'OK');
     }
   }
 
@@ -45,6 +47,7 @@ export class ProfileComponent {
     private cartService: CartService,
     private orderService: OrdersService,
     private auth: AuthService,
-    private userCartService: UsercartService
+    private userCartService: UsercartService,
+    private snackBar: MatSnackBar
   ) {}
 }

@@ -349,15 +349,15 @@ nav.categories .dropdownList li button:hover {
   align-items: center;
 
   svg {
-    height: 5rem;
-    padding: 1.5rem;
+    height: 2rem;
+    width: 4rem;
     position: absolute;
     cursor: pointer;
   }
 
   &__icon {
     fill: #060146;
-    left: -1rem;
+    // left: -1rem;
     z-index: 99;
   }
 

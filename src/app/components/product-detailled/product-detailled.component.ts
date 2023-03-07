@@ -1,5 +1,6 @@
 import { NumberSymbol } from '@angular/common';
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
@@ -39,6 +40,7 @@ export class ProductDetailledComponent {
     } else {
       localStorage.setItem('cart', JSON.stringify(newCart));
     }
+    this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK');
   }
 
   fetchData(reference: string | null) {
@@ -76,7 +78,8 @@ export class ProductDetailledComponent {
     private productService: ProductService,
     private orderService: OrdersService,
     private route: ActivatedRoute,
-    private cartService: CartService
+    private cartService: CartService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
