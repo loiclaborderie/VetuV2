@@ -14,33 +14,25 @@ export class AllResultsComponent {
   ) {}
   products: any;
   filterValue!: string;
+  page = 1;
+  pages!: number[];
+  sortBy = 'id';
+  foundResults!: any;
+  limit: any = 36;
 
   filterBy(e: any) {
-    this.filterValue = e.target.value;
-    this.filter(this.filterValue);
+    this.sortBy = e.target.value;
+    console.log(this.sortBy);
+    this.fetchProducts();
   }
 
-  filter(by: string) {
-    switch (by) {
-      case 'desc_price':
-        this.products = this.products.sort((a: any, b: any) => b.prix - a.prix);
-        break;
-      case 'asc_price':
-        this.products = this.products.sort((a: any, b: any) => a.prix - b.prix);
-        break;
-      case 'desc_rate':
-        this.products = this.products.sort((a: any, b: any) => b.note - a.note);
-        break;
-      case 'asc_rate':
-        this.products = this.products.sort((a: any, b: any) => a.note - b.note);
-        break;
-      default:
-        this.products = this.products.sort((a: any, b: any) => a.id - b.id);
-        break;
-    }
+  changePage(newPage: number) {
+    this.page = newPage;
+    this.fetchProducts();
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' }); // scroll to top smoothly
   }
 
-  ngOnInit(): void {
+  fetchProducts() {
     this.route.paramMap.subscribe((params) => {
       const category: string | null = params.get('category');
       const genre: string | null = params.get('genre');
@@ -68,16 +60,30 @@ export class AllResultsComponent {
         console.log('category');
         // this.products = category;
       } else if (term) {
-        this.productService.getProductsBySearchTerm(term).subscribe((data) => {
-          this.products = data;
-          console.log(this.products);
-        });
+        this.productService
+          .getProductsBySearchTerm(term, this.page, this.sortBy)
+          .subscribe((data: any) => {
+            console.log(data);
+            if (!data.results) {
+              this.products = [];
+              console.log('nothing found');
+              return;
+            }
+            this.products = data.results;
+            this.foundResults = data.numberResults;
+            this.limit = data.limit;
+            this.pages = Array.from({ length: data.pages }, (e, i) => i + 1);
+          });
         console.log('category');
         // this.products = category;
       } else {
         console.log('nun');
       }
     });
+  }
+
+  ngOnInit(): void {
+    this.fetchProducts();
   }
   // this.fetchData(reference);
   // console.log('fetching data');

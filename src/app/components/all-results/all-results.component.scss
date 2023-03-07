@@ -18,6 +18,21 @@
     margin: 0;
   }
 }
+.pagination ul {
+  text-align: center;
+  padding-block: 1rem;
+  li {
+    display: inline;
+    margin-inline: 0.5rem;
+    a {
+      color: blue;
+      cursor: pointer;
+    }
+    .selected {
+      color: rgb(9, 9, 9);
+    }
+  }
+}
 
 @media screen and (min-width: 768px) {
   .grid {

@@ -4,7 +4,13 @@
 </div>
 <div *ngIf="products && products.length > 0">
   <div class="space-between">
-    <h2>Résultats trouvés :</h2>
+    <h2>
+      Résultats trouvés : {{ page * limit - limit }}-<span
+        *ngIf="page * limit < foundResults"
+        >{{ page * limit }}</span
+      ><span *ngIf="page * limit > foundResults">{{ foundResults }}</span> sur
+      {{ foundResults }}
+    </h2>
     <select (change)="filterBy($event)" class="filter">
       <option selected value="">Trier par</option>
       <option value="desc_price">Prix - Desc</option>
@@ -18,6 +24,21 @@
       *ngFor="let product of products"
       [product]="product"
     ></app-one-product>
+  </div>
+  <div class="pagination" *ngIf="pages.length > 1">
+    <ul class="pagination-list">
+      <li *ngFor="let pageNumber of pages">
+        <a
+          *ngIf="pageNumber === page"
+          style="pointer-events: none"
+          class="selected"
+          >{{ pageNumber }}</a
+        >
+        <a *ngIf="pageNumber !== page" (click)="changePage(pageNumber)">{{
+          pageNumber
+        }}</a>
+      </li>
+    </ul>
   </div>
 </div>
 <div class="container-small" *ngIf="products && products.length == 0">
