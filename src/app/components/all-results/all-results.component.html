@@ -3,7 +3,16 @@
   <app-loading></app-loading>
 </div>
 <div *ngIf="products && products.length > 0">
-  <h2>Résultats trouvés :</h2>
+  <div class="space-between">
+    <h2>Résultats trouvés :</h2>
+    <select (change)="filterBy($event)" class="filter">
+      <option selected value="">Trier par</option>
+      <option value="desc_price">Prix - Desc</option>
+      <option value="asc_price">Prix - Asc</option>
+      <option value="desc_rate">Notes - Desc</option>
+      <option value="asc_rate">Notes - Asc</option>
+    </select>
+  </div>
   <div class="grid">
     <app-one-product
       *ngFor="let product of products"

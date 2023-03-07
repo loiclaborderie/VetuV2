@@ -13,6 +13,33 @@ export class AllResultsComponent {
     private productService: ProductService
   ) {}
   products: any;
+  filterValue!: string;
+
+  filterBy(e: any) {
+    this.filterValue = e.target.value;
+    this.filter(this.filterValue);
+  }
+
+  filter(by: string) {
+    switch (by) {
+      case 'desc_price':
+        this.products = this.products.sort((a: any, b: any) => b.prix - a.prix);
+        break;
+      case 'asc_price':
+        this.products = this.products.sort((a: any, b: any) => a.prix - b.prix);
+        break;
+      case 'desc_rate':
+        this.products = this.products.sort((a: any, b: any) => b.note - a.note);
+        break;
+      case 'asc_rate':
+        this.products = this.products.sort((a: any, b: any) => a.note - b.note);
+        break;
+      default:
+        this.products = this.products.sort((a: any, b: any) => a.id - b.id);
+        break;
+    }
+  }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const category: string | null = params.get('category');
@@ -26,7 +53,6 @@ export class AllResultsComponent {
             console.log(this.products);
           });
         console.log('genre and category');
-        // this.products = category + genre;
       }
       // else if (genre) {
       //   console.log('genre');
