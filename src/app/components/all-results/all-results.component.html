@@ -4,13 +4,17 @@
 </div>
 <div *ngIf="products && products.length > 0">
   <div class="space-between">
-    <h2>
-      Résultats trouvés : {{ page * limit - limit }}-<span
-        *ngIf="page * limit < foundResults"
-        >{{ page * limit }}</span
-      ><span *ngIf="page * limit > foundResults">{{ foundResults }}</span> sur
-      {{ foundResults }}
-    </h2>
+    <h3 *ngIf="!allProducts">
+      Résultats trouvés :
+      <strong *ngIf="pages"
+        >{{ page * limit - limit }}-<span *ngIf="page * limit < foundResults">{{
+          page * limit
+        }}</span
+        ><span *ngIf="page * limit > foundResults">{{ foundResults }}</span> sur
+        {{ foundResults }}</strong
+      >
+    </h3>
+    <h3 *ngIf="allProducts">Tous les produits</h3>
     <select (change)="filterBy($event)" class="filter">
       <option selected value="">Trier par</option>
       <option value="desc_price">Prix - Desc</option>
@@ -25,8 +29,8 @@
       [product]="product"
     ></app-one-product>
   </div>
-  <div class="pagination" *ngIf="pages.length > 1">
-    <ul class="pagination-list">
+  <div class="pagination" *ngIf="pages">
+    <ul class="pagination-list" *ngIf="pages.length > 1">
       <li *ngFor="let pageNumber of pages">
         <a
           *ngIf="pageNumber === page"

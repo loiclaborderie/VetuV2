@@ -6,7 +6,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AllProductsComponent } from './components/all-products/all-products.component';
 import { OneProductComponent } from './components/one-product/one-product.component';
 import { ProductDetailledComponent } from './components/product-detailled/product-detailled.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,7 +26,6 @@ import { AllResultsComponent } from './components/all-results/all-results.compon
 @NgModule({
   declarations: [
     AppComponent,
-    AllProductsComponent,
     OneProductComponent,
     ProductDetailledComponent,
     LoadingComponent,

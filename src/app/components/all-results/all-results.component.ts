@@ -19,6 +19,7 @@ export class AllResultsComponent {
   sortBy = 'id';
   foundResults!: any;
   limit: any = 36;
+  allProducts: boolean = false;
 
   filterBy(e: any) {
     this.sortBy = e.target.value;
@@ -74,10 +75,15 @@ export class AllResultsComponent {
             this.limit = data.limit;
             this.pages = Array.from({ length: data.pages }, (e, i) => i + 1);
           });
-        console.log('category');
+        console.log('search');
         // this.products = category;
       } else {
-        console.log('nun');
+        console.log('no param');
+        this.productService.getProducts().subscribe((data) => {
+          this.products = data;
+          console.log(data);
+          this.allProducts = true;
+        });
       }
     });
   }

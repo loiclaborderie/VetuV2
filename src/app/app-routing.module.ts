@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AllProductsComponent } from './components/all-products/all-products.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductDetailledComponent } from './components/product-detailled/product-detailled.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -10,7 +9,7 @@ import { alreadyAuthGuard } from './guard/alreadyauth.guard';
 import { AllResultsComponent } from './components/all-results/all-results.component';
 
 const routes: Routes = [
-  { path: 'products', component: AllProductsComponent },
+  { path: 'products', component: AllResultsComponent },
   { path: 'login', component: LoginComponent, canActivate: [alreadyAuthGuard] },
   {
     path: 'signup',
