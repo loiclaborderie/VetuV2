@@ -7,8 +7,10 @@ import { Injectable } from '@angular/core';
 export class ProductService {
   constructor(private http: HttpClient) {}
   apiUrl = 'http://localhost:8000/produits';
-  getProducts() {
-    return this.http.get<any[]>(`${this.apiUrl}/distinct-reference`);
+  getProducts(page: number, sortBy: string) {
+    return this.http.get<any[]>(
+      `${this.apiUrl}/distinct-reference?page=${page}&sortBy=${sortBy}`
+    );
   }
   getProduct(reference: number) {
     return this.http.get<any[]>(`${this.apiUrl}/reference/${reference}`);
@@ -16,12 +18,19 @@ export class ProductService {
   getAllCategories() {
     return this.http.get<any[]>(`${this.apiUrl}/categories`);
   }
-  getProductsByCategory(category: string) {
-    return this.http.get<any[]>(`${this.apiUrl}/categorie/${category}`);
-  }
-  getProductsByCategoryAndGenre(category: string, genre: string) {
+  getProductsByCategory(category: string, page: number, sortBy: string) {
     return this.http.get<any[]>(
-      `${this.apiUrl}/categorie/${category}/${genre}`
+      `${this.apiUrl}/categorie/${category}?page=${page}&sortBy=${sortBy}`
+    );
+  }
+  getProductsByCategoryAndGenre(
+    category: string,
+    genre: string,
+    page: number,
+    sortBy: string
+  ) {
+    return this.http.get<any[]>(
+      `${this.apiUrl}/categorie/${category}/${genre}?page=${page}&sortBy=${sortBy}`
     );
   }
   getProductsBySearchTerm(term: string, page: number, sortBy: string) {

@@ -4,7 +4,7 @@
 </div>
 <div *ngIf="products && products.length > 0">
   <div class="space-between">
-    <h3 *ngIf="!allProducts">
+    <h3>
       Résultats trouvés :
       <strong *ngIf="pages"
         >{{ page * limit - limit }}-<span *ngIf="page * limit < foundResults">{{
@@ -14,7 +14,6 @@
         {{ foundResults }}</strong
       >
     </h3>
-    <h3 *ngIf="allProducts">Tous les produits</h3>
     <select (change)="filterBy($event)" class="filter">
       <option selected value="">Trier par</option>
       <option value="desc_price">Prix - Desc</option>

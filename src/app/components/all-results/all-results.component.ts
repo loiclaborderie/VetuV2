@@ -13,13 +13,11 @@ export class AllResultsComponent {
     private productService: ProductService
   ) {}
   products: any;
-  filterValue!: string;
   page = 1;
   pages!: number[];
   sortBy = 'id';
   foundResults!: any;
   limit: any = 36;
-  allProducts: boolean = false;
 
   filterBy(e: any) {
     this.sortBy = e.target.value;
@@ -33,6 +31,17 @@ export class AllResultsComponent {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' }); // scroll to top smoothly
   }
 
+  handleProductData(data: any) {
+    if (!data.results) {
+      this.products = [];
+      console.log('nothing found');
+      return;
+    }
+    this.products = data.results;
+    this.foundResults = data.numberResults;
+    this.pages = Array.from({ length: data.pages }, (e, i) => i + 1);
+  }
+
   fetchProducts() {
     this.route.paramMap.subscribe((params) => {
       const category: string | null = params.get('category');
@@ -40,10 +49,14 @@ export class AllResultsComponent {
       const term: string | null = params.get('term');
       if (genre && category) {
         this.productService
-          .getProductsByCategoryAndGenre(category, genre)
-          .subscribe((data) => {
-            this.products = data;
-            console.log(this.products);
+          .getProductsByCategoryAndGenre(
+            category,
+            genre,
+            this.page,
+            this.sortBy
+          )
+          .subscribe((data: any) => {
+            this.handleProductData(data);
           });
         console.log('genre and category');
       }
@@ -53,37 +66,25 @@ export class AllResultsComponent {
       // }
       else if (category) {
         this.productService
-          .getProductsByCategory(category)
-          .subscribe((data) => {
-            this.products = data;
-            console.log(this.products);
+          .getProductsByCategory(category, this.page, this.sortBy)
+          .subscribe((data: any) => {
+            this.handleProductData(data);
           });
         console.log('category');
-        // this.products = category;
       } else if (term) {
         this.productService
           .getProductsBySearchTerm(term, this.page, this.sortBy)
           .subscribe((data: any) => {
-            console.log(data);
-            if (!data.results) {
-              this.products = [];
-              console.log('nothing found');
-              return;
-            }
-            this.products = data.results;
-            this.foundResults = data.numberResults;
-            this.limit = data.limit;
-            this.pages = Array.from({ length: data.pages }, (e, i) => i + 1);
+            this.handleProductData(data);
           });
         console.log('search');
-        // this.products = category;
       } else {
         console.log('no param');
-        this.productService.getProducts().subscribe((data) => {
-          this.products = data;
-          console.log(data);
-          this.allProducts = true;
-        });
+        this.productService
+          .getProducts(this.page, this.sortBy)
+          .subscribe((data: any) => {
+            this.handleProductData(data);
+          });
       }
     });
   }
@@ -91,6 +92,4 @@ export class AllResultsComponent {
   ngOnInit(): void {
     this.fetchProducts();
   }
-  // this.fetchData(reference);
-  // console.log('fetching data');
 }
