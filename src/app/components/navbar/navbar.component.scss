@@ -6,11 +6,13 @@ nav {
   z-index: 20;
   width: 100%;
   transition: 0.5s;
+  height: 70px;
 }
+
 h1 {
-  padding-top: 1.5rem;
+  margin: 0;
 }
-h1 a {
+a h1 {
   font-family: "Simsun", Georgia, "Times New Roman", Times, serif;
   text-transform: uppercase;
   cursor: pointer;
@@ -130,7 +132,7 @@ header form .searchbar {
   width: 100%;
   max-width: 600px;
 }
-header input.search {
+header input.search-desktop {
   position: relative;
   padding: 0.5rem;
   border: none;
@@ -140,14 +142,14 @@ header input.search {
   outline: none;
   border-radius: 12px;
 }
-// Tout ça c'est pour enlever la croix par défaut sur la searchbar
-input.search::-ms-clear {
+// Tout ça c'est pour enlever la croix par défaut sur la search-desktopbar
+input.search-desktop::-ms-clear {
   display: none;
 }
-input.search::-webkit-search-cancel-button {
+input.search-desktop::-webkit-search-cancel-button {
   -webkit-appearance: none;
 }
-input.search::-webkit-search-decoration {
+input.search-desktop::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
@@ -159,9 +161,9 @@ header .searchbar i {
   right: 12px;
   top: 5px;
 }
-.icons .search-mobile {
-  display: none;
-}
+// .icons .search-mobile {
+//   display: none;
+// }
 .fa-3x {
   font-size: calc(2em + 0.3vw);
 }
@@ -212,7 +214,7 @@ nav.categories.active::-webkit-scrollbar {
 
 .logo {
   display: flex;
-  gap: 1rem;
+  column-gap: 1rem;
   align-items: center;
 }
 
@@ -332,23 +334,86 @@ nav.categories .dropdownList li button:hover {
   background-size: cover;
   background-repeat: no-repeat;
   opacity: 0;
-  scale: 0.95;
+  scale: 1;
   transition: 0.3s ease-in-out;
 }
 #bg-image.active {
-  scale: 1;
+  scale: 1.05;
   opacity: 0.2;
 }
 
-// .resultBox {
-//   position: absolute;
-//   top: 23px;
-//   left: 0;
-//   right: 0;
-//   list-style-type: none;
-//   border-radius: 0 0 12px 0;
-//   background: #e2e0e0;
-// }
+.search {
+  position: relative;
+  display: none;
+  justify-content: flex-start;
+  align-items: center;
+
+  svg {
+    height: 5rem;
+    padding: 1.5rem;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  &__icon {
+    fill: #060146;
+    left: -1rem;
+    z-index: 99;
+  }
+
+  &__close {
+    right: 0;
+    fill: white;
+    transition: 300ms ease-in;
+  }
+
+  &__delete {
+    fill: #c7ccdb;
+    right: 5rem;
+    display: none;
+  }
+
+  input {
+    border: none;
+    border-radius: 50%;
+    padding: 0.75rem 1.5rem;
+    font-family: inherit;
+    font-size: 2rem;
+    color: #767b91;
+    outline: none;
+    width: 2rem;
+    transition: all 150ms linear;
+
+    &:not(:placeholder-shown) ~ .search__delete {
+      display: block;
+    }
+  }
+  --position: calc(100vw);
+  --positionminus: calc((var(--position) * -1) + 10vw + 4rem);
+  //open state
+  &-open input {
+    position: absolute;
+    z-index: 1000;
+    padding-inline: 15vw;
+    left: var(--positionminus);
+    width: var(--position);
+    // padding: 1.5rem 11rem 1.5rem 6rem;
+    border-radius: 0.2rem;
+    box-shadow: 0 0 10px 5px #e1e5ee;
+  }
+
+  &-open .search__icon {
+    left: var(--positionminus);
+    z-index: 1001;
+  }
+
+  //when content is in text field show delete button
+  &-open svg.search__close {
+    z-index: 1001;
+    fill: #060146;
+    transform: translateX(100px);
+  }
+}
 
 @media screen and (max-width: 1024px) {
 }
@@ -362,7 +427,7 @@ nav.categories .dropdownList li button:hover {
   header form {
     display: none;
   }
-  .icons .search-mobile {
-    display: block;
+  .icons .search {
+    display: flex;
   }
 }

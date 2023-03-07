@@ -56,6 +56,7 @@ export class NavbarComponent {
   menuOpened = false;
   categories: any[] = [];
   scrollEvent: any;
+  clicked = false;
 
   constructor(
     // @Inject(DOCUMENT) private document: Document,
@@ -70,6 +71,35 @@ export class NavbarComponent {
   }
   @ViewChild('headerNav') headerNav!: ElementRef;
   @ViewChildren('dropdownContainer') dropdownContainers!: QueryList<ElementRef>;
+
+  click() {
+    if (this.clicked) {
+      let search = document.querySelector(
+        'input.search__input'
+      ) as HTMLInputElement;
+      console.log(search.value);
+      if (search.value) {
+        if (search.value.length > 2) {
+          this.router.navigate(['/products/search/' + search.value]);
+          search.value = '';
+          this.clicked = false;
+        } else {
+          console.log('la requete est trop courte');
+        }
+      }
+    } else {
+      this.clicked = true;
+      console.log('clicked');
+    }
+  }
+  unclick() {
+    let searchInput = document.querySelector(
+      '.search__input'
+    ) as HTMLInputElement;
+    searchInput.value = '';
+    this.clicked = false;
+    console.log('unclicked');
+  }
 
   toggleDropdown(i: number) {
     const dropdownContainer =

@@ -4,11 +4,11 @@
       <h1>{{ data[0].titre }}</h1>
       <p>{{ data[0].description }}</p>
       <p>{{ data[0].prix }}€</p>
-      <div class="cta">
+      <div class="cta" [formGroup]="form">
         <div class="color-picker">
           <select
+            formControlName="size"
             class="select"
-            data-default="Choisir une taille"
             (change)="selectSize()"
             name="choseSize"
           >
@@ -29,7 +29,7 @@
           </select>
         </div>
         <button
-          [disabled]="!selectedSize"
+          [disabled]="form.invalid"
           (click)="addToCart()"
           type="submit"
           class="buy-cart"

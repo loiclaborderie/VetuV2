@@ -1,4 +1,12 @@
 import { Component, ElementRef, Input, ViewEncapsulation } from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
@@ -15,16 +23,33 @@ export class ModalComponent {
   isOpen = false;
   private element: any;
   data: any;
-  selectedSize = '';
+  form: FormGroup;
+  selectedSize!: string;
 
   constructor(
     private modalService: ModalService,
     private el: ElementRef,
     private productService: ProductService,
     private cartService: CartService,
-    private orderService: OrdersService
+    private orderService: OrdersService,
+    private snackBar: MatSnackBar,
+    private fb: FormBuilder
   ) {
     this.element = el.nativeElement;
+    this.form = this.fb.group({
+      size: [
+        'Choisir une taille',
+        [Validators.required, this.notNullValidator],
+      ],
+    });
+    // this.form.get('size')?.patchValue('Choisir une taille');
+  }
+
+  notNullValidator(control: AbstractControl) {
+    if (control.value === null || control.value === 'Choisir une taille') {
+      return { notNull: true };
+    }
+    return null;
   }
 
   ngOnInit() {
@@ -43,17 +68,12 @@ export class ModalComponent {
   }
 
   selectSize() {
-    console.log(this.data);
-    let select = document.querySelector('select.select') as HTMLSelectElement;
-    console.log(select, select.value);
-    this.selectedSize = select.value;
-    console.log(this.selectedSize);
-    // console.log(this.data[this.selectedSize].id);
+    console.log(this.form.value.size);
   }
 
   addToCart() {
-    let select = document.querySelector('select.select') as HTMLSelectElement;
-    const productData = this.data[+this.selectedSize];
+    const productData = this.data[+this.form.value.size];
+    console.log(productData);
     this.cartService.addCartItem(productData);
     let newCart = this.cartService.getCartItems();
 
@@ -70,9 +90,9 @@ export class ModalComponent {
       localStorage.setItem('cart', JSON.stringify(newCart));
       console.log('added to localstorage');
     }
-    this.selectedSize = '';
-    select.value = select.getAttribute('data-default') || "''";
+    // this.selectedSize = false;
     this.close();
+    this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK');
   }
 
   ngOnDestroy() {
@@ -91,7 +111,6 @@ export class ModalComponent {
         console.log(data);
       });
     }
-    this.element.style.display = 'block';
     this.element.style.display = 'block';
     console.log(this.element);
     document.body.classList.add('jw-modal-open');
