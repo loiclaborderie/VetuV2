@@ -1,5 +1,46 @@
-<div class="container" *ngIf="totalPrice">
+<div class="container" *ngIf="totalPrice && user">
   <div class="recap">
+    <h3>Votre adresse de livraison :</h3>
+    <p>{{ user.adresse }}, {{ user.codePostal }} {{ user.ville }}</p>
+    <h3>A destination de :</h3>
+    <p>{{ user.prenom }} {{ user.nom.toUpperCase() }}</p>
     <h3>Montant total de votre commande : {{ totalPrice }}€</h3>
+    <h3>Sélectionner un moyen de paiement :</h3>
+    <div class="payment">
+      <div class="payment-method">
+        <input
+          (click)="authorizePayment = true"
+          type="radio"
+          name="payment"
+          id="visa"
+          value="visa"
+        />
+        <label for="visa">Visa</label>
+      </div>
+      <div class="payment-method">
+        <input
+          (click)="authorizePayment = true"
+          type="radio"
+          name="payment"
+          id="amex"
+          value="amex"
+        />
+        <label for="amex">Amercian Express</label>
+      </div>
+      <div class="payment-method">
+        <input
+          (click)="authorizePayment = true"
+          type="radio"
+          name="payment"
+          id="paypal"
+          value="paypal"
+        />
+        <label for="paypal">Paypal</label>
+      </div>
+    </div>
+    <p>Ce n'est qu'un projet, vous ne pouvez pas vraiment payer.</p>
+    <button (click)="passOrder()" [disabled]="!authorizePayment">
+      Valider le paiement
+    </button>
   </div>
 </div>

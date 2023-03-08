@@ -146,6 +146,14 @@ export class CartComponent {
               );
             }
           });
+      } else if (localStorage.getItem('cart')) {
+        this.cartItems = JSON.parse(localStorage.getItem('cart')!);
+        if (this.cartItems) {
+          this.totalPrice = this.cartItems.reduce(
+            (acc, item) => acc + item.prix * item.quantite,
+            0
+          );
+        }
       }
     }
   }
