@@ -28,7 +28,18 @@ export class TabOrdersComponent {
       let items = JSON.parse(localStorage.getItem('cart') || '[]');
       items.map((item: any) => {
         console.log(item);
-        this.orderService.addProductToDb(item).subscribe();
+        this.orderService.addProductToDb(item).subscribe((data: any) => {
+          if (data[1] === 200) {
+            item.stock--;
+            console.log(item.stock);
+          } else {
+            this.snackBar.open(
+              `${data[0] || "Un stock n'est plus disponible"}`,
+              'OK'
+            );
+          }
+          console.log(data);
+        });
       });
       console.log('fini');
       localStorage.removeItem('cart');

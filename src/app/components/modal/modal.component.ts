@@ -73,26 +73,41 @@ export class ModalComponent {
   addToCart() {
     const productData = this.data[+this.form.value.size];
     console.log(productData);
-    this.cartService.addCartItem(productData);
-    let newCart = this.cartService.getCartItems();
-
     if (localStorage.getItem('user')) {
       // On n'utilise plus le localStorage si l'utilisateur est co
       const content = {
         id: productData.id,
         quantite: 1,
       };
-      this.orderService.addProductToDb(content).subscribe((data) => {
-        console.log('added to db from localstorage');
-        console.log(data);
-      });
+      this.orderService
+        .addProductToDb(content)
+        .subscribe((dataFetched: any) => {
+          console.log('added to db from localstorage');
+          console.log(dataFetched);
+          if (dataFetched[1] === 200) {
+            this.cartService.addCartItem(productData);
+            this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK');
+            this.close();
+            productData.stock--;
+            console.log(productData.stock);
+          } else {
+            this.close();
+            this.snackBar.open(
+              `${dataFetched[0] || "erreur lors de l'ajout au panier"}`,
+              'OK'
+            );
+          }
+        });
     } else {
+      this.cartService.addCartItem(productData);
+      let newCart = this.cartService.getCartItems();
       localStorage.setItem('cart', JSON.stringify(newCart));
       console.log('added to localstorage');
+      productData.stock--;
+      this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK');
+      this.close();
     }
     // this.selectedSize = false;
-    this.close();
-    this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK');
   }
 
   ngOnDestroy() {

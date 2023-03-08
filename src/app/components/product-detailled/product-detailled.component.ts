@@ -34,13 +34,27 @@ export class ProductDetailledComponent {
         id: productData.id,
         quantite: 1,
       };
-      this.orderService.addProductToDb(content).subscribe((data) => {
+      this.orderService.addProductToDb(content).subscribe((data: any) => {
+        if (data[1] === 200) {
+          this.cartService.addCartItem(productData);
+          this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK');
+          productData.stock--;
+          console.log(productData.stock);
+        } else {
+          this.snackBar.open(
+            `${data[0] || "erreur lors de l'ajout au panier"}`,
+            'OK'
+          );
+        }
         console.log(data);
       });
     } else {
+      this.cartService.addCartItem(productData);
+      let newCart = this.cartService.getCartItems();
       localStorage.setItem('cart', JSON.stringify(newCart));
+      productData.stock--;
+      this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK');
     }
-    this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK');
   }
 
   fetchData(reference: string | null) {
