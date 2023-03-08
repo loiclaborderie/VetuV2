@@ -16,11 +16,13 @@ nav a {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #4f4f4f3a;
+  h1 {
+    text-transform: capitalize;
+    font-size: clamp(1rem, 3vw, 30px);
+    margin: 0;
+  }
 }
-h1 {
-  text-transform: capitalize;
-  font-size: clamp(1rem, 3vw, 30px);
-}
+
 button.sign-out {
   font-size: clamp(0.85rem, 2.3vw, 20px);
   background: #a59a20b3;
