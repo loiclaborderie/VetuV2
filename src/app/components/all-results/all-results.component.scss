@@ -18,19 +18,36 @@
     margin: 0;
   }
 }
+.pagination {
+  margin-bottom: 2rem;
+}
 .pagination ul {
+  display: block;
   text-align: center;
-  padding-block: 1rem;
+  margin: 2rem auto;
+  padding-block: 0.3rem;
+  width: min(300px, 80%);
+  border-radius: 25px;
+  background: rgba(0, 0, 0, 0.05);
+  transition: 0.3s ease-in-out;
   li {
     display: inline;
-    margin-inline: 0.5rem;
+    margin-inline: clamp(0.5rem, 1vw, 0.7rem);
     a {
-      color: blue;
+      color: hsl(240, 89%, 21%);
       cursor: pointer;
+      font-weight: 700;
+      font-size: clamp(1rem, 1.7vw, 1.2rem);
+      &:hover {
+        color: hsl(240, 89%, 41%);
+      }
     }
     .selected {
-      color: rgb(9, 9, 9);
+      color: rgb(35, 34, 34);
     }
+  }
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
   }
 }
 

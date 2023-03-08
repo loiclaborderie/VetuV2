@@ -22,7 +22,7 @@ export class OrdersService {
     );
   }
 
-  addLocalCartItemToDb(item: any) {
+  addProductToDb(item: any) {
     const content = {
       id_produit: item.id,
       quantite: item.quantite,

@@ -28,7 +28,7 @@ export class TabOrdersComponent {
       let items = JSON.parse(localStorage.getItem('cart') || '[]');
       items.map((item: any) => {
         console.log(item);
-        this.orderService.addLocalCartItemToDb(item).subscribe();
+        this.orderService.addProductToDb(item).subscribe();
       });
       console.log('fini');
       localStorage.removeItem('cart');

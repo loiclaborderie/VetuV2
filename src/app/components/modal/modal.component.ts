@@ -42,7 +42,6 @@ export class ModalComponent {
         [Validators.required, this.notNullValidator],
       ],
     });
-    // this.form.get('size')?.patchValue('Choisir une taille');
   }
 
   notNullValidator(control: AbstractControl) {
@@ -83,7 +82,8 @@ export class ModalComponent {
         id: productData.id,
         quantite: 1,
       };
-      this.orderService.addLocalCartItemToDb(content).subscribe((data) => {
+      this.orderService.addProductToDb(content).subscribe((data) => {
+        console.log('added to db from localstorage');
         console.log(data);
       });
     } else {

@@ -10,8 +10,8 @@
         >{{ page * limit - limit }}-<span *ngIf="page * limit < foundResults">{{
           page * limit
         }}</span
-        ><span *ngIf="page * limit > foundResults">{{ foundResults }}</span> sur
-        {{ foundResults }}</strong
+        ><span *ngIf="page * limit >= foundResults">{{ foundResults }}</span>
+        sur {{ foundResults }}</strong
       >
     </h3>
     <select (change)="filterBy($event)" class="filter">

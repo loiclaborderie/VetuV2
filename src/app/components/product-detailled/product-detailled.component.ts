@@ -34,7 +34,7 @@ export class ProductDetailledComponent {
         id: productData.id,
         quantite: 1,
       };
-      this.orderService.addLocalCartItemToDb(content).subscribe((data) => {
+      this.orderService.addProductToDb(content).subscribe((data) => {
         console.log(data);
       });
     } else {

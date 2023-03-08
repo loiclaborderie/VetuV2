@@ -129,7 +129,9 @@ export class NavbarComponent {
   }
 
   test() {
-    let search = document.querySelector('input.search') as HTMLInputElement;
+    let search = document.querySelector(
+      'input.search-desktop'
+    ) as HTMLInputElement;
     console.log(search.value);
     if (search.value) {
       if (search.value.length > 2) {
