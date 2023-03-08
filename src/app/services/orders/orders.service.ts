@@ -22,6 +22,13 @@ export class OrdersService {
     );
   }
 
+  changeProductQuantityInOrder(item: any) {
+    return this.http.patch(
+      `http://127.0.0.1:8000/detailcommande/change/${this.orderId}`,
+      item
+    );
+  }
+
   addProductToDb(item: any) {
     const content = {
       id_produit: item.id,
