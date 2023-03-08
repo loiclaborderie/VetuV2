@@ -50,4 +50,15 @@
   >
     DELETE
   </button>
+  <button
+    *ngIf="cartItems.length > 0"
+    style="
+      padding: 1rem 2rem;
+      background-color: rgb(17, 130, 174);
+      color: #f3f3f3;
+    "
+    routerLink="/finalize-order"
+  >
+    Passer la commande
+  </button>
 </div>

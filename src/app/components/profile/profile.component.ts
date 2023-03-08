@@ -32,10 +32,6 @@ export class ProfileComponent {
       this.orderService.orderId = null;
       this.auth.hasntConnectedYet = true;
       this.userCartService.dataLoaded = false;
-      // let cartItems = this.cartService.getCartItems();
-      // if (cartItems.length > 0) {
-      // localStorage.setItem('cart', JSON.stringify(cartItems));
-      // }
       this.router.navigate(['/login']);
       this.snackBar.open(`Vous avez été déconnecté`, 'OK');
     }

@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { alreadyAuthGuard } from './guard/alreadyauth.guard';
 import { AllResultsComponent } from './components/all-results/all-results.component';
+import { FinalizeOrderComponent } from './components/finalize-order/finalize-order.component';
 
 const routes: Routes = [
   { path: 'products', component: AllResultsComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   },
   { path: 'cart', component: CartComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'finalize-order', component: FinalizeOrderComponent },
   { path: 'products/:reference', component: ProductDetailledComponent },
   { path: 'products/categorie/:category', component: AllResultsComponent },
   { path: 'products/search/:term', component: AllResultsComponent },

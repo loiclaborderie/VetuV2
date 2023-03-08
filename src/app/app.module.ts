@@ -26,6 +26,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { PasswordModalComponent } from './components/password-modal/password-modal.component';
 import { AllResultsComponent } from './components/all-results/all-results.component';
+import { FinalizeOrderComponent } from './components/finalize-order/finalize-order.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { AllResultsComponent } from './components/all-results/all-results.compon
     ModalComponent,
     PasswordModalComponent,
     AllResultsComponent,
+    FinalizeOrderComponent,
   ],
   imports: [
     BrowserModule,
