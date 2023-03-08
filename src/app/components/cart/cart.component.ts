@@ -10,7 +10,7 @@ import { UsercartService } from 'src/app/services/usercart/usercart.service';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent {
-  cartItems: any[] = [];
+  cartItems!: any[] | undefined;
   totalPrice!: number;
 
   constructor(
@@ -41,21 +41,40 @@ export class CartComponent {
   }
 
   ngOnInit(): void {
-    this.cartItems = this.cartService.getCartItems();
-    if (this.cartItems) {
-      this.totalPrice = this.cartItems.reduce(
-        (acc, item) => acc + item.prix * item.quantite,
-        0
-      );
-    }
-
-    if (this.orderService.orderId) {
-      localStorage.setItem(
-        'orderId',
-        JSON.stringify(this.orderService.orderId)
-      );
-      this.cartService.loadCartItemsFromDb();
+    console.log(this.cartItems);
+    if (this.cartService.cartFetched) {
+      console.log('déjà loadé de la db');
       this.cartItems = this.cartService.getCartItems();
+      console.log(this.cartItems);
+      if (this.cartItems) {
+        this.totalPrice = this.cartItems.reduce(
+          (acc, item) => acc + item.prix * item.quantite,
+          0
+        );
+      }
+    } else {
+      if (this.orderService.orderId) {
+        console.log('load de la db');
+        localStorage.setItem(
+          'orderId',
+          JSON.stringify(this.orderService.orderId)
+        );
+        this.cartService
+          .loadCartItemsFromDbObservable()
+          .subscribe((data: any) => {
+            console.log(data);
+            this.cartItems = data;
+            this.cartService.setCartItems(this.cartItems);
+            console.log(this.cartItems);
+            this.cartService.cartFetched = true;
+            if (this.cartItems) {
+              this.totalPrice = this.cartItems.reduce(
+                (acc, item) => acc + item.prix * item.quantite,
+                0
+              );
+            }
+          });
+      }
     }
 
     //On va regarder si on a un utilisateur connecté pour pouvoir aller récuperer son panier

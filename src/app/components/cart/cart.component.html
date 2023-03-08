@@ -1,9 +1,9 @@
 <h2>Panier</h2>
-<div *ngIf="cartItems.length === 0">
+<div *ngIf="cartItems && cartItems.length === 0">
   <p>Votre panier est vide pour le moment ;)</p>
 </div>
 
-<div class="cart" *ngIf="cartItems.length > 0">
+<div class="cart" *ngIf="cartItems && cartItems.length > 0">
   <h4>{{ totalPrice }}€</h4>
   <ul>
     <li *ngFor="let cartItem of cartItems">
@@ -12,12 +12,12 @@
       }}
     </li>
   </ul>
+  <button (click)="console()">CONSOLE</button>
+  <button
+    *ngIf="cartItems.length > 0"
+    style="padding: 1rem 2rem; background-color: crimson; color: #f3f3f3"
+    (click)="deleteOrder()"
+  >
+    DELETE
+  </button>
 </div>
-<button (click)="console()">CONSOLE</button>
-<button
-  *ngIf="cartItems.length > 0"
-  style="padding: 1rem 2rem; background-color: crimson; color: #f3f3f3"
-  (click)="deleteOrder()"
->
-  DELETE
-</button>

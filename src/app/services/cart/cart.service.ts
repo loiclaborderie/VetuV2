@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UsercartService } from '../usercart/usercart.service';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,7 @@ import { UsercartService } from '../usercart/usercart.service';
 export class CartService {
   cartItems: any[] = [];
   loggedUserCart: any[] = [];
+  cartFetched = false;
 
   addCartItem(cartItem: any) {
     const existingItem = this.cartItems.find((item) => item.id === cartItem.id);
@@ -23,10 +25,14 @@ export class CartService {
   resetCartItems() {
     this.cartItems = [];
   }
-
   getCartItems() {
     return this.cartItems;
   }
+
+  setCartItems(items: any) {
+    return (this.cartItems = items);
+  }
+
   getCountItems() {
     return this.cartItems.reduce((total, item) => total + item.quantite, 0);
   }
@@ -58,13 +64,28 @@ export class CartService {
 
   loadCartItemsFromDb() {
     if (localStorage.getItem('orderId') && !this.userCartService.dataLoaded) {
+      console.log('On rentre après le délai');
       let commandeId = JSON.parse(localStorage.getItem('orderId') || '[]');
       this.userCartService.dataLoaded = true;
       console.log(commandeId);
       this.getProductsFromCommandeId(commandeId).subscribe((data: any) => {
         this.cartItems = data;
         console.log(this.cartItems);
+        return data;
       });
+    }
+  }
+
+  loadCartItemsFromDbObservable() {
+    console.log(this.userCartService.dataLoaded);
+    if (localStorage.getItem('orderId') && !this.userCartService.dataLoaded) {
+      let commandeId = JSON.parse(localStorage.getItem('orderId') || '[]');
+      console.log('ALERTE CA MARCHE');
+      this.userCartService.dataLoaded = true;
+      console.log(commandeId);
+      return this.getProductsFromCommandeId(commandeId);
+    } else {
+      return of(this.cartItems);
     }
   }
 
@@ -74,6 +95,10 @@ export class CartService {
   ) {
     this.loadCartItemsFromLocalStorage();
     // rajouter la méthode loadCartItemsFromDb pour aller fetch toutes les commandes et visualiser le nombres d'objets dans le panier au launch
-    this.loadCartItemsFromDb();
+    setTimeout(() => {
+      console.log('delayed');
+      this.loadCartItemsFromDb();
+    }, 0);
   }
+  //On met ici un délai minimum pour l'éventualité où l'utilisateur va load la page directement dans le panier, comme ça il utilise une autre méthode qui va set this.userCartService.dataLoaded en true
 }
