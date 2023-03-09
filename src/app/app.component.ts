@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CartComponent } from './components/cart/cart.component';
 import { FinalizeOrderComponent } from './components/finalize-order/finalize-order.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class AppComponent {
     this.showNavbar = !(
       component instanceof ProfileComponent ||
       component instanceof CartComponent ||
+      component instanceof SignupComponent ||
       component instanceof FinalizeOrderComponent
     );
   }

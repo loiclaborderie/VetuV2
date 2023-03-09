@@ -28,6 +28,8 @@ import { ModalComponent } from './components/modal/modal.component';
 import { PasswordModalComponent } from './components/password-modal/password-modal.component';
 import { AllResultsComponent } from './components/all-results/all-results.component';
 import { FinalizeOrderComponent } from './components/finalize-order/finalize-order.component';
+import { LoopPipe } from './pipes/loop.pipe';
+import { ProductComponent } from './components/placeholders/product/product.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { FinalizeOrderComponent } from './components/finalize-order/finalize-ord
     PasswordModalComponent,
     AllResultsComponent,
     FinalizeOrderComponent,
+    LoopPipe,
+    ProductComponent,
   ],
   imports: [
     BrowserModule,

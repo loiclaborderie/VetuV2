@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatStepper } from '@angular/material/stepper';
 import {
   FormBuilder,
   Validators,
   FormGroup,
   AbstractControl,
 } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { TokenService } from 'src/app/services/token/token.service';
 import { Token } from 'src/app/_interfaces/token';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-signup',
@@ -16,8 +19,9 @@ import { Token } from 'src/app/_interfaces/token';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent {
-  submitted = false;
-  submittedGood = false;
+  submit1 = false;
+  submit2 = false;
+  submit3 = false;
   errorMsg: string = '';
   userForm!: FormGroup;
   alertMsg: any = '';
@@ -27,8 +31,16 @@ export class SignupComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private location: Location
   ) {}
+
+  @ViewChild('stepper') stepper!: MatStepper;
+
+  goBack() {
+    this.location.back();
+  }
 
   passwordPatternValidator(
     control: AbstractControl
@@ -63,14 +75,6 @@ export class SignupComponent {
     return null;
   }
 
-  testSubmit() {
-    if (this.userForm.valid) {
-      console.log(this.userForm.value);
-    } else {
-      alert('ERREUR CRITIQUE');
-    }
-  }
-
   ngOnInit() {
     this.userForm = this.fb.group({
       basic: this.fb.group({
@@ -96,7 +100,7 @@ export class SignupComponent {
           '',
           [
             Validators.required,
-            Validators.pattern(/^[\d\w\s-,'àâçéèêëîïôûùüÿñ]{20,150}$/),
+            Validators.pattern(/^[\d\w\s-,'àâçéèêëîïôûùüÿñ]{12,150}$/),
           ],
         ],
         ville: ['', [Validators.required, Validators.minLength(2)]],
@@ -105,60 +109,54 @@ export class SignupComponent {
     });
   }
 
-  onSubmit(): void {
-    this.submitted = true;
-    this.submittedGood = true;
+  submit() {
     if (this.userForm.valid) {
-      alert('le form est valide');
-      console.log(JSON.stringify(this.userForm.value));
-      const email = this.userForm.value.email;
-      const password = this.userForm.value.password;
-      this.authService.register(this.userForm.value).subscribe(
+      console.log(this.userForm.value);
+      let forms = this.userForm.value;
+      let finalForm = Object.assign(
+        {},
+        forms.basic,
+        forms.contact,
+        forms.address
+      );
+      const email = finalForm.email;
+      const password = finalForm.password;
+      console.log(finalForm, email, password);
+      this.authService.register(finalForm).subscribe(
         (data: any) => {
           if (data.status === false) {
-            this.errorMsg = data.message;
-            this.submittedGood = false;
-            this.submitted = false;
+            this.snackBar.open(data.message, 'Fermer');
+            this.stepper.selectedIndex = 0;
+            this.basicForm.get('email')!.reset();
+            this.basicForm.get('email')!.setErrors({ already: true });
             return;
           }
           console.log(data);
-          console.log('Votre inscription est un succès');
-          this.submittedGood = true;
-          this.submitted = false;
-          console.log('Vous allez normalement être rédirigé');
+          this.snackBar.open('Vous avez été inscrit avec succés', 'Fermer');
           this.authService.login(email, password).subscribe(
             (data: Token) => {
-              console.log('Vous êtes connecté');
               localStorage.setItem('user', JSON.stringify(data.userId));
               this.tokenService.saveToken(data.token);
               this.router.navigate(['/profile']);
             },
             (err: any) => {
-              console.log('Il y a eu une erreur lors de votre connexion');
-              this.submittedGood = false;
-              this.submitted = false;
-              console.log(err);
+              this.snackBar.open('Erreur lors de votre connexion', 'Fermer');
             }
           );
         },
         (err: any) => {
-          console.log('Il y a eu une erreur lors de votre inscription');
-          this.submittedGood = false;
-          this.submitted = false;
-          this.errorMsg = 'Il y a eu une erreur lors de votre inscription';
+          this.snackBar.open('Erreur lors de votre inscription', 'Fermer');
         }
       );
-      // Ca va servir à ensuite se connecter et puis à le rediriger vers son profil
     } else {
-      console.log('Form is invalid');
-      this.submittedGood = false;
+      this.submit3 = true;
+      alert('ERREUR CRITIQUE');
     }
   }
 
   get form() {
     return this.userForm.controls;
   }
-
   get basicForm() {
     return this.userForm.get('basic') as FormGroup;
   }
