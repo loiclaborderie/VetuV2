@@ -1,4 +1,9 @@
 <div class="container" *ngIf="totalPrice && user">
+  <nav>
+    <a (click)="goBack()"
+      ><i class="fa-solid fa-arrow-left fa-xl"></i> Retour
+    </a>
+  </nav>
   <div class="recap">
     <h3>Votre adresse de livraison :</h3>
     <p>{{ user.adresse }}, {{ user.codePostal }} {{ user.ville }}</p>

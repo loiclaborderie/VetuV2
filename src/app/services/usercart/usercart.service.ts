@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UsercartService {
-  public userCartFetched = false;
+  public cartFetched = false;
   public dataLoaded = false;
   constructor() {}
 }

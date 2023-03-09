@@ -106,17 +106,34 @@ export class CartComponent {
   }
 
   ngOnInit(): void {
-    if (this.cartService.cartFetched) {
-      console.log('déjà loadé de la db');
+    // if (this.userCartService.cartFetched) {
+    //   console.log('déjà loadé de la db');
+    //   this.cartService
+    //     .loadCartItemsFromDbObservable()
+    //     .subscribe((data: any) => {
+    //       console.log('BIZARREMENT ICI CA MARCHE PAS');
+    //       this.cartItems = data;
+    //       this.cartService.setCartItems(this.cartItems);
+    //       console.log(data);
+    //       console.log(this.cartItems);
+    //       if (this.cartItems) {
+    //         this.totalPrice = this.cartItems.reduce(
+    //           (acc, item) => acc + item.prix * item.quantite,
+    //           0
+    //         );
+    //       }
+    //     });
+    // } else {
+    if (this.orderService.orderId) {
+      localStorage.setItem(
+        'orderId',
+        JSON.stringify(this.orderService.orderId)
+      );
       this.cartService
         .loadCartItemsFromDbObservable()
         .subscribe((data: any) => {
-          console.log('BIZARREMENT ICI CA MARCHE PAS');
           this.cartItems = data;
           this.cartService.setCartItems(this.cartItems);
-          console.log(data);
-          // this.cartItems = this.cartService.getCartItems();
-          console.log(this.cartItems);
           if (this.cartItems) {
             this.totalPrice = this.cartItems.reduce(
               (acc, item) => acc + item.prix * item.quantite,
@@ -124,37 +141,17 @@ export class CartComponent {
             );
           }
         });
-    } else {
-      if (this.orderService.orderId) {
-        console.log('load de la db');
-        localStorage.setItem(
-          'orderId',
-          JSON.stringify(this.orderService.orderId)
+    } else if (localStorage.getItem('cart')) {
+      this.cartItems = JSON.parse(localStorage.getItem('cart')!);
+      if (this.cartItems) {
+        this.totalPrice = this.cartItems.reduce(
+          (acc, item) => acc + item.prix * item.quantite,
+          0
         );
-        this.cartService
-          .loadCartItemsFromDbObservable()
-          .subscribe((data: any) => {
-            this.cartItems = data;
-            console.log('BIZARREMENT ICI CA MARCHE');
-            this.cartService.setCartItems(this.cartItems);
-            console.log(this.cartItems);
-            this.cartService.cartFetched = true;
-            if (this.cartItems) {
-              this.totalPrice = this.cartItems.reduce(
-                (acc, item) => acc + item.prix * item.quantite,
-                0
-              );
-            }
-          });
-      } else if (localStorage.getItem('cart')) {
-        this.cartItems = JSON.parse(localStorage.getItem('cart')!);
-        if (this.cartItems) {
-          this.totalPrice = this.cartItems.reduce(
-            (acc, item) => acc + item.prix * item.quantite,
-            0
-          );
-        }
       }
+    } else {
+      this.cartItems = this.cartService.getCartItems();
     }
+    // }
   }
 }

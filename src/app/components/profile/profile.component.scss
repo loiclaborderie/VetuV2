@@ -5,6 +5,9 @@ nav a {
   color: rgb(23, 23, 23);
   padding-top: clamp(1rem, 3vh, 50px);
   margin-left: clamp(1rem, 5vw, 50px);
+  i {
+    padding-right: 0.3rem;
+  }
 }
 
 .header-profile {
@@ -35,8 +38,4 @@ button.sign-out {
 }
 button.sign-out:hover {
   background: #dea807;
-}
-
-a i {
-  padding-right: 0.3rem;
 }

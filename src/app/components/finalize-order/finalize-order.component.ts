@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart/cart.service';
+import { OrdersService } from 'src/app/services/orders/orders.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -15,8 +17,29 @@ export class FinalizeOrderComponent {
   user!: any;
   authorizePayment = false;
 
+  goBack() {
+    this.location.back();
+  }
+
   passOrder() {
-    alert('finished');
+    this.orderService.validateOrder().subscribe((data: any) => {
+      if (data[1] === 200) {
+        console.log(data);
+        this.cartService.resetCartItems();
+        this.orderService
+          .createOrder(Number(localStorage.getItem('user')))
+          .subscribe((data: any) => {
+            this.orderService.orderId = data.created;
+            localStorage.setItem('orderId', data.created);
+            this.cartService.loadCartItemsFromDb();
+          });
+        this.orderService.loadPastCommandes = false;
+        this.snackBar.open('Votre commande a été validée ', '✅');
+        this.router.navigate(['/cart']);
+      } else {
+        this.snackBar.open('Une erreur est survenue', '❌');
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -46,6 +69,8 @@ export class FinalizeOrderComponent {
     private cartService: CartService,
     private router: Router,
     private userService: UserService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private orderService: OrdersService,
+    private location: Location
   ) {}
 }

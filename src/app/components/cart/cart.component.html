@@ -1,9 +1,21 @@
-<h2>Panier</h2>
 <div *ngIf="cartItems && cartItems.length === 0">
+  <nav>
+    <a routerLink="/"
+      ><i class="fa-solid fa-arrow-left fa-xl"></i> Retour au menu</a
+    >
+  </nav>
+  <h2>Panier</h2>
   <p>Votre panier est vide pour le moment ;)</p>
 </div>
 
 <div class="cart" *ngIf="cartItems && cartItems.length > 0">
+  <nav>
+    <a routerLink="/"
+      ><i class="fa-solid fa-arrow-left fa-xl"></i> Retour au menu</a
+    >
+  </nav>
+  <h2>Panier</h2>
+
   <h4>{{ totalPrice }}€</h4>
   <ul>
     <div *ngFor="let cartItem of cartItems; let i = index">
@@ -29,14 +41,14 @@
       </select>
 
       <input
-        [hidden]="!showNumberInput[i] && cartItem.quantite < 9"
+        [hidden]="!showNumberInput[i] || cartItem.quantite < 9"
         type="number"
         value="{{ cartItem.quantite }}"
         (change)="quantity($event, i)"
         name="{{ cartItem.id }}"
       />
 
-      <button [hidden]="showNumberInput[i] && cartItem.quantite < 9">
+      <button [hidden]="!showNumberInput[i] || cartItem.quantite < 9">
         Update
       </button>
       <!-- Le bouton est là pour faire joli, ça update peu importe ou on clique -->

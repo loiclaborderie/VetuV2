@@ -7,6 +7,12 @@ import { Injectable } from '@angular/core';
 export class OrdersService {
   baseUrl = 'http://127.0.0.1:8000/commande';
   public orderId: number | null = null;
+  loadPastCommandes = false;
+  pastOrders: any[] = [];
+
+  getPastOrders() {
+    return this.pastOrders;
+  }
 
   createOrder(id: number) {
     return this.http.post(`${this.baseUrl}/create/${id}`, null);
@@ -39,6 +45,10 @@ export class OrdersService {
       `http://127.0.0.1:8000/detailcommande/add/${this.orderId}`,
       JSON.stringify(content)
     );
+  }
+
+  validateOrder() {
+    return this.http.get(`${this.baseUrl}/finish/${this.orderId}`);
   }
 
   deleteCurrentOrder() {

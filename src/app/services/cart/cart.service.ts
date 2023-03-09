@@ -77,12 +77,8 @@ export class CartService {
   }
 
   loadCartItemsFromDbObservable() {
-    console.log(this.userCartService.dataLoaded);
-    if (localStorage.getItem('orderId') && !this.userCartService.dataLoaded) {
+    if (localStorage.getItem('orderId')) {
       let commandeId = JSON.parse(localStorage.getItem('orderId') || '[]');
-      console.log('ALERTE CA MARCHE');
-      this.userCartService.dataLoaded = true;
-      console.log(commandeId);
       return this.getProductsFromCommandeId(commandeId);
     } else {
       return of(this.cartItems);
