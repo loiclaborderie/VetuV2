@@ -7,6 +7,7 @@ import {
   MatSnackBarModule,
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar';
+import {MatStepperModule} from '@angular/material/stepper';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -56,6 +57,7 @@ import { FinalizeOrderComponent } from './components/finalize-order/finalize-ord
     ReactiveFormsModule,
     MatTabsModule,
     MatSnackBarModule,
+    MatStepperModule
   ],
   providers: [
     {

@@ -21,6 +21,7 @@ export class SignupComponent {
   errorMsg: string = '';
   userForm!: FormGroup;
   alertMsg: any = '';
+  isLinear = true;
 
   constructor(
     private fb: FormBuilder,
@@ -62,31 +63,45 @@ export class SignupComponent {
     return null;
   }
 
+  testSubmit() {
+    if (this.userForm.valid) {
+      console.log(this.userForm.value);
+    } else {
+      alert('ERREUR CRITIQUE');
+    }
+  }
+
   ngOnInit() {
     this.userForm = this.fb.group({
-      email: ['', [Validators.email, Validators.required]],
-      password: ['', [Validators.required, this.passwordPatternValidator]],
-      confirmPassword: [
-        '',
-        [Validators.required, this.confirmPasswordValidator],
-      ],
-      civilite: ['', [Validators.required]],
-      nom: ['', [Validators.required, Validators.minLength(3)]],
-      prenom: ['', [Validators.required, Validators.minLength(3)]],
-      pseudo: ['', [Validators.required, Validators.minLength(3)]],
-      telephone: [
-        '',
-        [Validators.pattern(/^(?:\+\d{2,3}\s)?\d{8,}(?:\s\d{2,3})?$/)],
-      ],
-      adresse: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^[\d\w\s-,'àâçéèêëîïôûùüÿñ]{20,150}$/),
+      basic: this.fb.group({
+        email: ['', [Validators.email, Validators.required]],
+        password: ['', [Validators.required, this.passwordPatternValidator]],
+        confirmPassword: [
+          '',
+          [Validators.required, this.confirmPasswordValidator],
         ],
-      ],
-      ville: ['', [Validators.required, Validators.minLength(2)]],
-      code_postal: ['', [Validators.required, Validators.pattern(/^\d{5}$/)]],
+      }),
+      contact: this.fb.group({
+        civilite: ['', [Validators.required]],
+        nom: ['', [Validators.required, Validators.minLength(3)]],
+        prenom: ['', [Validators.required, Validators.minLength(3)]],
+        pseudo: ['', [Validators.required, Validators.minLength(3)]],
+        telephone: [
+          '',
+          [Validators.pattern(/^(?:\+\d{2,3}\s)?\d{8,}(?:\s\d{2,3})?$/)],
+        ],
+      }),
+      address: this.fb.group({
+        adresse: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(/^[\d\w\s-,'àâçéèêëîïôûùüÿñ]{20,150}$/),
+          ],
+        ],
+        ville: ['', [Validators.required, Validators.minLength(2)]],
+        code_postal: ['', [Validators.required, Validators.pattern(/^\d{5}$/)]],
+      }),
     });
   }
 
@@ -142,5 +157,15 @@ export class SignupComponent {
 
   get form() {
     return this.userForm.controls;
+  }
+
+  get basicForm() {
+    return this.userForm.get('basic') as FormGroup;
+  }
+  get contactForm() {
+    return this.userForm.get('contact') as FormGroup;
+  }
+  get addressForm() {
+    return this.userForm.get('address') as FormGroup;
   }
 }

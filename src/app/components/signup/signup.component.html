@@ -1,4 +1,4 @@
-<h1 *ngIf="alertMsg">TEST</h1>
+<!-- <h1 *ngIf="alertMsg">TEST</h1>
 <div class="container">
   <h3 class="error" *ngIf="errorMsg">{{ errorMsg }}</h3>
   <form [formGroup]="userForm">
@@ -243,4 +243,254 @@
       <button (click)="onSubmit()" type="submit" class="submit">Valider</button>
     </div>
   </form>
-</div>
+</div> -->
+
+<mat-stepper [linear]="isLinear" #stepper>
+  <form (ngSubmit)="testSubmit()" [formGroup]="userForm">
+    <mat-step [stepControl]="basicForm">
+      <!-------- Premier formulaire ------------>
+
+      <div formGroupName="basic">
+        <ng-template matStepLabel>Informations de connexion</ng-template>
+        <div class="form-group">
+          <label for="email">Email :</label>
+          <input
+            formControlName="email"
+            id="email"
+            name="email"
+            type="email"
+            placeholder="ex: john.doe@gmail.com"
+          />
+          <div class="error" *ngIf="basicForm.get('email')!.invalid">
+            <span *ngIf="basicForm.get('email')!.hasError('email')"
+              >Le format d'email devrait plutôt ressembler à :
+              john.doe@gmail.com</span
+            >
+            <span *ngIf="basicForm.get('email')!.hasError('required')"
+              >Une adresse email est nécessaire</span
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Mot de passe :</label>
+          <input
+            formControlName="password"
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Minimum de 8 caractères, 1 majuscule et 1 chiffre"
+          />
+          <div class="error" *ngIf="basicForm.get('password')!.errors">
+            <span *ngIf="basicForm.get('password')!.hasError('passwordPattern')"
+              >Votre mot de passe doit faire un minimum de 8 caractères, avec 1
+              majuscule et 1 chiffre</span
+            >
+            <span *ngIf="basicForm.get('password')!.hasError('required')"
+              >Un mot de passe est nécessaire</span
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Confimer le mot de passe :</label>
+          <input
+            formControlName="confirmPassword"
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            placeholder="Minimum de 8 caractères, 1 majuscule et 1 chiffre"
+          />
+          <div
+            class="error"
+            *ngIf="
+              (basicForm.get('confirmPassword')!.touched &&
+                basicForm.get('confirmPassword')!.invalid) ||
+              basicForm.get('confirmPassword')!.hasError('required')
+            "
+          >
+            <span>Ce mot de passe doit être identique au premier</span>
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </div>
+    </mat-step>
+
+    <!---------------------- deuxieme formulaire ------------------->
+
+    <mat-step [stepControl]="contactForm" label="Informations personnelles">
+      <div formGroupName="contact">
+        <div class="form-group">
+          <label for="nom">Nom :</label>
+          <input
+            id="nom"
+            name="nom"
+            type="text"
+            placeholder="ex: Doe"
+            formControlName="nom"
+          />
+          <div class="error" *ngIf="contactForm.get('nom')!.errors">
+            <span *ngIf="contactForm.get('nom')!.hasError('minlength')"
+              >Votre nom doit faire au moins 3 caractères</span
+            >
+            <span *ngIf="contactForm.get('nom')!.hasError('required')"
+              >Un nom est nécessaire</span
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="prenom">Prénom :</label>
+          <input
+            id="prenom"
+            name="prenom"
+            formControlName="prenom"
+            type="text"
+            placeholder="ex: John"
+          />
+          <div class="error" *ngIf="contactForm.get('prenom')!.errors">
+            <span *ngIf="contactForm.get('prenom')!.hasError('minlength')"
+              >Votre prenom doit faire au moins 3 caractères</span
+            >
+            <span *ngIf="contactForm.get('prenom')!.hasError('required')"
+              >Un prenom est nécessaire</span
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <fieldset>
+            <legend>Votre civilité :</legend>
+            <div class="flex">
+              <input
+                required
+                type="radio"
+                id="femme"
+                formControlName="civilite"
+                value="f"
+              />
+              <label for="femme">Femme</label>
+            </div>
+            <div class="flex">
+              <input
+                type="radio"
+                id="homme"
+                formControlName="civilite"
+                value="m"
+              />
+              <label for="homme">Homme</label>
+            </div>
+          </fieldset>
+          <div class="error" *ngIf="contactForm.get('civilite')!.errors">
+            <span>Vous devez choisir un genre</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="pseudo">Pseudo :</label>
+          <input
+            formControlName="pseudo"
+            id="pseudo"
+            name="pseudo"
+            type="text"
+            placeholder="ex: JoeRoegan68"
+          />
+          <div class="error" *ngIf="contactForm.get('pseudo')!.errors">
+            <span *ngIf="contactForm.get('pseudo')!.hasError('minlength')"
+              >Votre pseudo doit faire au moins 3 caractères</span
+            >
+            <span *ngIf="contactForm.get('pseudo')!.hasError('required')"
+              >Un pseudo est nécessaire</span
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="telephone">Téléphone (facultatif) :</label>
+          <input
+            formControlName="telephone"
+            id="telephone"
+            name="telephone"
+            type="tel"
+            placeholder="ex: +33 6 68 53 17 07"
+          />
+          <div class="error" *ngIf="contactForm.get('telephone')!.errors">
+            <span
+              >Votre numéro de téléphone devrait ressembler à : +33 6 68 53 17
+              07</span
+            >
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </div>
+    </mat-step>
+
+    <!---------------------- troisieme formulaire ------------------->
+
+    <mat-step [stepControl]="addressForm">
+      <ng-template matStepLabel>Adresse</ng-template>
+      <!-- Mettre un span dans le label pour le faire disparaitre en mobile -->
+      <div formGroupName="address">
+        <div class="form-group">
+          <label for="adresse">Adresse :</label>
+          <input
+            id="adresse"
+            name="adresse"
+            type="text"
+            placeholder="ex: 8 rue de la Protection"
+            formControlName="adresse"
+          />
+          <div class="error" *ngIf="addressForm.get('adresse')!.errors">
+            <span *ngIf="addressForm.get('adresse')!.hasError('pattern')"
+              >Votre adresse doit faire entre 20 et 150 caractères, sans inclure
+              de caractères spéciaux</span
+            >
+            <span *ngIf="addressForm.get('adresse')!.hasError('required')"
+              >Une adresse est nécessaire</span
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ville">Ville :</label>
+          <input
+            id="ville"
+            name="ville"
+            type="text"
+            placeholder="ex: 8 rue de la Protection"
+            formControlName="ville"
+          />
+          <div class="error" *ngIf="addressForm.get('ville')!.errors">
+            <span *ngIf="addressForm.get('ville')!.hasError('minlength')"
+              >Votre ville doit faire au moins 2 caractères</span
+            >
+            <span *ngIf="addressForm.get('ville')!.hasError('required')"
+              >Une ville est nécessaire</span
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="code_postal">Code Postal :</label>
+          <input
+            id="code_postal"
+            name="code_postal"
+            type="number"
+            placeholder="ex: 06000"
+            formControlName="code_postal"
+          />
+          <div class="error" *ngIf="addressForm.get('code_postal')!.errors">
+            <span *ngIf="addressForm.get('code_postal')!.hasError('pattern')"
+              >Votre code postal doit être composé de 5 chiffres
+              exclusivement</span
+            >
+            <span *ngIf="addressForm.get('code_postal')!.hasError('required')"
+              >Un code postal est nécessaire</span
+            >
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button submit>Submit</button>
+        </div>
+      </div>
+    </mat-step>
+  </form>
+</mat-stepper>
