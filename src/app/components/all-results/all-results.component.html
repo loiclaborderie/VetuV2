@@ -1,9 +1,9 @@
 <div *ngIf="!products">
   <h2>Recherche en cours...</h2>
   <div class="grid">
-    <div *ngFor="let i of 30 | repeat">
-      <h1>TEST!!!</h1>
-    </div>
+    <app-product-placeholder
+      *ngFor="let i of 30 | repeat"
+    ></app-product-placeholder>
   </div>
 </div>
 <div *ngIf="products && products.length > 0">

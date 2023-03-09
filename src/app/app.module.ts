@@ -7,7 +7,7 @@ import {
   MatSnackBarModule,
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +29,7 @@ import { PasswordModalComponent } from './components/password-modal/password-mod
 import { AllResultsComponent } from './components/all-results/all-results.component';
 import { FinalizeOrderComponent } from './components/finalize-order/finalize-order.component';
 import { LoopPipe } from './pipes/loop.pipe';
-import { ProductComponent } from './components/placeholders/product/product.component';
+import { ProductPlaceholderComponent } from './components/placeholders/product-placeholder/product-placeholder.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,7 @@ import { ProductComponent } from './components/placeholders/product/product.comp
     AllResultsComponent,
     FinalizeOrderComponent,
     LoopPipe,
-    ProductComponent,
+    ProductPlaceholderComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +61,7 @@ import { ProductComponent } from './components/placeholders/product/product.comp
     ReactiveFormsModule,
     MatTabsModule,
     MatSnackBarModule,
-    MatStepperModule
+    MatStepperModule,
   ],
   providers: [
     {

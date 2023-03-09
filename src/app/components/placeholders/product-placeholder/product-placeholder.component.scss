@@ -4,15 +4,10 @@
   object-fit: cover;
   background: rgb(157, 157, 157);
 }
-a.link {
-  text-decoration: none;
-  color: inherit;
-}
+
 .carte {
-  font-size: clamp(0.67rem, 1em, 2vw);
   text-align: center;
-  color: #040037;
-  position: relative;
+  color: transparent;
 }
 .product-description {
   padding-top: clamp(0.25em, 0.3vh, 0.5rem);
@@ -29,45 +24,9 @@ a.link {
   padding: 1rem 2rem;
   border-radius: 8px;
   font-size: 13px;
-  border: 1px solid rgb(179, 178, 194);
-  text-decoration: none;
-  color: inherit;
-  transition-property: color, background-color, border;
-  transition-duration: 0.3s;
-  transition-timing-function: ease-in-out;
-  cursor: pointer;
-}
-#btn-small-screen {
   margin-block: 0.5rem;
   padding: 1rem 3rem;
   text-align: center;
-  display: inline-block;
-}
-#btn-large-screen {
-  font-size: 16px;
-}
-
-.btn-container {
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 0px;
-  bottom: 115px;
-  width: 101%;
-  overflow: hidden;
-  position: absolute;
-  transition: 0.3s;
-}
-.btn-container > * {
-  opacity: 0;
-}
-.product-price {
-  font-weight: 700;
-}
-.additional-info {
-  font-size: 0.9em;
-  text-decoration: underline;
 }
 
 @media screen and (min-width: 1024px) {
