@@ -50,7 +50,10 @@ export class TabOrdersComponent {
 
   ngOnInit(): void {
     if (this.auth.hasntConnectedYet) {
-      this.snackBar.open(`Bienvenue ${this.user.prenom}`, 'OK');
+      this.snackBar.open(`Bienvenue ${this.user.prenom}`, 'OK', {
+        duration: 2500,
+        panelClass: ['welcome-snackbar'],
+      });
       this.orderService.getOrdersByUserId(this.user.id).subscribe((data) => {
         this.orderService.loadPastCommandes = true;
         console.log('fetched all the array');

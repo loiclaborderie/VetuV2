@@ -34,10 +34,16 @@ export class FinalizeOrderComponent {
             this.cartService.loadCartItemsFromDb();
           });
         this.orderService.loadPastCommandes = false;
-        this.snackBar.open('Votre commande a été validée ', '✅');
+        this.snackBar.open('Votre commande a été validée ', '✅', {
+          duration: 2500,
+          panelClass: ['success-snack'],
+        });
         this.router.navigate(['/cart']);
       } else {
-        this.snackBar.open('Une erreur est survenue', '❌');
+        this.snackBar.open('Une erreur est survenue', '❕', {
+          duration: 2500,
+          panelClass: ['error-snack'],
+        });
       }
     });
   }

@@ -86,7 +86,10 @@ export class ModalComponent {
           console.log(dataFetched);
           if (dataFetched[1] === 200) {
             this.cartService.addCartItem(productData);
-            this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK');
+            this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK', {
+              duration: 2500,
+              panelClass: ['add-cart-snackbar'],
+            });
             this.close();
             productData.stock--;
             console.log(productData.stock);
@@ -94,7 +97,11 @@ export class ModalComponent {
             this.close();
             this.snackBar.open(
               `${dataFetched[0] || "erreur lors de l'ajout au panier"}`,
-              'OK'
+              '❕',
+              {
+                duration: 2500,
+                panelClass: ['error-snack'],
+              }
             );
           }
         });
@@ -104,7 +111,10 @@ export class ModalComponent {
       localStorage.setItem('cart', JSON.stringify(newCart));
       console.log('added to localstorage');
       productData.stock--;
-      this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK');
+      this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK', {
+        duration: 2500,
+        panelClass: ['add-cart-snackbar'],
+      });
       this.close();
     }
     // this.selectedSize = false;

@@ -21,6 +21,13 @@ export class CartComponent {
     private snackBar: MatSnackBar
   ) {}
 
+  testsnack() {
+    this.snackBar.open(`Vous avez été déconnecté`, 'OK', {
+      duration: 2500,
+      panelClass: ['error-snack'],
+    });
+  }
+
   console() {
     console.log(this.cartItems);
   }
@@ -98,10 +105,14 @@ export class CartComponent {
       this.orderService.deleteCurrentOrder().subscribe((data) => {
         console.log(data);
       });
+      localStorage.removeItem('cart');
       this.cartService.resetCartItems();
       this.cartItems = this.cartService.getCartItems();
       this.totalPrice = 0;
-      this.snackBar.open(`Votre panier a été supprimé`, 'OK');
+      this.snackBar.open(`Votre panier a été supprimé`, 'OK', {
+        duration: 2500,
+        panelClass: ['success-snackbar'],
+      });
     }
   }
 

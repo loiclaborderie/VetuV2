@@ -37,13 +37,20 @@ export class ProductDetailledComponent {
       this.orderService.addProductToDb(content).subscribe((data: any) => {
         if (data[1] === 200) {
           this.cartService.addCartItem(productData);
-          this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK');
+          this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK', {
+            duration: 2500,
+            panelClass: ['add-cart-snackbar'],
+          });
           productData.stock--;
           console.log(productData.stock);
         } else {
           this.snackBar.open(
             `${data[0] || "erreur lors de l'ajout au panier"}`,
-            'OK'
+            '❕',
+            {
+              duration: 2500,
+              panelClass: ['error-snack'],
+            }
           );
         }
         console.log(data);
@@ -53,7 +60,10 @@ export class ProductDetailledComponent {
       let newCart = this.cartService.getCartItems();
       localStorage.setItem('cart', JSON.stringify(newCart));
       productData.stock--;
-      this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK');
+      this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK', {
+        duration: 2500,
+        panelClass: ['add-cart-snackbar'],
+      });
     }
   }
 

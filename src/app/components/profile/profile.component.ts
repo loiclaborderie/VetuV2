@@ -33,7 +33,10 @@ export class ProfileComponent {
       this.auth.hasntConnectedYet = true;
       this.userCartService.dataLoaded = false;
       this.router.navigate(['/login']);
-      this.snackBar.open(`Vous avez été déconnecté`, 'OK');
+      this.snackBar.open(`Vous avez été déconnecté`, 'OK', {
+        duration: 2500,
+        panelClass: ['success-snackbar'],
+      });
     }
   }
 

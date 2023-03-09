@@ -1,5 +1,6 @@
-<div *ngIf="!products">
-  <h2>Recherche en cours...</h2>
+<div *ngIf="waitingForData">
+  <!-- <h2>Recherche en cours...</h2> -->
+  <div style="color: transparent" class="space-between">####</div>
   <div class="grid">
     <app-product-placeholder
       *ngFor="let i of 30 | repeat"

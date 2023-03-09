@@ -12,6 +12,7 @@ export class AllResultsComponent {
     private route: ActivatedRoute,
     private productService: ProductService
   ) {}
+  waitingForData: boolean = true;
   products: any;
   page = 1;
   pages!: number[];
@@ -20,18 +21,25 @@ export class AllResultsComponent {
   limit: any = 36;
 
   filterBy(e: any) {
+    this.waitingForData = true;
+    console.log('PLACEHOLDER MIS');
     this.sortBy = e.target.value;
     console.log(this.sortBy);
     this.fetchProducts();
   }
 
   changePage(newPage: number) {
+    this.waitingForData = true;
+    console.log('PLACEHOLDER MIS');
     this.page = newPage;
     this.fetchProducts();
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' }); // scroll to top smoothly
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    // scroll to top smoothly
   }
 
   handleProductData(data: any) {
+    console.log('PLACEHOLDER ENLEVE');
+    this.waitingForData = false;
     if (!data.results) {
       this.products = [];
       console.log('nothing found');
@@ -59,12 +67,7 @@ export class AllResultsComponent {
             this.handleProductData(data);
           });
         console.log('genre and category');
-      }
-      // else if (genre) {
-      //   console.log('genre');
-      //   this.products = genre;
-      // }
-      else if (category) {
+      } else if (category) {
         this.productService
           .getProductsByCategory(category, this.page, this.sortBy)
           .subscribe((data: any) => {

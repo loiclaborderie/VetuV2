@@ -24,3 +24,23 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.mat-mdc-snack-bar-container {
+  --mat-mdc-snack-bar-button-color: #f3f3f3 !important;
+  --mdc-snackbar-supporting-text-color: #f3f3f3 !important;
+
+  &.add-cart-snackbar {
+    --mdc-snackbar-container-color: #040037 !important;
+  }
+
+  &.error-snack {
+    --mdc-snackbar-container-color: #a31919;
+  }
+
+  &.success-snackbar {
+    --mdc-snackbar-container-color: rgb(54, 121, 9);
+  }
+}
+.snackbar-emoji {
+  font-size: 70px !important;
+}

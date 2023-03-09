@@ -125,14 +125,20 @@ export class SignupComponent {
       this.authService.register(finalForm).subscribe(
         (data: any) => {
           if (data.status === false) {
-            this.snackBar.open(data.message, 'Fermer');
+            this.snackBar.open(data.message, '❕', {
+              duration: 2500,
+              panelClass: ['error-snack'],
+            });
             this.stepper.selectedIndex = 0;
             this.basicForm.get('email')!.reset();
             this.basicForm.get('email')!.setErrors({ already: true });
             return;
           }
           console.log(data);
-          this.snackBar.open('Vous avez été inscrit avec succés', 'Fermer');
+          this.snackBar.open('Vous avez été inscrit avec succés', 'OK', {
+            duration: 2500,
+            panelClass: ['success-snackbar'],
+          });
           this.authService.login(email, password).subscribe(
             (data: Token) => {
               localStorage.setItem('user', JSON.stringify(data.userId));
@@ -140,12 +146,18 @@ export class SignupComponent {
               this.router.navigate(['/profile']);
             },
             (err: any) => {
-              this.snackBar.open('Erreur lors de votre connexion', 'Fermer');
+              this.snackBar.open('Erreur lors de votre connexion', '❕', {
+                duration: 2500,
+                panelClass: ['error-snack'],
+              });
             }
           );
         },
         (err: any) => {
-          this.snackBar.open('Erreur lors de votre inscription', 'Fermer');
+          this.snackBar.open('Erreur lors de votre inscription', '❕', {
+            duration: 2500,
+            panelClass: ['error-snack'],
+          });
         }
       );
     } else {
