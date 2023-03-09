@@ -1,8 +1,13 @@
+* {
+  animation: 3s linear 0s infinite loading;
+}
+
 .product-img {
   width: 100%;
   aspect-ratio: 3/4;
   object-fit: cover;
   background: rgb(157, 157, 157);
+  border-radius: 12px;
 }
 
 .carte {
@@ -10,14 +15,19 @@
   color: transparent;
 }
 .product-description {
-  padding-top: clamp(0.25em, 0.3vh, 0.5rem);
+  margin-top: clamp(0.6em, 1vh, 1rem);
 }
 .product-description > * {
-  display: block;
-  padding-block: clamp(0.2rem, 0.3rem, 0.4rem);
+  margin: clamp(0.4rem, 0.5rem, 0.7rem) auto;
+  // width: 40%;
+}
+.product-description span {
+  border-radius: 5px;
+  background: #0000005c;
 }
 
 .buy-btn {
+  background: #0000005c;
   min-width: 4rem;
   max-width: 90%;
   display: inline-block;
@@ -32,5 +42,14 @@
 @media screen and (min-width: 1024px) {
   #btn-small-screen {
     display: none !important;
+  }
+}
+
+@keyframes loading {
+  90% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0%;
   }
 }
