@@ -4,9 +4,11 @@
       ><i class="fa-solid fa-arrow-left fa-xl"></i> Retour au menu</a
     >
   </nav>
-  <h2>Panier</h2>
-  <p>Votre panier est vide pour le moment ;)</p>
-  <button (click)="testsnack()">Click</button>
+  <div class="container">
+    <h2>Panier</h2>
+    <p>Votre panier est vide pour le moment ;)</p>
+    <button (click)="testsnack()">Click</button>
+  </div>
 </div>
 
 <div class="cart" *ngIf="cartItems && cartItems.length > 0">
@@ -15,63 +17,64 @@
       ><i class="fa-solid fa-arrow-left fa-xl"></i> Retour au menu</a
     >
   </nav>
-  <h2>Panier</h2>
+  <div class="container">
+    <h2>Panier</h2>
 
-  <h4>{{ totalPrice }}€</h4>
-  <ul>
-    <div *ngFor="let cartItem of cartItems; let i = index">
-      {{ cartItem.titre }} - {{ cartItem.taille }} - {{ cartItem.prix }}€ - x{{
-        cartItem.quantite
-      }}
-      <p>{{ cartItem.stock }} en stock</p>
-      <!-- <img src="/assets/{{ cartItem.photo }}/asset1.jpeg" /> -->
-      <select
-        [hidden]="showNumberInput[i] || cartItem.quantite > 9"
-        (change)="quantity($event, i)"
-        name="{{ cartItem.id }}"
-        id="quantity-{{ i }}"
-      >
-        <option
-          [selected]="unit === cartItem.quantite"
-          *ngFor="let unit of range(cartItem.stock)"
-          value="{{ unit }}"
+    <h4>{{ totalPrice }}€</h4>
+    <ul class="cartlist">
+      <div class="item" *ngFor="let cartItem of cartItems; let i = index">
+        {{ cartItem.titre }} - {{ cartItem.taille }} - {{ cartItem.prix }}€ -
+        x{{ cartItem.quantite }}
+        <p>{{ cartItem.stock }} en stock</p>
+        <!-- <img src="/assets/{{ cartItem.photo }}/asset1.jpeg" /> -->
+        <select
+          [hidden]="showNumberInput[i] || cartItem.quantite > 9"
+          (change)="quantity($event, i)"
+          name="{{ cartItem.id }}"
+          id="quantity-{{ i }}"
         >
-          {{ unit }}
-        </option>
-        <option *ngIf="cartItem.stock > 9" value="custom">10+</option>
-      </select>
+          <option
+            [selected]="unit === cartItem.quantite"
+            *ngFor="let unit of range(cartItem.stock)"
+            value="{{ unit }}"
+          >
+            {{ unit }}
+          </option>
+          <option *ngIf="cartItem.stock > 9" value="custom">10+</option>
+        </select>
 
-      <input
-        [hidden]="!showNumberInput[i] || cartItem.quantite < 9"
-        type="number"
-        value="{{ cartItem.quantite }}"
-        (change)="quantity($event, i)"
-        name="{{ cartItem.id }}"
-      />
+        <input
+          [hidden]="!showNumberInput[i] || cartItem.quantite < 9"
+          type="number"
+          value="{{ cartItem.quantite }}"
+          (change)="quantity($event, i)"
+          name="{{ cartItem.id }}"
+        />
 
-      <button [hidden]="!showNumberInput[i] || cartItem.quantite < 9">
-        Update
-      </button>
-      <!-- Le bouton est là pour faire joli, ça update peu importe ou on clique -->
-    </div>
-  </ul>
-  <button (click)="console()">CONSOLE</button>
-  <button
-    *ngIf="cartItems.length > 0"
-    style="padding: 1rem 2rem; background-color: crimson; color: #f3f3f3"
-    (click)="deleteOrder()"
-  >
-    DELETE
-  </button>
-  <button
-    *ngIf="cartItems.length > 0"
-    style="
-      padding: 1rem 2rem;
-      background-color: rgb(17, 130, 174);
-      color: #f3f3f3;
-    "
-    routerLink="/finalize-order"
-  >
-    Passer la commande
-  </button>
+        <button [hidden]="!showNumberInput[i] || cartItem.quantite < 9">
+          Update
+        </button>
+        <!-- Le bouton est là pour faire joli, ça update peu importe ou on clique -->
+      </div>
+    </ul>
+    <button (click)="console()">CONSOLE</button>
+    <button
+      *ngIf="cartItems.length > 0"
+      style="padding: 1rem 2rem; background-color: crimson; color: #f3f3f3"
+      (click)="deleteOrder()"
+    >
+      DELETE
+    </button>
+    <button
+      *ngIf="cartItems.length > 0"
+      style="
+        padding: 1rem 2rem;
+        background-color: rgb(17, 130, 174);
+        color: #f3f3f3;
+      "
+      routerLink="/finalize-order"
+    >
+      Passer la commande
+    </button>
+  </div>
 </div>

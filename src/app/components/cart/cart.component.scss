@@ -2,8 +2,11 @@ nav {
   height: 70px;
   display: flex;
   align-items: center;
+  margin-bottom: 2rem;
+  box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, 0.236);
   a {
     display: block;
+    cursor: pointer;
     font-size: clamp(0.85rem, 2.3vw, 20px);
     text-decoration: none;
     color: rgb(23, 23, 23);
@@ -13,4 +16,9 @@ nav {
       padding-right: 0.3rem;
     }
   }
+}
+.container {
+  margin: 4rem auto 2rem;
+  width: 90%;
+  max-width: 1400px;
 }
