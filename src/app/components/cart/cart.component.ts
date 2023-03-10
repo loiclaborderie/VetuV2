@@ -13,6 +13,8 @@ export class CartComponent {
   cartItems!: any[];
   totalPrice!: number;
   showNumberInput: boolean[] = [];
+  // dataLoaded = false;
+  placeholder = true;
 
   constructor(
     private cartService: CartService,
@@ -21,22 +23,19 @@ export class CartComponent {
     private snackBar: MatSnackBar
   ) {}
 
-  testsnack() {
-    this.snackBar.open(`Vous avez été déconnecté`, 'OK', {
-      duration: 2500,
-      panelClass: ['error-snack'],
-    });
+  range(limit: number): number[] {
+    limit > 9 ? (limit = 9) : (limit = limit);
+    //Je limite à 9 la quantité max selectionnable via le select
+    //Cette méthode va servir à loop sur les quantité pour les select
+    return Array.from({ length: limit }, (_, i) => i + 1);
   }
 
   console() {
     console.log(this.cartItems);
   }
 
-  range(limit: number): number[] {
-    limit > 9 ? (limit = 9) : (limit = limit);
-    //Je limite à 9 la quantité max selectionnable via le select
-    //Cette méthode va servir à loop sur les quantité pour les select
-    return Array.from({ length: limit }, (_, i) => i + 1);
+  articleNum(cart: any): number {
+    return cart.reduce((acc: number, item: any) => acc + item.quantite, 0);
   }
 
   quantity(event: any, index: number) {
@@ -45,11 +44,13 @@ export class CartComponent {
     let product: any = this.cartItems[index];
     if (value === 'custom') {
       // THIS IF IS ONLY TO MAKE THE NUMBER INPUT APPEAR
+      console.log('Ca marche');
       this.showNumberInput[index] = true;
       let input = document.querySelector(
         `input[name='${id}']`
       ) as HTMLInputElement;
       console.log(input);
+      // product.quantite = 10;
       setTimeout(() => {
         // si pas de timeout cela ne marche pas bizarrement
         input.focus();
@@ -67,11 +68,12 @@ export class CartComponent {
         event.target.value = +value;
       }
 
-      if (Number(value) < 9) {
+      if (Number(value) <= 9) {
         // Hide the number input here, except if the value is over 9
         this.showNumberInput[index] = false;
+      } else {
+        this.showNumberInput[index] = true;
       }
-
       console.log(
         'ici si false, input ne pas pas réapparaitre',
         this.showNumberInput[index]
@@ -82,18 +84,35 @@ export class CartComponent {
       };
       console.log('TRES IMPORTANT', content);
 
+      if (this.orderService.orderId) {
+        this.orderService
+          .changeProductQuantityInOrder(content)
+          .subscribe((data: any) => {
+            console.log(data);
+          });
+      } else {
+        let newCart = this.cartItems;
+        const indexFound = this.cartItems.findIndex(
+          (obj) => obj.id === Number(id)
+        );
+        if (index !== -1) {
+          newCart[indexFound].quantite = Number(value); // Replace the quantite
+        }
+        this.cartService.setCartItems(newCart);
+        localStorage.setItem('cart', JSON.stringify(newCart));
+        console.log('produit' + JSON.stringify(newCart));
+      }
       // Do something with the selected quantity here
-      this.orderService
-        .changeProductQuantityInOrder(content)
-        .subscribe((data: any) => {
-          console.log(data);
-        });
       product.quantite = +value;
-      this.totalPrice = this.cartItems.reduce(
-        (acc, item) => acc + item.prix * item.quantite,
-        0
-      );
+      this.calculateTotalPrice();
     }
+  }
+
+  calculateTotalPrice() {
+    this.totalPrice = this.cartItems.reduce(
+      (acc, item) => acc + item.prix * item.quantite,
+      0
+    );
   }
 
   deleteOrder() {
@@ -117,24 +136,6 @@ export class CartComponent {
   }
 
   ngOnInit(): void {
-    // if (this.userCartService.cartFetched) {
-    //   console.log('déjà loadé de la db');
-    //   this.cartService
-    //     .loadCartItemsFromDbObservable()
-    //     .subscribe((data: any) => {
-    //       console.log('BIZARREMENT ICI CA MARCHE PAS');
-    //       this.cartItems = data;
-    //       this.cartService.setCartItems(this.cartItems);
-    //       console.log(data);
-    //       console.log(this.cartItems);
-    //       if (this.cartItems) {
-    //         this.totalPrice = this.cartItems.reduce(
-    //           (acc, item) => acc + item.prix * item.quantite,
-    //           0
-    //         );
-    //       }
-    //     });
-    // } else {
     if (this.orderService.orderId) {
       localStorage.setItem(
         'orderId',
@@ -143,26 +144,26 @@ export class CartComponent {
       this.cartService
         .loadCartItemsFromDbObservable()
         .subscribe((data: any) => {
+          this.placeholder = false;
+          // this.dataLoaded = true;
           this.cartItems = data;
           this.cartService.setCartItems(this.cartItems);
-          if (this.cartItems) {
-            this.totalPrice = this.cartItems.reduce(
-              (acc, item) => acc + item.prix * item.quantite,
-              0
-            );
-          }
+          this.calculateTotalPrice();
         });
     } else if (localStorage.getItem('cart')) {
+      this.placeholder = false;
+      console.log(localStorage.getItem('cart'));
       this.cartItems = JSON.parse(localStorage.getItem('cart')!);
+      console.log(JSON.parse(localStorage.getItem('cart') || 'marche pas'));
       if (this.cartItems) {
-        this.totalPrice = this.cartItems.reduce(
-          (acc, item) => acc + item.prix * item.quantite,
-          0
-        );
+        // this.dataLoaded = true;
+        this.calculateTotalPrice();
       }
     } else {
+      this.placeholder = false;
+      // this.dataLoaded = true;
       this.cartItems = this.cartService.getCartItems();
+      this.calculateTotalPrice();
     }
-    // }
   }
 }

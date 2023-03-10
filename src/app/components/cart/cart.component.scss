@@ -21,4 +21,135 @@ nav {
   margin: 4rem auto 2rem;
   width: 90%;
   max-width: 1400px;
+
+  .grid {
+    display: grid;
+    grid-template-columns: 5fr 2fr;
+    grid-gap: 2rem;
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.sidebar {
+  background: #43424268;
+  border-radius: 12px;
+  grid-column: 2/3;
+  grid-row: 1/2;
+  @media (max-width: 768px) {
+    grid-column: 1/-1;
+  }
+}
+.cartlist {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  @media (max-width: 768px) {
+    grid-row: 2/3;
+  }
+  .item:nth-of-type(1) {
+    border-top: 1px solid rgb(172, 172, 172);
+  }
+
+  .item {
+    p {
+      font-size: clamp(0.85rem, 2.3vw, 20px);
+    }
+    h2 {
+      font-size: clamp(1.2rem, 3.5vw, 30px);
+    }
+    h3 {
+      font-size: clamp(1.05rem, 2.9vw, 24px);
+    }
+    padding-block: 1.5rem;
+    border-bottom: 1px solid rgb(172, 172, 172);
+    // background: red;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .block-info {
+      padding: 1rem 0 1rem 1rem;
+      h3 {
+        text-transform: capitalize;
+      }
+    }
+
+    .block-img {
+      img {
+        border-radius: 4px;
+        width: 180px;
+        height: 180px;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+      }
+    }
+    .product-price-mobile {
+      display: none;
+      @media (max-width: 600px) {
+        display: block;
+      }
+    }
+    .product-stock {
+      p {
+        font-size: clamp(0.7rem, 1.8vw, 1rem);
+      }
+      &.okay {
+        color: hsl(120, 54%, 42%);
+      }
+      &.low {
+        color: hsl(120, 54%, 62%);
+      }
+      &.none {
+        color: rgb(172, 172, 172);
+      }
+    }
+
+    .block-price {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      @media (max-width: 600px) {
+        display: none;
+      }
+    }
+
+    .product-quantity {
+      display: flex;
+
+      .remove-quantity {
+        margin-left: clamp(1rem, 5vw, 50px);
+      }
+    }
+  }
+}
+
+#placeholder {
+  .sidebar {
+    @media (max-width: 768px) {
+      height: 100px;
+    }
+  }
+  --placeholder-bg: rgba(67, 66, 66, 0.4078431373);
+  color: transparent;
+  img {
+    background: var(--placeholder-bg);
+  }
+  .h3 {
+    font-size: clamp(1.05rem, 2.9vw, 24px);
+  }
+  .item {
+    span {
+      background: var(--placeholder-bg);
+      border-radius: 2px;
+    }
+    .block-info {
+      div {
+        margin-bottom: 1rem;
+      }
+    }
+  }
 }

@@ -1,8 +1,6 @@
-* {
-  animation: 3s linear 0s infinite loading;
-}
-
 .product-img {
+  // animation: 1.8s ease-out 0s infinite forwards loading;
+  animation: 3s linear 0.3s infinite backwards loading;
   width: 100%;
   aspect-ratio: 3/4;
   object-fit: cover;
@@ -22,11 +20,13 @@
   // width: 40%;
 }
 .product-description span {
+  animation: 1.8s ease-out 0s infinite forwards loading;
   border-radius: 5px;
   background: #0000005c;
 }
 
 .buy-btn {
+  animation: 3s linear 0s infinite backwards loading;
   background: #0000005c;
   min-width: 4rem;
   max-width: 90%;
@@ -46,10 +46,13 @@
 }
 
 @keyframes loading {
+  70% {
+    opacity: 70%;
+  }
   90% {
     opacity: 100%;
   }
   100% {
-    opacity: 0%;
+    opacity: 70%;
   }
 }

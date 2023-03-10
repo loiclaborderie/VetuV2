@@ -60,7 +60,11 @@ export class FinalizeOrderComponent {
         if (data === null) {
           this.snackBar.open(
             'Vous devez être connecté pour passer commande',
-            'OK'
+            '❕',
+            {
+              duration: 2500,
+              panelClass: ['warning-snack'],
+            }
           );
           this.router.navigate(['/login']);
         }

@@ -27,7 +27,12 @@ body {
 
 .mat-mdc-snack-bar-container {
   --mat-mdc-snack-bar-button-color: #f3f3f3 !important;
-  --mdc-snackbar-supporting-text-color: #f3f3f3 !important;
+  --mat-mdc-snack-bar-button-font-size: 17px !important;
+  --mat-mdc-snack-bar-button-font-weight: 700 !important;
+
+  .mdc-snackbar__actions {
+    --mat-mdc-snack-bar-button-size: 18px !important;
+  }
 
   &.add-cart-snackbar {
     --mdc-snackbar-container-color: #040037 !important;
@@ -35,6 +40,9 @@ body {
 
   &.error-snack {
     --mdc-snackbar-container-color: #a31919;
+  }
+  &.warning-snack {
+    --mdc-snackbar-container-color: #c07804;
   }
 
   &.success-snackbar {
