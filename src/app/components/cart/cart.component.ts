@@ -56,7 +56,6 @@ export class CartComponent {
         input.focus();
         // POUR QUE CA RENTRE DIRECT DANS L'INPUT
       }, 0);
-      console.log('!!!');
     } else {
       // CA C'EST LA PARTIE MODIF DE LA QUANTITE
       console.log(index, product);
@@ -74,6 +73,11 @@ export class CartComponent {
       } else {
         this.showNumberInput[index] = true;
       }
+
+      this.animateSelect(id);
+
+      this.animateInput(id);
+
       console.log(
         'ici si false, input ne pas pas réapparaitre',
         this.showNumberInput[index]
@@ -100,11 +104,67 @@ export class CartComponent {
         }
         this.cartService.setCartItems(newCart);
         localStorage.setItem('cart', JSON.stringify(newCart));
-        console.log('produit' + JSON.stringify(newCart));
       }
       // Do something with the selected quantity here
       product.quantite = +value;
       this.calculateTotalPrice();
+    }
+  }
+
+  animateSelect(id: number) {
+    let select = document.querySelector(
+      `select[name='${id}']`
+    ) as HTMLInputElement;
+    if (select) {
+      // alert('test');
+      select.animate(
+        [
+          // Image clé initiale
+          { backgroundColor: '#040037' },
+          // Image clé finale
+          {
+            backgroundColor: 'linear-gradient(#a8ff78 , #78ffd6 )',
+          },
+        ],
+        {
+          // Durée de l'animation en millisecondes
+          duration: 400,
+          // Nombre de répétitions de l'animation
+          iterations: 1,
+          // Mode de remplissage de l'animation
+        }
+      );
+    }
+  }
+
+  animateInput(id: number) {
+    let input = document.querySelector(
+      `input[name='${id}']`
+    ) as HTMLInputElement;
+    if (input) {
+      input.blur();
+      input.animate(
+        [
+          { outline: 'none' }, // Image clé finale
+          { outline: '1px solid #009e32' },
+        ],
+        { duration: 700 }
+      );
+      input.animate(
+        [
+          // Image clé initiale
+          { border: '2px solid #040037' }, // Image clé finale
+          { border: '1px solid #009e32' },
+        ],
+        { duration: 700 }
+      );
+    }
+  }
+
+  deleteProduct(index: number) {
+    let product: any = this.cartItems[index];
+    if (confirm('voulez vous vraiment supprimer le produit ?')) {
+      console.log('il veut supprimer le produit');
     }
   }
 

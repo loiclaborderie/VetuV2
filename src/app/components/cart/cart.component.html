@@ -54,109 +54,95 @@
 </div>
 
 <div class="cart" *ngIf="cartItems && cartItems.length > 0">
-  <div class="container">
-    <h2>Panier</h2>
+  <!-- <div class="container"> -->
 
-    <div class="grid">
-      <div class="sidebar">
-        <h4>
-          Total ({{ articleNum(cartItems) }} articles) : {{ totalPrice }}€
-        </h4>
-        <button (click)="console()">CONSOLE</button>
-        <button
-          *ngIf="cartItems.length > 0"
-          style="padding: 1rem 2rem; background-color: crimson; color: #f3f3f3"
-          (click)="deleteOrder()"
-        >
-          DELETE
+  <div class="grid">
+    <div class="sidebar">
+      <h3>Total ({{ articleNum(cartItems) }} articles)</h3>
+      <div class="buttons">
+        <button *ngIf="cartItems.length > 0" routerLink="/finalize-order">
+          Commander ({{ totalPrice }}€)
         </button>
-        <button
-          *ngIf="cartItems.length > 0"
-          style="
-            padding: 1rem 2rem;
-            background-color: rgb(17, 130, 174);
-            color: #f3f3f3;
-          "
-          routerLink="/finalize-order"
-        >
-          Passer la commande
-        </button>
+        <a class="cancel" *ngIf="cartItems.length > 0" (click)="deleteOrder()">
+          Annuler
+        </a>
       </div>
-      <ul class="cartlist">
-        <div class="item" *ngFor="let cartItem of cartItems; let i = index">
-          <div class="block-img">
-            <img src="/assets/{{ cartItem.photo }}/asset1.jpeg" />
-          </div>
-          <div class="block-info">
-            <div class="product-title">
-              <h3>{{ cartItem.titre }}</h3>
+    </div>
+    <ul class="cartlist">
+      <div class="item" *ngFor="let cartItem of cartItems; let i = index">
+        <div class="block-img">
+          <img src="/assets/{{ cartItem.photo }}/asset1.jpeg" />
+        </div>
+        <div class="block-info">
+          <div class="product-title">
+            <h3 class="normal">{{ cartItem.titre }}</h3>
+            <h3 class="small" *ngIf="cartItem.titre.length < 17">
+              {{ cartItem.titre }}
+            </h3>
+            <h3 class="small" *ngIf="cartItem.titre.length >= 17">
+              {{ cartItem.titre.slice(0, 16) + "..." }}
+            </h3>
+            <div class="action" (click)="deleteProduct(i)">
+              <i class="fa-solid fa-xmark fa-2xl"></i>
             </div>
-            <div class="product-price-mobile">
-              <p>{{ cartItem.prix }}€</p>
-            </div>
-            <div
-              [ngClass]="
-                cartItem.stock > 5
-                  ? 'okay'
-                  : cartItem.stock > 0
-                  ? 'low'
-                  : 'none'
-              "
-              class="product-stock"
-            >
-              <p *ngIf="cartItem.stock > 0">
-                <span *ngIf="cartItem.stock > 5">Encore </span
-                ><span *ngIf="cartItem.stock < 5">Plus que </span
-                >{{ cartItem.stock }} en stock
-              </p>
-              <p *ngIf="cartItem.stock === 0">Rupture de stock</p>
-            </div>
-            <div class="product-size">
-              <p>Taille : {{ cartItem.taille }}</p>
-            </div>
-            <div class="product-quantity">
-              <div class="select-quantity">
-                <select
-                  [hidden]="showNumberInput[i] || cartItem.quantite > 9"
-                  (change)="quantity($event, i)"
-                  name="{{ cartItem.id }}"
-                  id="quantity-{{ i }}"
-                >
-                  <option
-                    [selected]="unit === cartItem.quantite"
-                    *ngFor="let unit of range(cartItem.stock)"
-                    value="{{ unit }}"
-                  >
-                    {{ unit }}
-                  </option>
-                  <option *ngIf="cartItem.stock > 9" value="custom">10+</option>
-                </select>
-
-                <input
-                  [hidden]="!showNumberInput[i] && cartItem.quantite <= 9"
-                  type="number"
-                  value="{{ cartItem.quantite }}"
-                  (change)="quantity($event, i)"
-                  name="{{ cartItem.id }}"
-                />
-
-                <button
-                  [hidden]="!showNumberInput[i] && cartItem.quantite <= 9"
-                >
-                  Update
-                </button>
-                <!-- Le bouton est là pour faire joli, ça update peu importe ou on clique -->
-              </div>
-              <div class="remove-quantity">
-                <a class="remove-item">Retirer</a>
-              </div>
+            <div class="action-mobile" (click)="deleteProduct(i)">
+              <i class="fa-solid fa-xmark"></i>
             </div>
           </div>
-          <div class="block-price">
-            <p class="h3">{{ cartItem.prix }}€</p>
+          <div
+            [ngClass]="
+              cartItem.stock > 5 ? 'okay' : cartItem.stock > 0 ? 'low' : 'none'
+            "
+            class="product-stock"
+          >
+            <p *ngIf="cartItem.stock > 0">
+              <span *ngIf="cartItem.stock > 5">Encore </span
+              ><span *ngIf="cartItem.stock < 5">Plus que </span
+              >{{ cartItem.stock }} en stock
+            </p>
+            <p *ngIf="cartItem.stock === 0">Rupture de stock</p>
+          </div>
+          <div class="product-size">
+            <p>Taille : {{ cartItem.taille }}</p>
+          </div>
+          <div class="product-quantity">
+            <div class="select-quantity">
+              <select
+                [hidden]="showNumberInput[i] || cartItem.quantite > 9"
+                (change)="quantity($event, i)"
+                name="{{ cartItem.id }}"
+                id="quantity-{{ i }}"
+              >
+                <option
+                  [selected]="unit === cartItem.quantite"
+                  *ngFor="let unit of range(cartItem.stock)"
+                  value="{{ unit }}"
+                >
+                  {{ unit }}
+                </option>
+                <option *ngIf="cartItem.stock > 9" value="custom">10+</option>
+              </select>
+
+              <input
+                [hidden]="!showNumberInput[i] && cartItem.quantite <= 9"
+                type="number"
+                value="{{ cartItem.quantite }}"
+                (change)="quantity($event, i)"
+                name="{{ cartItem.id }}"
+              />
+
+              <button [hidden]="!showNumberInput[i] && cartItem.quantite <= 9">
+                Update
+              </button>
+              <!-- Le bouton est là pour faire joli, ça update peu importe ou on clique -->
+            </div>
+            <div class="block-price">
+              <p class="h3 price">{{ cartItem.prix * cartItem.quantite }}€</p>
+            </div>
           </div>
         </div>
-      </ul>
-    </div>
+      </div>
+    </ul>
+    <!-- </div> -->
   </div>
 </div>
