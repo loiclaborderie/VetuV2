@@ -165,6 +165,32 @@ export class CartComponent {
     let product: any = this.cartItems[index];
     if (confirm('voulez vous vraiment supprimer le produit ?')) {
       console.log('il veut supprimer le produit');
+      console.log(product);
+      console.log(product.id);
+      if (this.orderService.orderId) {
+        this.orderService.deleteProductFromOrder(product).subscribe((data) => {
+          console.log(data);
+          const indexFound = this.cartItems.findIndex(
+            (obj) => obj.id === product.id
+          );
+          if (indexFound !== -1) {
+            this.cartItems.splice(indexFound, 1); // Replace the quantite
+          }
+          this.cartService.setCartItems(this.cartItems);
+          this.calculateTotalPrice();
+        });
+      } else if (localStorage.getItem('cart')) {
+        const indexFound = this.cartItems.findIndex(
+          (obj) => obj.id === product.id
+        );
+        if (indexFound !== -1) {
+          this.cartItems.splice(indexFound, 1); // Replace the quantite
+          console.log('supprimé du panier');
+        }
+        this.cartService.setCartItems(this.cartItems);
+        localStorage.setItem('cart', JSON.stringify(this.cartItems));
+        this.calculateTotalPrice();
+      }
     }
   }
 

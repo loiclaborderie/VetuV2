@@ -9,7 +9,13 @@
     <h2>Panier</h2>
 
     <div class="grid">
-      <div class="sidebar">#</div>
+      <div class="sidebar">
+        <h3>Total ## articles</h3>
+        <div class="buttons">
+          <button>Commander (###€)</button>
+          <span> Annuler </span>
+        </div>
+      </div>
       <ul class="cartlist">
         <div class="item" *ngFor="let i of 10 | repeat">
           <div class="block-img">
@@ -17,28 +23,25 @@
           </div>
           <div class="block-info">
             <div class="product-title">
-              <span class="h3">LOREM IPSUM DOLOR</span>
+              <span class="h3">##M IPSUM DOLOR</span>
             </div>
             <div class="product-price-mobile">
-              <span>##€</span>
+              <span>##€##</span>
             </div>
             <div class="product-stock">
               <span>Lorem ipsum dolor</span>
             </div>
             <div class="product-size">
-              <span>lorem : #</span>
+              <span>lorem : ###</span>
             </div>
             <div class="product-quantity">
               <div class="select-quantity">
-                <span>QTT</span>
+                <span>#######</span>
               </div>
-              <div class="remove-quantity">
-                <span class="remove-item">Retirer</span>
+              <div class="block-price">
+                <!-- <span>####€</span> -->
               </div>
             </div>
-          </div>
-          <div class="block-price">
-            <span>###€</span>
           </div>
         </div>
       </ul>

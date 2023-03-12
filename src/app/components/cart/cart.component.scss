@@ -19,6 +19,7 @@ nav {
 }
 
 .grid {
+  position: relative;
   padding-top: 5vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -42,6 +43,7 @@ nav {
     text-align: center;
   }
   @media (max-width: 1150px) {
+    position: static;
     grid-column: 1/-1;
   }
   .buttons {
@@ -59,6 +61,7 @@ nav {
     }
     .cancel {
       text-decoration: underline;
+      cursor: pointer;
     }
 
     button {
@@ -270,14 +273,27 @@ nav {
 }
 
 #placeholder {
+  user-select: none;
   .sidebar {
+    animation: 2s infinite loading;
+    background: var(--placeholder-bg);
     @media (max-width: 768px) {
       height: 100px;
     }
+
+    .buttons {
+      button {
+        background: transparent;
+        color: transparent;
+        box-shadow: 0 0 0 0;
+      }
+    }
   }
+
   --placeholder-bg: rgba(67, 66, 66, 0.4078431373);
   color: transparent;
   img {
+    animation: 2s 0.75s infinite loading;
     background: var(--placeholder-bg);
   }
   .h3 {
@@ -285,6 +301,7 @@ nav {
   }
   .item {
     span {
+      animation: 2s 0.5s infinite loading;
       background: var(--placeholder-bg);
       border-radius: 2px;
     }
@@ -305,5 +322,17 @@ nav {
   }
   100% {
     outline: none;
+  }
+}
+
+@keyframes loading {
+  85% {
+    opacity: 100%;
+  }
+  85% {
+    opacity: 70%;
+  }
+  100% {
+    opacity: 100%;
   }
 }

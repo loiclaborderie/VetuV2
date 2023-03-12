@@ -35,6 +35,14 @@ export class OrdersService {
     );
   }
 
+  deleteProductFromOrder(item: any) {
+    const data = { id: item.id };
+    return this.http.put(
+      `${this.baseUrl}/delete/${this.orderId}/product`,
+      data
+    );
+  }
+
   addProductToDb(item: any) {
     const content = {
       id_produit: item.id,

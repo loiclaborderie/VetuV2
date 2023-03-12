@@ -1,6 +1,6 @@
 .product-img {
   // animation: 1.8s ease-out 0s infinite forwards loading;
-  animation: 3s linear 0.3s infinite backwards loading;
+  animation: 3s infinite loading;
   width: 100%;
   aspect-ratio: 3/4;
   object-fit: cover;
@@ -9,6 +9,7 @@
 }
 
 .carte {
+  user-select: none;
   text-align: center;
   color: transparent;
 }
@@ -20,13 +21,13 @@
   // width: 40%;
 }
 .product-description span {
-  animation: 1.8s ease-out 0s infinite forwards loading;
+  animation: 2s 0.5s infinite loading;
   border-radius: 5px;
   background: #0000005c;
 }
 
 .buy-btn {
-  animation: 3s linear 0s infinite backwards loading;
+  animation: 2s linear 0.5s infinite backwards loading;
   background: #0000005c;
   min-width: 4rem;
   max-width: 90%;
@@ -47,12 +48,12 @@
 
 @keyframes loading {
   70% {
-    opacity: 70%;
-  }
-  90% {
     opacity: 100%;
   }
-  100% {
+  85% {
     opacity: 70%;
+  }
+  100% {
+    opacity: 100%;
   }
 }
