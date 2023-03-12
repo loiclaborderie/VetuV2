@@ -1,15 +1,41 @@
 <main *ngIf="!product" class="centered">
-  <div style="display: flex; justify-content: center; padding-top: 2rem">
-    <app-loading></app-loading>
-  </div>
+  <section id="placeholder" class="product-page">
+    <div class="cover-img">
+      <img />
+    </div>
+    <div class="product-details">
+      <div style="padding-top: 4rem"></div>
+      <div class="product-description">
+        <span style="font-size: larger">Description</span>
+        <span>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur
+          beatae culpa reiciendis sapiente praesentium omnis. Impedit fugiat
+          earum vero nemo ipsa atque, vel ipsam sequi pariatur? Cupiditate porro
+          veniam sapiente.
+        </span>
+      </div>
+      <div class="title">
+        <span style="font-size: larger">Lorem, ipsum.</span>
+      </div>
+      <span style="font-size: large" class="categorie"
+        >Lorem ipsum dolor sit.</span
+      >
+      <div class="price">
+        <span style="font-size: larger"> ###€ Lorem ipsum dolor sit. </span>
+      </div>
+      <div class="cta">
+        <div class="color-picker">
+          <select class="select" name="choseSize"></select>
+        </div>
+        <button type="submit" class="buy-cart">
+          <span>Lorem, ipsum dolor.</span>
+        </button>
+      </div>
+    </div>
+  </section>
 </main>
 
 <main *ngIf="product">
-  <nav>
-    <a (click)="goBack()"
-      ><i class="fa-solid fa-arrow-left fa-xl"></i> Retour
-    </a>
-  </nav>
   <section class="product-page">
     <div class="cover-img">
       <div
@@ -26,6 +52,11 @@
       <a class="next" (click)="plusSlides(1)">&#10095;</a>
     </div>
     <div class="product-details">
+      <nav>
+        <a (click)="goBack()"
+          ><i class="fa-solid fa-arrow-left fa-xl"></i> Retour
+        </a>
+      </nav>
       <div class="product-description">
         <h2>Description</h2>
         <p>

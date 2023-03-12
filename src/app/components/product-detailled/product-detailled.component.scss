@@ -1,15 +1,14 @@
 nav {
   display: flex;
   align-items: center;
-  margin-block: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
   a {
     display: block;
     cursor: pointer;
     font-size: clamp(0.85rem, 2.3vw, 20px);
     text-decoration: none;
     color: rgb(23, 23, 23);
-    padding-block: clamp(1rem, 3vh, 50px);
-    margin-left: clamp(1rem, 5vw, 50px);
     i {
       padding-right: 0.3rem;
     }
@@ -109,7 +108,7 @@ section.product-page {
 
 .product-page .product-details {
   padding-inline: 3em;
-  margin: 4em auto 1em;
+  margin: 0 auto 1em;
   display: flex;
   flex-direction: column;
 }
@@ -256,11 +255,50 @@ small {
   color: #464646;
 }
 
-// @keyframes test {
-//   0% {
-//     color: black;
-//   }
-//   100% {
-//     color: grey;
-//   }
-// }
+#placeholder {
+  --placeholder-bg: rgba(67, 66, 66, 0.4078431373);
+  user-select: none;
+  color: transparent;
+  img {
+    animation: loading 2s infinite;
+    background: var(--placeholder-bg);
+  }
+  .product-description {
+    padding: 0;
+  }
+  .price span {
+    color: inherit;
+    background: var(--placeholder-bg);
+  }
+  span {
+    animation: loading 2s 0.3s infinite;
+    display: inline-block;
+    margin-block: 0.5rem;
+    background: var(--placeholder-bg);
+  }
+  .cta {
+    button,
+    select {
+      animation: loading 2s 0.5s infinite;
+      border: none;
+      outline: none;
+      color: transparent;
+      background: var(--placeholder-bg);
+      span {
+        background: transparent;
+      }
+    }
+  }
+}
+
+@keyframes loading {
+  70% {
+    opacity: 100%;
+  }
+  85% {
+    opacity: 70%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}

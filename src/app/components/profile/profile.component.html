@@ -3,7 +3,7 @@
 </div>
 <div class="container" *ngIf="user">
   <nav>
-    <a routerLink="/"
+    <a (click)="goBack()"
       ><i class="fa-solid fa-arrow-left fa-xl"></i> Retour au menu</a
     >
   </nav>

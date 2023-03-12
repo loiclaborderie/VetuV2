@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -25,6 +26,10 @@ export class ProfileComponent {
     });
   }
 
+  goBack() {
+    this.location.back();
+  }
+
   signOut() {
     if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
       this.userService.logout();
@@ -47,6 +52,7 @@ export class ProfileComponent {
     private orderService: OrdersService,
     private auth: AuthService,
     private userCartService: UsercartService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) {}
 }
