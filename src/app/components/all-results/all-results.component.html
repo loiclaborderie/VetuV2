@@ -49,7 +49,15 @@
     </ul>
   </div>
 </div>
-<div class="container-small" *ngIf="products && products.length == 0">
-  <p>Aucun résultat trouvé.</p>
-  <a routerLink="/products">Retourner aux produits</a>
+<div
+  class="div-center"
+  style="padding-top: 4rem"
+  *ngIf="products && products.length == 0"
+>
+  <div class="card">
+    <p>Aucun résultat trouvé.</p>
+    <button class="return" routerLink="/products">
+      Retourner aux produits
+    </button>
+  </div>
 </div>

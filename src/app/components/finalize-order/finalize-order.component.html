@@ -1,3 +1,6 @@
+<div class="div-center" *ngIf="!totalPrice || !user">
+  <app-loading></app-loading>
+</div>
 <div class="container" *ngIf="totalPrice && user">
   <nav>
     <a (click)="goBack()"
