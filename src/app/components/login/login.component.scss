@@ -1,3 +1,10 @@
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
 .form-container {
   margin: 5rem auto;
   width: 90%;
@@ -12,44 +19,69 @@
   align-items: center;
 }
 .group {
+  width: 70%;
+  min-width: 250px;
   padding-block: 1.25rem;
-  display: grid;
-  place-items: center;
+  // display: grid;
+  // place-items: center;
+  &:last-of-type {
+    display: grid;
+    place-items: center;
+  }
 }
 input {
   padding: 0.75rem 1rem;
-  min-width: 250px;
+  width: 100%;
+  font-size: clamp(0.95rem, 2.8vw, 24px);
   border-radius: 7px;
-  box-shadow: 1px 3px 5px rgba($color: #000000, $alpha: 0.15);
-  border: none;
   outline: none;
-  background: #434343;
-  color: #f1f1f1;
-  font-size: 1.2rem;
+  border: none;
+  background: hsla(0, 0%, 50%, 0.25);
+  color: #727272;
+  &:focus,
+  &:active {
+    // animation: blink 1s infinite;
+    outline: 2px solid var(--color-blue);
+  }
+  &.input-error {
+    background: rgba(255, 0, 0, 0.15);
+    outline: 2px solid rgba(220, 20, 60, 0.75);
+  }
 }
 input::placeholder {
-  color: #f1f1f1;
+  color: #8f8e8e;
 }
 
 button {
-  padding: 0.6em 2em;
-  font-size: 1.2rem;
-  background: #4f80e4;
-  color: #f1f1f1;
-  border: 1px solid #000000;
-  border-radius: 7px;
-  outline: none;
-  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  min-width: 150px;
+  width: 30vw;
+  margin: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: none;
+  background: var(--color-blue);
+  color: #f3f3f3;
+  font-size: clamp(0.85rem, 2.5vw, 20px);
   font-weight: 700;
-  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 1px 3px 1px 2px rgb(15, 15, 15);
+  &:hover {
+    background: hsl(244, 100%, 16%);
+    box-shadow: 1px 3px 1px 2px rgb(51, 51, 51);
+  }
+  &:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.3);
+  }
 }
-button:hover {
-  background: #f3f3f3;
-  color: #4f80e4;
-}
+
 .signup {
   padding-top: 1rem;
   text-align: center;
+  font-size: clamp(0.85rem, 2.5vw, 20px);
 }
 .signup a {
   text-decoration: none;
@@ -57,8 +89,23 @@ button:hover {
   color: #070160;
 }
 .error {
+  padding-top: 0.5rem;
+  padding-inline: 0.5rem;
+  font-size: clamp(0.75rem, 2.8vw, 20px);
   color: crimson;
 }
 .text-center {
   text-align: center;
 }
+
+// @keyframes blink {
+//   0% {
+//     outline: 2px solid var(--color-blue);
+//   }
+//   75% {
+//     outline: none;
+//   }
+//   100% {
+//     outline: 2px solid var(--color-blue);
+//   }
+// }

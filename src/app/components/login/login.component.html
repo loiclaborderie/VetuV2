@@ -1,36 +1,59 @@
 <div class="div-center" style="margin-top: 4rem" *ngIf="submittedGood">
   <app-loading></app-loading>
 </div>
-<div *ngIf="!submittedGood" class="form-container">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<div class="flex-center">
+  <form
+    *ngIf="!submittedGood"
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+    class="form-container"
+  >
     <div class="error text-center" style="color: crimson" *ngIf="errormsg">
       {{ errormsg }}
     </div>
     <div class="group">
-      <input type="mail" formControlName="email" placeholder="email" />
+      <input
+        [ngClass]="
+          form['email'].errors && submitted && !submittedGood
+            ? 'input-error'
+            : ''
+        "
+        type="mail"
+        formControlName="email"
+        placeholder="Email"
+      />
       <div
         class="error"
         *ngIf="form['email'].errors && submitted && !submittedGood"
       >
-        <div *ngIf="form['email'].hasError('required')">Email is required</div>
-        <div *ngIf="form['email'].hasError('email')">Email is invalid</div>
+        <div *ngIf="form['email'].hasError('required')">
+          Un email est requis
+        </div>
+        <div *ngIf="form['email'].hasError('email')">
+          L'email n'est pas valide
+        </div>
       </div>
     </div>
     <div class="group">
       <input
+        [ngClass]="
+          form['password'].errors && submitted && !submittedGood
+            ? 'input-error'
+            : ''
+        "
         type="password"
         formControlName="password"
-        placeholder="mot de passe"
+        placeholder="Mot de passe"
       />
       <div
         class="error"
         *ngIf="form['password'].errors && submitted && !submittedGood"
       >
         <div *ngIf="form['password'].hasError('required')">
-          Un mot de passe est requis pour se connecter
+          Un mot de passe est requis
         </div>
         <div *ngIf="form['password'].hasError('minlength')">
-          Le mot de passe doit faire au moins 2 caractères
+          Le mot de passe fait au moins 2 caractères
         </div>
       </div>
     </div>
