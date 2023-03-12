@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { TokenService } from 'src/app/services/token/token.service';
 import { Token } from 'src/app/_interfaces/token';
 import { Location } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signup',
@@ -32,9 +33,12 @@ export class SignupComponent {
     private authService: AuthService,
     private tokenService: TokenService,
     private router: Router,
-    private snackBar: MatSnackBar,
     private location: Location
-  ) {}
+  ) {
+    if (localStorage.getItem('user')) {
+      this.router.navigate(['/']);
+    }
+  }
 
   @ViewChild('stepper') stepper!: MatStepper;
 
@@ -125,9 +129,11 @@ export class SignupComponent {
       this.authService.register(finalForm).subscribe(
         (data: any) => {
           if (data.status === false) {
-            this.snackBar.open(data.message, '❕', {
-              duration: 2500,
-              panelClass: ['error-snack'],
+            Swal.fire({
+              title: 'Il y a eu une erreur',
+              text: data.message,
+              timer: 1000,
+              icon: 'error',
             });
             this.stepper.selectedIndex = 0;
             this.basicForm.get('email')!.reset();
@@ -135,10 +141,13 @@ export class SignupComponent {
             return;
           }
           console.log(data);
-          this.snackBar.open('Vous avez été inscrit avec succés', 'OK', {
-            duration: 2500,
-            panelClass: ['success-snackbar'],
+          Swal.fire({
+            title: 'Votre compte a bien été créé',
+            text: 'Vous allez être redirigé',
+            timer: 1000,
+            icon: 'success',
           });
+
           this.authService.login(email, password).subscribe(
             (data: Token) => {
               localStorage.setItem('user', JSON.stringify(data.userId));
@@ -146,18 +155,20 @@ export class SignupComponent {
               this.router.navigate(['/profile']);
             },
             (err: any) => {
-              this.snackBar.open('Erreur lors de votre connexion', '❕', {
-                duration: 2500,
-                panelClass: ['error-snack'],
-              });
+              Swal.fire(
+                'Erreur lors de votre connexion',
+                'Veuillez réessayer plus tard',
+                'error'
+              );
             }
           );
         },
         (err: any) => {
-          this.snackBar.open('Erreur lors de votre inscription', '❕', {
-            duration: 2500,
-            panelClass: ['error-snack'],
-          });
+          Swal.fire(
+            'Il y a eu une erreur lors de votre inscription',
+            'Veuillez réessayer',
+            'error'
+          );
         }
       );
     } else {

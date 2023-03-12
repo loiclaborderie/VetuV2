@@ -2,18 +2,23 @@
   <a (click)="goBack()"><i class="fa-solid fa-arrow-left fa-xl"></i> Retour</a>
 </nav>
 
-<form [formGroup]="userForm">
+<form class="form-container" [formGroup]="userForm">
   <mat-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="basicForm">
       <!-------- Premier formulaire ------------>
 
       <div formGroupName="basic">
-        <ng-template matStepLabel>Informations de connexion</ng-template>
+        <ng-template matStepLabel>
+          <span id="label1">Informations de connexion</span>
+        </ng-template>
         <div class="form-group">
           <label for="email">Email :</label>
           <input
             formControlName="email"
             id="email"
+            [ngClass]="
+              submit1 && basicForm.get('email')!.errors ? 'input-error' : ''
+            "
             name="email"
             type="email"
             placeholder="ex: john.doe@gmail.com"
@@ -36,6 +41,9 @@
           <input
             formControlName="password"
             id="password"
+            [ngClass]="
+              submit1 && basicForm.get('password')!.errors ? 'input-error' : ''
+            "
             name="password"
             type="password"
             placeholder="Minimum de 8 caractères, 1 majuscule et 1 chiffre"
@@ -58,6 +66,11 @@
           <input
             formControlName="confirmPassword"
             id="confirmPassword"
+            [ngClass]="
+              submit1 && basicForm.get('confirmPassword')!.errors
+                ? 'input-error'
+                : ''
+            "
             name="confirmPassword"
             type="password"
             placeholder="Minimum de 8 caractères, 1 majuscule et 1 chiffre"
@@ -74,7 +87,7 @@
             <span>Ce mot de passe doit être identique au premier</span>
           </div>
         </div>
-        <div>
+        <div class="buttons only-one">
           <button mat-button (click)="submit1 = true" matStepperNext>
             Next
           </button>
@@ -84,7 +97,10 @@
 
     <!---------------------- deuxieme formulaire ------------------->
 
-    <mat-step [stepControl]="contactForm" label="Informations personnelles">
+    <mat-step [stepControl]="contactForm">
+      <ng-template matStepLabel
+        ><span id="label2">Informations personnelles</span>
+      </ng-template>
       <div formGroupName="contact">
         <div class="form-group">
           <label for="nom">Nom :</label>
@@ -92,6 +108,9 @@
             id="nom"
             name="nom"
             type="text"
+            [ngClass]="
+              submit2 && contactForm.get('nom')!.errors ? 'input-error' : ''
+            "
             placeholder="ex: Doe"
             formControlName="nom"
           />
@@ -109,6 +128,9 @@
           <input
             id="prenom"
             name="prenom"
+            [ngClass]="
+              submit2 && contactForm.get('prenom')!.errors ? 'input-error' : ''
+            "
             formControlName="prenom"
             type="text"
             placeholder="ex: John"
@@ -162,6 +184,9 @@
             id="pseudo"
             name="pseudo"
             type="text"
+            [ngClass]="
+              submit2 && contactForm.get('pseudo')!.errors ? 'input-error' : ''
+            "
             placeholder="ex: JoeRoegan68"
           />
           <div
@@ -182,6 +207,11 @@
             formControlName="telephone"
             id="telephone"
             name="telephone"
+            [ngClass]="
+              submit2 && contactForm.get('telephone')!.errors
+                ? 'input-error'
+                : ''
+            "
             type="tel"
             placeholder="ex: +33 6 68 53 17 07"
           />
@@ -195,7 +225,7 @@
             >
           </div>
         </div>
-        <div>
+        <div class="buttons two">
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button (click)="submit2 = true" matStepperNext>
             Next
@@ -207,12 +237,15 @@
     <!---------------------- troisieme formulaire ------------------->
 
     <mat-step [stepControl]="addressForm">
-      <ng-template matStepLabel>Adresse</ng-template>
+      <ng-template matStepLabel><span id="label3">Adresse</span></ng-template>
       <!-- Mettre un span dans le label pour le faire disparaitre en mobile -->
       <div formGroupName="address">
         <div class="form-group">
           <label for="adresse">Adresse :</label>
           <input
+            [ngClass]="
+              submit3 && addressForm.get('adresse')!.errors ? 'input-error' : ''
+            "
             id="adresse"
             name="adresse"
             type="text"
@@ -235,6 +268,9 @@
         <div class="form-group">
           <label for="ville">Ville :</label>
           <input
+            [ngClass]="
+              submit3 && addressForm.get('ville')!.errors ? 'input-error' : ''
+            "
             id="ville"
             name="ville"
             type="text"
@@ -258,6 +294,11 @@
           <input
             id="code_postal"
             name="code_postal"
+            [ngClass]="
+              submit3 && addressForm.get('code_postal')!.errors
+                ? 'input-error'
+                : ''
+            "
             type="number"
             placeholder="ex: 06000"
             formControlName="code_postal"
@@ -275,7 +316,7 @@
             >
           </div>
         </div>
-        <div>
+        <div class="buttons two">
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button (click)="submit()" type="submit">Submit</button>
         </div>
