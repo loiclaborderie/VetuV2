@@ -11,6 +11,7 @@ import { CartService } from 'src/app/services/cart/cart.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { ProductService } from 'src/app/services/product/product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modal',
@@ -86,11 +87,21 @@ export class ModalComponent {
           console.log(dataFetched);
           if (dataFetched[1] === 200) {
             this.cartService.addCartItem(productData);
-            this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK', {
-              duration: 2500,
-              panelClass: ['add-cart-snackbar'],
-            });
+            // this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK', {
+            //   duration: 2500,
+            //   panelClass: ['add-cart-snackbar'],
+            // });
             this.close();
+            Swal.fire({
+              // title: 'Congratulations',
+              text: 'Le produit a été ajouté',
+              icon: 'success',
+              timer: 2000,
+              confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
+              background: '#040037',
+              color: '#F3F3F3',
+              showConfirmButton: false,
+            });
             productData.stock--;
             console.log(productData.stock);
           } else {

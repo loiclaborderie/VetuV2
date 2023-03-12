@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { UsercartService } from 'src/app/services/usercart/usercart.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cart',
@@ -159,6 +160,19 @@ export class CartComponent {
         { duration: 700 }
       );
     }
+  }
+
+  alert() {
+    Swal.fire({
+      title: 'Congratulations',
+      text: 'Your order has been passed',
+      icon: 'success',
+      timer: 2000,
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
+      background: '#040037',
+      color: '#F3F3F3',
+      showConfirmButton: false,
+    });
   }
 
   deleteProduct(index: number) {
