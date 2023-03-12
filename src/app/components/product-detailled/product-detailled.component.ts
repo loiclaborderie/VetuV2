@@ -1,10 +1,11 @@
-import { NumberSymbol } from '@angular/common';
+import { Location, NumberSymbol } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { ProductService } from 'src/app/services/product/product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-detailled',
@@ -16,6 +17,10 @@ export class ProductDetailledComponent {
   product: any;
   slideIndex = 1;
   selectedSize: string = '';
+
+  goBack() {
+    this.location.back();
+  }
 
   selectSize() {
     this.selectedSize = (
@@ -38,21 +43,24 @@ export class ProductDetailledComponent {
       this.orderService.addProductToDb(content).subscribe((data: any) => {
         if (data[1] === 200) {
           this.cartService.addCartItem(productData);
-          this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK', {
-            duration: 2500,
-            panelClass: ['add-cart-snackbar'],
+          Swal.fire({
+            text: 'Le produit a été ajouté',
+            icon: 'success',
+            timer: 1500,
+            background: '#040037',
+            color: '#F3F3F3',
+            showConfirmButton: false,
           });
+          this.goBack();
           productData.stock--;
           console.log(productData.stock);
         } else {
-          this.snackBar.open(
-            `${data[0] || "erreur lors de l'ajout au panier"}`,
-            '❕',
-            {
-              duration: 2500,
-              panelClass: ['error-snack'],
-            }
-          );
+          Swal.fire({
+            text: "Erreur lors de l'ajout au panier",
+            icon: 'error',
+            timer: 1500,
+            showConfirmButton: false,
+          });
         }
         console.log(data);
       });
@@ -104,7 +112,8 @@ export class ProductDetailledComponent {
     private orderService: OrdersService,
     private route: ActivatedRoute,
     private cartService: CartService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) {}
 
   ngOnInit(): void {

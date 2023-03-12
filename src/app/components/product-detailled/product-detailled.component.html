@@ -5,6 +5,11 @@
 </main>
 
 <main *ngIf="product">
+  <nav>
+    <a (click)="goBack()"
+      ><i class="fa-solid fa-arrow-left fa-xl"></i> Retour
+    </a>
+  </nav>
   <section class="product-page">
     <div class="cover-img">
       <div

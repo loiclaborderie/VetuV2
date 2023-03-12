@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { UserService } from 'src/app/services/user/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-finalize-order',
@@ -32,17 +33,24 @@ export class FinalizeOrderComponent {
             this.orderService.orderId = data.created;
             localStorage.setItem('orderId', data.created);
             this.cartService.loadCartItemsFromDb();
-            this.router.navigate(['/cart']);
+            this.router.navigate(['/']);
           });
         this.orderService.loadPastCommandes = false;
-        this.snackBar.open('Votre commande a été validée ', '✅', {
-          duration: 2500,
-          panelClass: ['success-snack'],
+        Swal.fire({
+          title: 'Congratulations',
+          text: 'Your order has been passed',
+          icon: 'success',
+          timer: 2000,
+          background: '#040037',
+          color: '#F3F3F3',
+          showConfirmButton: false,
         });
       } else {
-        this.snackBar.open('Une erreur est survenue', '❕', {
-          duration: 2500,
-          panelClass: ['error-snack'],
+        Swal.fire({
+          text: 'There has been an error, try again',
+          icon: 'error',
+          timer: 2000,
+          showConfirmButton: false,
         });
       }
     });

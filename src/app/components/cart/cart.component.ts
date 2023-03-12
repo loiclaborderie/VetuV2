@@ -117,7 +117,6 @@ export class CartComponent {
       `select[name='${id}']`
     ) as HTMLInputElement;
     if (select) {
-      // alert('test');
       select.animate(
         [
           // Image clé initiale
@@ -241,7 +240,6 @@ export class CartComponent {
         'orderId',
         JSON.stringify(this.orderService.orderId)
       );
-      alert('load avec orderid');
       this.cartService
         .loadCartItemsFromDbObservable()
         .subscribe((data: any) => {

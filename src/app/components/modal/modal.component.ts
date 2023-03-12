@@ -86,14 +86,11 @@ export class ModalComponent {
           console.log('added to db from localstorage');
           console.log(dataFetched);
           if (dataFetched[1] === 200) {
+            setTimeout(() => {
+              this.close();
+            }, 500);
             this.cartService.addCartItem(productData);
-            // this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK', {
-            //   duration: 2500,
-            //   panelClass: ['add-cart-snackbar'],
-            // });
-            this.close();
             Swal.fire({
-              // title: 'Congratulations',
               text: 'Le produit a été ajouté',
               icon: 'success',
               timer: 2000,
@@ -106,14 +103,12 @@ export class ModalComponent {
             console.log(productData.stock);
           } else {
             this.close();
-            this.snackBar.open(
-              `${dataFetched[0] || "erreur lors de l'ajout au panier"}`,
-              '❕',
-              {
-                duration: 2500,
-                panelClass: ['error-snack'],
-              }
-            );
+            Swal.fire({
+              text: dataFetched[0] || "Erreur lors de l'ajout au panier",
+              icon: 'error',
+              timer: 1500,
+              showConfirmButton: false,
+            });
           }
         });
     } else {
