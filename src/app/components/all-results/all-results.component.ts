@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CacheService } from 'src/app/services/cache.service';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -10,7 +11,8 @@ import { ProductService } from 'src/app/services/product/product.service';
 export class AllResultsComponent {
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private productCacheService: CacheService
   ) {}
   waitingForData: boolean = true;
   products: any;
@@ -19,6 +21,8 @@ export class AllResultsComponent {
   sortBy = 'id';
   foundResults!: any;
   limit: any = 36;
+
+  private cache = new Map<string, any>(); // Map to store cached product data
 
   filterBy(e: any) {
     this.waitingForData = true;
@@ -48,6 +52,19 @@ export class AllResultsComponent {
     this.products = data.results;
     this.foundResults = data.numberResults;
     this.pages = Array.from({ length: data.pages }, (e, i) => i + 1);
+
+    const category: string | null =
+      this.route.snapshot.paramMap.get('category');
+    const genre: string | null = this.route.snapshot.paramMap.get('genre');
+    const term: string | null = this.route.snapshot.paramMap.get('term');
+    this.productCacheService.set(
+      category,
+      genre,
+      term,
+      this.page,
+      this.sortBy,
+      data
+    );
   }
 
   fetchProducts() {
@@ -55,39 +72,55 @@ export class AllResultsComponent {
       const category: string | null = params.get('category');
       const genre: string | null = params.get('genre');
       const term: string | null = params.get('term');
-      if (genre && category) {
-        this.productService
-          .getProductsByCategoryAndGenre(
-            category,
-            genre,
-            this.page,
-            this.sortBy
-          )
-          .subscribe((data: any) => {
-            this.handleProductData(data);
-          });
-        console.log('genre and category');
-      } else if (category) {
-        this.productService
-          .getProductsByCategory(category, this.page, this.sortBy)
-          .subscribe((data: any) => {
-            this.handleProductData(data);
-          });
-        console.log('category');
-      } else if (term) {
-        this.productService
-          .getProductsBySearchTerm(term, this.page, this.sortBy)
-          .subscribe((data: any) => {
-            this.handleProductData(data);
-          });
-        console.log('search');
+
+      const cachedData = this.productCacheService.get(
+        category,
+        genre,
+        term,
+        this.page,
+        this.sortBy
+      );
+      // Check if the product data is already in cache
+      if (cachedData) {
+        alert('Fetched using cached data');
+        this.handleProductData(cachedData);
       } else {
-        console.log('no param');
-        this.productService
-          .getProducts(this.page, this.sortBy)
-          .subscribe((data: any) => {
-            this.handleProductData(data);
-          });
+        alert('Fetched using db data');
+        // If not, fetch the product data
+        if (genre && category) {
+          this.productService
+            .getProductsByCategoryAndGenre(
+              category,
+              genre,
+              this.page,
+              this.sortBy
+            )
+            .subscribe((data: any) => {
+              this.handleProductData(data);
+            });
+          console.log('genre and category');
+        } else if (category) {
+          this.productService
+            .getProductsByCategory(category, this.page, this.sortBy)
+            .subscribe((data: any) => {
+              this.handleProductData(data);
+            });
+          console.log('category');
+        } else if (term) {
+          this.productService
+            .getProductsBySearchTerm(term, this.page, this.sortBy)
+            .subscribe((data: any) => {
+              this.handleProductData(data);
+            });
+          console.log('search');
+        } else {
+          console.log('no param');
+          this.productService
+            .getProducts(this.page, this.sortBy)
+            .subscribe((data: any) => {
+              this.handleProductData(data);
+            });
+        }
       }
     });
   }

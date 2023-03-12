@@ -1,19 +1,76 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { UsercartService } from 'src/app/services/usercart/usercart.service';
 import Swal from 'sweetalert2';
+import {
+  trigger,
+  state,
+  transition,
+  animate,
+  style,
+  keyframes,
+  query,
+  stagger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
+  animations: [
+    trigger('priceChanged', [
+      transition('initial => changed', [
+        query(
+          '.letter',
+          [
+            stagger(100, [
+              animate(
+                '1s',
+                keyframes([
+                  style({
+                    transform: 'translateY(0px) scale(1)',
+                    opacity: 1,
+                    offset: 0,
+                  }),
+                  style({
+                    transform: 'translateY(-20px)',
+                    opacity: 0,
+                    offset: 0.25,
+                  }),
+                  style({
+                    transform: 'translateY(20px)',
+                    opacity: 0,
+                    offset: 0.35,
+                  }),
+                  style({
+                    transform: 'translateY(10px) scale(0.8)',
+                    opacity: 0.75,
+                    offset: 0.75,
+                  }),
+                  style({
+                    transform: 'translateY(0) scale(1.05)',
+                    opacity: 1,
+                    offset: 1,
+                  }),
+                ])
+              ),
+            ]),
+          ],
+          { optional: true }
+        ),
+      ]),
+    ]),
+  ],
 })
 export class CartComponent {
   cartItems!: any[];
   totalPrice!: number;
   showNumberInput: boolean[] = [];
+  previousPrice: number[] = [];
+
   // dataLoaded = false;
   placeholder = true;
 
@@ -21,14 +78,27 @@ export class CartComponent {
     private cartService: CartService,
     private orderService: OrdersService,
     private userCartService: UsercartService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) {}
+
+  goBack() {
+    this.location.back();
+  }
 
   range(limit: number): number[] {
     limit > 9 ? (limit = 9) : (limit = limit);
     //Je limite à 9 la quantité max selectionnable via le select
     //Cette méthode va servir à loop sur les quantité pour les select
     return Array.from({ length: limit }, (_, i) => i + 1);
+  }
+
+  getPriceState(item: any, i: number) {
+    const currentPrice = item.prix * item.quantite;
+    const state =
+      this.previousPrice[i] !== currentPrice ? 'changed' : 'initial';
+    this.previousPrice[i] = currentPrice || 0;
+    return state;
   }
 
   console() {

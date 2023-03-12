@@ -86,9 +86,7 @@ export class ModalComponent {
           console.log('added to db from localstorage');
           console.log(dataFetched);
           if (dataFetched[1] === 200) {
-            setTimeout(() => {
-              this.close();
-            }, 500);
+            this.close();
             this.cartService.addCartItem(productData);
             Swal.fire({
               text: 'Le produit a été ajouté',
