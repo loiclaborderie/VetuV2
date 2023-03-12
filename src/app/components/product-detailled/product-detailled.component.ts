@@ -25,8 +25,9 @@ export class ProductDetailledComponent {
 
   addToCart() {
     const productData = this.products[+this.selectedSize];
-    this.cartService.addCartItem(productData);
     this.selectedSize = '';
+    const select = document.querySelector('select.select') as HTMLSelectElement;
+    select.selectedIndex = 0;
     let newCart = this.cartService.getCartItems();
     if (localStorage.getItem('user')) {
       // On n'utilise plus le localStorage si l'utilisateur est co

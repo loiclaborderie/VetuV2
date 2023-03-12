@@ -21,16 +21,16 @@
       <a class="next" (click)="plusSlides(1)">&#10095;</a>
     </div>
     <div class="product-details">
+      <div class="product-description">
+        <h2>Description</h2>
+        <p>
+          {{ product.description }}
+        </p>
+      </div>
       <div class="title">
         <h2>
           {{ product.titre.toUpperCase() }}
         </h2>
-      </div>
-      <div class="price">
-        <h3>
-          {{ product.prix }}€
-          <span>{{ product.stock }} encore en stock !</span>
-        </h3>
       </div>
       <h4 class="categorie">
         {{ product.categorie.toUpperCase() }} POUR
@@ -38,6 +38,12 @@
         <span *ngIf="product.public == 'm'">HOMMES</span>
         <span *ngIf="product.public == 'mixte'">TOUS</span>
       </h4>
+      <div class="price">
+        <h3>
+          {{ product.prix }}€
+          <span>{{ product.stock }} encore en stock !</span>
+        </h3>
+      </div>
       <div class="cta">
         <div class="color-picker">
           <select (change)="selectSize()" class="select" name="choseSize">
@@ -65,12 +71,6 @@
         >
           <span>Ajouter au panier</span>
         </button>
-      </div>
-      <div class="product-description">
-        <h2>Description</h2>
-        <p>
-          {{ product.description }}
-        </p>
       </div>
     </div>
   </section>

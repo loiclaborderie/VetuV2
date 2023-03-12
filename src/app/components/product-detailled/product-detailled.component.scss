@@ -98,12 +98,17 @@ section.product-page {
 .product-page .product-details > * {
   padding-block: 0.5em;
 }
-.product-page .product-details .price,
+
 .product-details .title,
 .product-details .categorie {
-  text-align: center;
+  // text-align: center;
   padding-block: 3vh;
 }
+
+.product-page .product-details .price {
+  padding-bottom: 3vh;
+}
+
 .product-details .price span {
   font-weight: normal;
   font-size: 0.8em;

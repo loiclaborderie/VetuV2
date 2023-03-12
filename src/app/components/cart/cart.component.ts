@@ -227,9 +227,11 @@ export class CartComponent {
         'orderId',
         JSON.stringify(this.orderService.orderId)
       );
+      alert('load avec orderid');
       this.cartService
         .loadCartItemsFromDbObservable()
         .subscribe((data: any) => {
+          console.log(data);
           this.placeholder = false;
           // this.dataLoaded = true;
           this.cartItems = data;

@@ -32,13 +32,13 @@ export class FinalizeOrderComponent {
             this.orderService.orderId = data.created;
             localStorage.setItem('orderId', data.created);
             this.cartService.loadCartItemsFromDb();
+            this.router.navigate(['/cart']);
           });
         this.orderService.loadPastCommandes = false;
         this.snackBar.open('Votre commande a été validée ', '✅', {
           duration: 2500,
           panelClass: ['success-snack'],
         });
-        this.router.navigate(['/cart']);
       } else {
         this.snackBar.open('Une erreur est survenue', '❕', {
           duration: 2500,

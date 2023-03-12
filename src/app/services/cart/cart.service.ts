@@ -78,6 +78,7 @@ export class CartService {
 
   loadCartItemsFromDbObservable() {
     if (localStorage.getItem('orderId')) {
+      console.log('orderId = ', localStorage.getItem('orderId'));
       let commandeId = JSON.parse(localStorage.getItem('orderId') || '[]');
       return this.getProductsFromCommandeId(commandeId);
     } else {
