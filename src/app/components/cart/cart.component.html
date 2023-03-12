@@ -48,10 +48,12 @@
 </div>
 
 <div *ngIf="cartItems && cartItems.length === 0">
-  <div class="container">
-    <h2>Panier</h2>
-    <p>Votre panier est vide pour le moment ;)</p>
-    <button (click)="alert()">ALTER</button>
+  <div class="sidebar">
+    <h3 style="text-align: center">Panier</h3>
+    <p style="text-align: center">Votre panier est vide pour le moment</p>
+    <div class="buttons">
+      <button routerLink="/">Retourner aux produits</button>
+    </div>
   </div>
 </div>
 

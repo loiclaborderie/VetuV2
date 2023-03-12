@@ -285,23 +285,47 @@ export class CartComponent {
   }
 
   deleteOrder() {
-    if (
-      confirm('voulez-vous vraiment supprimer vider votre commande en cours ?')
-    ) {
-      console.log('Il veut vraiment la supprimer là');
-      //On supprime de la base de données
-      this.orderService.deleteCurrentOrder().subscribe((data) => {
-        console.log(data);
-      });
-      localStorage.removeItem('cart');
-      this.cartService.resetCartItems();
-      this.cartItems = this.cartService.getCartItems();
-      this.totalPrice = 0;
-      this.snackBar.open(`Votre panier a été supprimé`, 'OK', {
-        duration: 2500,
-        panelClass: ['success-snackbar'],
-      });
-    }
+    Swal.fire({
+      title: 'Voulez-vous vraiment supprimer la commande en cours ?',
+      text: 'Vous ne pourrez pas récupérer la commande !',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, la supprimer',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.orderService.deleteCurrentOrder().subscribe((data) => {
+          console.log(data);
+        });
+        localStorage.removeItem('cart');
+        this.cartService.resetCartItems();
+        this.cartItems = this.cartService.getCartItems();
+        this.totalPrice = 0;
+        Swal.fire(
+          'Entendu!',
+          'Votre commande a bien été supprimée.',
+          'success'
+        );
+      }
+    });
+    // if (
+    //   confirm('voulez-vous vraiment supprimer vider votre commande en cours ?')
+    // ) {
+    //   console.log('Il veut vraiment la supprimer là');
+    //   //On supprime de la base de données
+    //   this.orderService.deleteCurrentOrder().subscribe((data) => {
+    //     console.log(data);
+    //   });
+    //   localStorage.removeItem('cart');
+    //   this.cartService.resetCartItems();
+    //   this.cartItems = this.cartService.getCartItems();
+    //   this.totalPrice = 0;
+    //   this.snackBar.open(`Votre panier a été supprimé`, 'OK', {
+    //     duration: 2500,
+    //     panelClass: ['success-snackbar'],
+    //   });
+    // }
   }
 
   ngOnInit(): void {
