@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { TokenService } from 'src/app/services/token/token.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Token } from 'src/app/_interfaces/token';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -51,12 +52,22 @@ export class LoginComponent {
           localStorage.setItem('user', JSON.stringify(data.userId));
           this.tokenService.saveToken(data.token);
           this.router.navigate(['/profile']);
+          Swal.fire({
+            icon: 'success',
+            title: 'Indentification réussie',
+            text: 'Vous allez être redirigé',
+            confirmButtonText: 'OK',
+            timer: 1500,
+          });
         },
         (err: any) => {
           this.submittedGood = false;
-          this.submitted = false;
-          console.log(err);
-          this.errormsg = 'Votre email ou mot de passe sont incorrects';
+          Swal.fire({
+            icon: 'error',
+            title: 'Votre email ou mot de passe sont incorrects',
+            confirmButtonText: 'Réessayer',
+            timer: 1500,
+          });
           this.loginForm.patchValue({ password: '' });
         }
       );
@@ -76,5 +87,9 @@ export class LoginComponent {
     private tokenService: TokenService,
     private userService: UserService,
     private router: Router
-  ) {}
+  ) {
+    if (localStorage.getItem('user')) {
+      this.router.navigate(['/']);
+    }
+  }
 }

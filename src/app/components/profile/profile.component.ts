@@ -7,6 +7,7 @@ import { CartService } from 'src/app/services/cart/cart.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { UsercartService } from 'src/app/services/usercart/usercart.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile',
@@ -31,18 +32,30 @@ export class ProfileComponent {
   }
 
   signOut() {
-    if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
-      this.userService.logout();
-      this.cartService.resetCartItems();
-      this.orderService.orderId = null;
-      this.auth.hasntConnectedYet = true;
-      this.userCartService.dataLoaded = false;
-      this.router.navigate(['/login']);
-      this.snackBar.open(`Vous avez été déconnecté`, 'OK', {
-        duration: 2500,
-        panelClass: ['success-snackbar'],
-      });
-    }
+    Swal.fire({
+      title: 'Voulez-vous vraiment vous déconnecter ?',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Non',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, me déconnecter',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userService.logout();
+        this.cartService.resetCartItems();
+        this.orderService.orderId = null;
+        this.auth.hasntConnectedYet = true;
+        this.userCartService.dataLoaded = false;
+        this.router.navigate(['/login']);
+        Swal.fire({
+          icon: 'info',
+          title: 'Vous avez été déconnecté',
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
+    });
   }
 
   constructor(

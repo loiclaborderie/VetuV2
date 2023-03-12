@@ -292,6 +292,7 @@ export class CartComponent {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
+      cancelButtonText: 'Non',
       confirmButtonText: 'Oui, la supprimer',
     }).then((result) => {
       if (result.isConfirmed) {
