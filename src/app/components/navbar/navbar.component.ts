@@ -1,8 +1,6 @@
 import {
   Component,
   ElementRef,
-  HostListener,
-  Inject,
   QueryList,
   ViewChild,
   ViewChildren,
@@ -17,7 +15,6 @@ import {
   style,
 } from '@angular/animations';
 import { fromEvent, map, auditTime } from 'rxjs';
-import { DOCUMENT } from '@angular/common';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -53,7 +50,7 @@ export class NavbarComponent {
   prevItemCount: number = 0;
   animationState: string = 'inactive'; // Add this line
   headerHeight!: any;
-  menuOpened!: boolean;
+  menuOpened: boolean = false;
   categories: any[] = [];
   scrollEvent: any;
   clicked = false;
@@ -144,11 +141,7 @@ export class NavbarComponent {
   }
 
   toggleMenu() {
-    if (this.menuOpened === null || this.menuOpened === undefined) {
-      this.menuOpened = true;
-    } else {
-      this.menuOpened = !this.menuOpened;
-    }
+    this.menuOpened = !this.menuOpened;
     if (this.menuOpened) {
       document.body.style.overflow = 'hidden';
     } else {

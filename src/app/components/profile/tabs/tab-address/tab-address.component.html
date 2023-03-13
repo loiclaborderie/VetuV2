@@ -1,6 +1,5 @@
 <div class="container">
-  <h2>Bienvenue {{ user.nom }}, {{ user.email }}</h2>
-  <button (click)="testConsole()">Console</button>
+  <h1>Mon adresse</h1>
   <form [formGroup]="addressForm">
     <div class="form-group">
       <label for="adresse">Adresse :</label>
@@ -59,12 +58,6 @@
           >Un code postal est nécessaire</span
         >
       </div>
-    </div>
-    <div class="success-msg" *ngIf="successMsg">
-      <span>{{ successMsg }}</span>
-    </div>
-    <div class="error-msg" *ngIf="failureMsg">
-      <span>{{ failureMsg }}</span>
     </div>
     <div class="btn-container">
       <button

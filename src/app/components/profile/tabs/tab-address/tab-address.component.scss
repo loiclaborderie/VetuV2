@@ -8,12 +8,7 @@ h1 {
   font-size: clamp(1.2rem, 3vw, 2.5em);
   font-weight: 700;
 }
-.form-group label {
-  display: block;
-}
-.flex {
-  display: flex;
-}
+
 .btn-container {
   display: flex;
   justify-content: center;
@@ -53,10 +48,7 @@ button.submit:disabled:hover {
   color: rgba(255, 255, 255, 0.673);
   cursor: not-allowed;
 }
-.error {
-  color: crimson;
-  // font-size: clamp(0.8rem, 1.4vw, 1.2rem);
-}
+
 .error-msg {
   color: crimson;
   padding-block: 1rem;
@@ -68,4 +60,83 @@ button.submit:disabled:hover {
   padding-block: 1rem;
   font-size: clamp(0.8rem, 1.4vw, 1.2rem);
   font-weight: 600;
+}
+
+.form-group {
+  padding-block: 1rem;
+  label {
+    padding-bottom: 0.5rem;
+    display: block;
+    font-size: clamp(0.95rem, 2.8vw, 24px);
+  }
+  .error {
+    padding-top: 0.5rem;
+    padding-inline: 0.5rem;
+    font-size: clamp(0.75rem, 2.8vw, 20px);
+    color: crimson;
+    @media (max-width: 361px) {
+      padding-inline: 0;
+    }
+  }
+}
+
+input {
+  &:read-only {
+    color: hsl(0, 0%, 51%);
+    font-size: clamp(0.75rem, 2.2vw, 19px);
+    &:focus,
+    &:active {
+      outline: none;
+    }
+  }
+  transition: 0.3s ease;
+  height: 6vh;
+  padding-inline: 0.7rem;
+  width: 70%;
+  min-width: 250px;
+  font-size: clamp(0.95rem, 2.8vw, 24px);
+  border-radius: 7px;
+  outline: none;
+  border: none;
+  background: hsla(0, 0%, 50%, 0.25);
+  color: #404040;
+  &:focus,
+  &:active {
+    outline: 2px solid var(--color-blue);
+  }
+  &.input-error {
+    background: rgba(255, 0, 0, 0.15);
+    outline: 2px solid rgba(220, 20, 60, 0.75);
+  }
+}
+input::placeholder {
+  color: #8f8e8e;
+}
+
+fieldset {
+  legend {
+    font-size: clamp(0.95rem, 2.8vw, 24px);
+  }
+  padding: 0.75rem 1rem;
+  width: 70%;
+  min-width: 250px;
+  border-radius: 5px;
+  .flex {
+    gap: 2rem;
+    align-items: center;
+    display: flex;
+    padding-bottom: 0.75rem;
+    label {
+      padding-bottom: 0 !important;
+    }
+  }
+  input {
+    outline: none;
+    border: none;
+    width: 3vw;
+    min-width: 20px;
+    height: 2.5vh;
+    max-height: 20px;
+    min-width: 0;
+  }
 }

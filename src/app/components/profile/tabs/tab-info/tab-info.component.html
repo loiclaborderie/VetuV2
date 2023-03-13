@@ -72,8 +72,9 @@
             required
             type="radio"
             id="femme"
+            formControlName="civilite"
             name="civilite"
-            [readOnly]="!updating"
+            [attr.disabled]="!updating ? true : null"
             value="f"
             [checked]="user.civilite === 'f'"
           />
@@ -82,7 +83,8 @@
         <div class="flex">
           <input
             type="radio"
-            [readOnly]="!updating"
+            formControlName="civilite"
+            [attr.disabled]="!updating ? true : null"
             id="homme"
             name="civilite"
             value="m"
@@ -128,12 +130,6 @@
           07</span
         >
       </div>
-    </div>
-    <div class="success-msg" *ngIf="successMsg">
-      <span>{{ successMsg }}</span>
-    </div>
-    <div class="error-msg" *ngIf="failureMsg">
-      <span>{{ failureMsg }}</span>
     </div>
     <div class="btn-container">
       <button

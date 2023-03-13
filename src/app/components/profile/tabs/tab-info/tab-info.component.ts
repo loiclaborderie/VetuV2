@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ModalPasswordService } from 'src/app/services/modal/modal-password.service';
 import { UserService } from 'src/app/services/user/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tab-info',
@@ -13,8 +14,6 @@ export class TabInfoComponent {
   user!: any;
   updating = false;
   message = 'Modifier';
-  successMsg: string = '';
-  failureMsg: string = '';
   userForm!: FormGroup;
   submitted = false;
   submittedGood = false;
@@ -33,6 +32,7 @@ export class TabInfoComponent {
         this.user.prenom,
         [Validators.required, Validators.minLength(3)],
       ],
+      civilite: [this.user.civilite, [Validators.required]],
       pseudo: [
         this.user.pseudo,
         [Validators.required, Validators.minLength(3)],
@@ -49,30 +49,41 @@ export class TabInfoComponent {
       console.log('Updating infos');
       this.updating = false;
       this.message = 'Modifier';
-      const form = document.querySelector('form.data') as HTMLFormElement;
-      const formData = new FormData(form) as any;
-      const data: { [key: string]: any } = Object.fromEntries(
-        formData.entries()
-      );
-      console.log(data);
-      const finalData = { ...this.user, ...data };
-      this.user = finalData;
-      this.userService.updateUser(finalData).subscribe(
-        (data: any) => {
-          console.log(data);
-          this.successMsg = data.message;
-        },
-        (error: any) => {
-          console.log(error);
-          this.failureMsg = 'Il y a eu un problème lors de votre demande';
-        }
-      );
+      const finalData = { ...this.user, ...this.userForm.value };
+      if (JSON.stringify(finalData) === JSON.stringify(this.user)) {
+        Swal.fire({
+          title: 'Aucune modification effectuée',
+          timer: 1000,
+          icon: 'info',
+        });
+        return;
+      } else {
+        this.user = finalData;
+        this.userService.updateUser(finalData).subscribe(
+          (data: any) => {
+            Swal.fire({
+              title: 'Les modifications ont bien été effectuées',
+              timer: 1500,
+              confirmButtonText: 'Génial',
+              icon: 'success',
+            });
+          },
+          (error: any) => {
+            console.log(error);
+            Swal.fire({
+              title: 'Il y a eu un problème lors de votre demande',
+              text: 'Veuillez réessayer plus tard',
+              timer: 1500,
+              confirmButtonText: 'Réessayer',
+              icon: 'error',
+            });
+          }
+        );
+      }
     } else {
       console.log('Ready to update');
       this.message = 'Enregistrer';
       this.updating = true;
-      this.successMsg = '';
-      this.failureMsg = '';
     }
   }
 
