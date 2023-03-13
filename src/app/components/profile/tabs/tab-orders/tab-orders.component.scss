@@ -8,3 +8,229 @@ h1 {
   font-size: clamp(1.2rem, 3vw, 2.5em);
   font-weight: 700;
 }
+
+.grid {
+  position: relative;
+  padding-top: 5vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  @media (max-width: 1150px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sidebar {
+  margin-inline: 5vw;
+  max-height: 30vh;
+  background: #7272722e;
+  border-radius: 12px;
+  grid-column: 2/3;
+  grid-row: 1/2;
+  box-shadow: inset -1px -1px 0px 1px rgba(0, 0, 0, 0.24);
+  h3 {
+    font-size: clamp(1.05rem, 2.5vw, 20px);
+    font-weight: 700;
+    margin-top: 1rem;
+    text-align: center;
+  }
+  @media (max-width: 1150px) {
+    position: static;
+    grid-column: 1/-1;
+  }
+  .buttons {
+    padding-block: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    @media (max-width: 1150px) {
+      padding-block: 0.5rem;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+    .cancel {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    button {
+      min-width: 150px;
+      width: 30vw;
+      margin: 0.75rem;
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: none;
+      background: var(--color-blue);
+      color: #f3f3f3;
+      font-size: clamp(0.85rem, 2.5vw, 20px);
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 1px 3px 1px 2px rgb(0, 0, 0.5);
+      &:active {
+        transform: translate(3px, 3px);
+        box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
+}
+.cartlist {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  @media (max-width: 1150px) {
+    grid-row: 2/3;
+    grid-column: 1/-1;
+  }
+
+  .item {
+    p {
+      font-size: clamp(0.85rem, 3vw, 20px);
+    }
+    h2 {
+      font-size: clamp(1.2rem, 4vw, 30px);
+    }
+    h3 {
+      font-size: clamp(1.05rem, 3.5vw, 24px);
+    }
+    padding-block: 1.5rem;
+    display: grid;
+    grid-template-columns: max-content 2fr;
+    @media (max-width: 600px) {
+      grid-template-columns: max-content 1fr;
+    }
+
+    // @media (max-width: 450px) {
+    //   grid-template-columns: 1fr;
+    //   place-items: center;
+    // }
+
+    .block-info {
+      padding-left: 1rem;
+      h3 {
+        text-transform: capitalize;
+      }
+    }
+
+    .product-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 0.5rem;
+      h3 {
+        cursor: pointer;
+        margin-bottom: 0;
+
+        &.small {
+          display: none;
+          @media (max-width: 450px) {
+            display: block;
+          }
+        }
+        &.normal {
+          display: block;
+          @media (max-width: 450px) {
+            display: none;
+          }
+        }
+      }
+      .action-mobile {
+        cursor: pointer;
+        padding: 1rem;
+        display: none;
+        @media (max-width: 600px) {
+          display: block;
+        }
+      }
+      .action {
+        cursor: pointer;
+        padding: 1rem;
+        display: block;
+        @media (max-width: 600px) {
+          display: none;
+        }
+      }
+    }
+
+    .block-img {
+      margin-left: 1rem;
+      img {
+        cursor: pointer;
+        border-radius: 4px;
+        width: 180px;
+        max-width: 38vw;
+        aspect-ratio: 11/15;
+        object-fit: cover;
+      }
+    }
+
+    .product-stock {
+      p {
+        font-size: clamp(0.7rem, 2vw, 1rem);
+      }
+      &.okay {
+        color: hsl(120, 54%, 42%);
+      }
+      &.low {
+        color: hsl(120, 54%, 62%);
+      }
+      &.none {
+        color: rgb(172, 172, 172);
+      }
+    }
+
+    .product-quantity {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      @media (max-width: 400px) {
+        display: block;
+      }
+
+      .block-price {
+        .price {
+          overflow: hidden;
+          text-align: right;
+          padding: 0.2rem 0.5rem 0 0;
+          font-size: clamp(1.2rem, 3.5vw, 24px);
+        }
+      }
+
+      p {
+        font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+        margin-bottom: 0;
+      }
+      input {
+        width: calc(50px + 3vw);
+        font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+        padding: 0.6rem;
+        outline: none;
+        border-radius: 5px;
+        border: 2px solid var(--color-blue);
+        &:focus {
+          animation: blink 1s infinite;
+        }
+      }
+      button {
+        margin-left: clamp(0.6rem, 3.5vw, 30px);
+        cursor: pointer;
+        border: none;
+        padding: 0.4rem 0.6rem;
+        border-radius: 5px;
+        transition: 0.3s ease-in-out;
+        color: var(--color-blue);
+        background: #f3f3f3;
+        border: 1px solid var(--color-blue);
+        &:hover {
+          color: #f3f3f3;
+          background: var(--color-blue);
+        }
+        &:active {
+          transform: scale(0.975);
+        }
+      }
+    }
+  }
+}

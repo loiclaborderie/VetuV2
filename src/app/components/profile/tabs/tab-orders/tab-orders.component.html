@@ -14,7 +14,8 @@
         >s</span
       ><strong> ({{ pastOrders.length }})</strong>
     </h4>
-    <div class="commandes-show" *ngFor="let commande of pastOrders">
+
+    <ul class="cartlist" *ngFor="let commande of pastOrders">
       <div class="recap-order">
         <h5>
           Total : {{ getTotalArticles(commande) }} articles -
@@ -22,16 +23,85 @@
         </h5>
       </div>
       <p>Produits :</p>
+
       <ul *ngFor="let item of commande.details">
+        <div class="item" *ngFor="let item of commande.details; let i = index">
+          <div class="block-img">
+            <img
+              routerLink="/products/{{ item.produit.reference }}"
+              src="/assets/{{ item.produit.photo }}/asset1.jpeg"
+            />
+          </div>
+          <div class="block-info">
+            <div class="product-title">
+              <h3
+                routerLink="/products/{{ item.produit.reference }}"
+                class="normal"
+              >
+                {{ item.produit.titre }}
+              </h3>
+              <h3
+                routerLink="/products/{{ item.produit.reference }}"
+                class="small"
+                *ngIf="item.produit.titre.length < 17"
+              >
+                {{ item.produit.titre }}
+              </h3>
+              <h3
+                routerLink="/products/{{ item.produit.reference }}"
+                class="small"
+                *ngIf="item.produit.titre.length >= 17"
+              >
+                {{ item.produit.titre.slice(0, 16) + "..." }}
+              </h3>
+            </div>
+            <div
+              [ngClass]="
+                item.produit.stock > 5
+                  ? 'okay'
+                  : item.produit.stock > 0
+                  ? 'low'
+                  : 'none'
+              "
+              class="product-stock"
+            >
+              <p *ngIf="item.produit.stock > 0">
+                <span *ngIf="item.produit.stock > 5">Encore </span
+                ><span *ngIf="item.produit.stock < 5">Plus que </span
+                >{{ item.produit.stock }} en stock
+              </p>
+              <p *ngIf="item.produit.stock === 0">Rupture de stock</p>
+            </div>
+            <div class="product-size">
+              <p>Taille : {{ item.produit.taille }}</p>
+            </div>
+            <div class="product-quantity">
+              <div class="block-price">
+                <p class="h3 price">
+                  <span class="letter">{{
+                    item.produit.prix * item.quantite
+                  }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ul>
+
+      <!-- <ul *ngFor="let item of commande.details">
+        <li>Quantite : {{ item.quantite }}</li>
+        <li>Prix : {{ item.produit.prix }}</li>
+        <li *ngIf="item.quantite > 1">
+          Sous-total : {{ item.produit.prix * item.quantite }}€
+        </li>
         <li>Id : {{ item.produit.id }}</li>
         <li>Nom : {{ item.produit.titre }}</li>
-        <li>Prix : {{ item.produit.prix }}</li>
         <li>Taille : {{ item.produit.taille }}</li>
-        <!-- <img
+        <img
           src="assets/{{ item.produit.photo }}/asset1.jpeg"
           alt="{{ item.produit.titre }}"
-        /> -->
-      </ul>
-    </div>
+        />
+      </ul> -->
+    </ul>
   </section>
 </div>
