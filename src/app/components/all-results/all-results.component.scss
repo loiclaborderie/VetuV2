@@ -16,6 +16,7 @@
   padding: 1rem;
   h3 {
     margin: 0;
+    font-size: clamp(0.85rem, 2vw, 18px);
   }
 }
 .pagination {

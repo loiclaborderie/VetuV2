@@ -142,6 +142,7 @@ nav.categories {
   left: 0;
 
   &.active {
+    z-index: 100000;
     transform: translateX(0%);
     overflow: auto;
     scrollbar-width: none; /* Firefox */
@@ -368,59 +369,52 @@ nav.categories .dropdownList li button:hover {
 
   &__icon {
     fill: #060146;
-    // left: -1rem;
-    z-index: 2;
+    left: -3rem;
+    z-index: 99;
   }
 
   &__close {
     right: 0;
     fill: white;
     transition: 300ms ease-in;
-  }
-
-  &__delete {
-    fill: #c7ccdb;
-    right: 5rem;
     display: none;
   }
-
   input {
-    border: none;
-    border-radius: 50%;
-    padding: 0.75rem 1.5rem;
-    font-family: inherit;
-    font-size: 2rem;
-    color: #767b91;
-    outline: none;
-    width: 2rem;
-    transition: all 150ms linear;
-
-    &:not(:placeholder-shown) ~ .search__delete {
-      display: block;
-    }
+    display: none;
+    transition: 0.5s ease-in;
   }
+
   --position: calc(100vw);
   --positionminus: calc((var(--position) * -1) + 10vw + 4rem);
   //open state
   &-open input {
+    display: block;
+    border: none;
+    height: min(80px, 13vh);
+    font-family: inherit;
+    background: white;
+    font-size: 2rem;
+    color: #767b91;
+    outline: none;
+    transition: all 150ms linear;
+    z-index: 2;
     position: absolute;
-    z-index: 3;
     padding-inline: 15vw;
     left: var(--positionminus);
     width: var(--position);
-    // padding: 1.5rem 11rem 1.5rem 6rem;
     border-radius: 0.2rem;
     box-shadow: 0 0 10px 5px #e1e5ee;
   }
 
   &-open .search__icon {
     left: var(--positionminus);
-    z-index: 4;
+    z-index: 3;
   }
 
   //when content is in text field show delete button
   &-open svg.search__close {
-    z-index: 4;
+    z-index: 2;
+    display: block;
     fill: #060146;
     transform: translateX(100px);
   }

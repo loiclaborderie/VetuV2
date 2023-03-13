@@ -10,7 +10,7 @@
 <div *ngIf="products && products.length > 0">
   <div class="space-between">
     <h3>
-      Résultats trouvés :
+      Résultats :
       <strong *ngIf="pages"
         >{{ page * limit - limit }}-<span *ngIf="page * limit < foundResults">{{
           page * limit

@@ -1,22 +1,12 @@
-<div class="container" *ngIf="!pastOrders">
-  <div class="test">
+<div class="container" *ngIf="!loading && pastOrders.length === 0">
+  <h1>Mes commandes</h1>
+
+  <div class="container">
     <p>Vous n'avez effectué aucune commande pour le moment</p>
   </div>
 </div>
 
-<div class="container" *ngIf="pastOrders">
-  <button (click)="console()">COnsole</button>
-  <div class="count-commande">
-    <p>
-      <span>{{ pastOrders.length }}</span> commande<span
-        *ngIf="pastOrders.length > 1"
-        >s</span
-      >
-      passée<span *ngIf="pastOrders.length > 1">s</span>
-    </p>
-    <button (click)="console()">Console</button>
-  </div>
-
+<div class="container" *ngIf="pastOrders && pastOrders.length > 0">
   <section class="commande">
     <h4>
       Commande<span *ngIf="pastOrders.length > 1">s</span> précédente<span
@@ -25,17 +15,22 @@
       ><strong> ({{ pastOrders.length }})</strong>
     </h4>
     <div class="commandes-show" *ngFor="let commande of pastOrders">
-      <p>Total : {{ commande.montant }}€</p>
+      <div class="recap-order">
+        <h5>
+          Total : {{ getTotalArticles(commande) }} articles -
+          {{ commande.montant }}€
+        </h5>
+      </div>
       <p>Produits :</p>
       <ul *ngFor="let item of commande.details">
         <li>Id : {{ item.produit.id }}</li>
         <li>Nom : {{ item.produit.titre }}</li>
         <li>Prix : {{ item.produit.prix }}</li>
         <li>Taille : {{ item.produit.taille }}</li>
-        <img
+        <!-- <img
           src="assets/{{ item.produit.photo }}/asset1.jpeg"
           alt="{{ item.produit.titre }}"
-        />
+        /> -->
       </ul>
     </div>
   </section>

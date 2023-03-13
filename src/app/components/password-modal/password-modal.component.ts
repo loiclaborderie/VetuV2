@@ -156,7 +156,6 @@ export class PasswordModalComponent {
           this.submittedGood = false;
         } else {
           // this.cancelPasswordChange();
-          this.passwordChangeMsg = data;
           console.log(data);
           Swal.fire({
             icon: 'success',

@@ -15,11 +15,19 @@ export class TabOrdersComponent {
   pastOrders!: any;
   ongoingArray!: any;
   orderArray!: any;
+  loading: boolean = true;
 
   console() {
     console.log(this.orderArray);
     console.log(this.ongoingArray);
     console.log(this.pastOrders);
+  }
+
+  getTotalArticles(commande: any) {
+    return commande.details.reduce(
+      (acc: number, detail: any) => acc + detail.quantite,
+      0
+    );
   }
 
   // Cette fonction envoie tous les elements du panier dans le localstorage vers la database
@@ -68,6 +76,8 @@ export class TabOrdersComponent {
             order.statut === 'attente_livraison'
         );
         this.pastOrders = this.orderService.getPastOrders();
+        this.loading = false;
+        console.log(this.pastOrders[0]);
 
         console.log(this.ongoingArray);
         if (this.ongoingArray.length === 0) {
@@ -114,6 +124,7 @@ export class TabOrdersComponent {
           // if(this.pastOrders.length > 0){
           this.pastOrders = this.orderService.getPastOrders();
           this.orderService.loadPastCommandes = true;
+          this.loading = false;
           // }
         });
     }

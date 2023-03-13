@@ -75,15 +75,28 @@
     <ul class="cartlist">
       <div class="item" *ngFor="let cartItem of cartItems; let i = index">
         <div class="block-img">
-          <img src="/assets/{{ cartItem.photo }}/asset1.jpeg" />
+          <img
+            routerLink="/products/{{ cartItem.reference }}"
+            src="/assets/{{ cartItem.photo }}/asset1.jpeg"
+          />
         </div>
         <div class="block-info">
           <div class="product-title">
-            <h3 class="normal">{{ cartItem.titre }}</h3>
-            <h3 class="small" *ngIf="cartItem.titre.length < 17">
+            <h3 routerLink="/products/{{ cartItem.reference }}" class="normal">
               {{ cartItem.titre }}
             </h3>
-            <h3 class="small" *ngIf="cartItem.titre.length >= 17">
+            <h3
+              routerLink="/products/{{ cartItem.reference }}"
+              class="small"
+              *ngIf="cartItem.titre.length < 17"
+            >
+              {{ cartItem.titre }}
+            </h3>
+            <h3
+              routerLink="/products/{{ cartItem.reference }}"
+              class="small"
+              *ngIf="cartItem.titre.length >= 17"
+            >
               {{ cartItem.titre.slice(0, 16) + "..." }}
             </h3>
             <div class="action" (click)="deleteProduct(i)">
