@@ -60,15 +60,6 @@ a h1 {
   align-items: center;
 }
 
-@keyframes slide-in {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
 .hamburger-lines {
   align-self: center;
   height: 26px;
@@ -117,11 +108,45 @@ a h1 {
   padding-inline: 3vw;
   grid-template-columns: 1fr 2fr 1fr;
 }
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
 nav.categories {
-  display: none;
-  animation: slideDown 0.3s ease-in;
+  transform: translateX(-110%);
   position: absolute;
   background: rgb(20, 20, 20);
+  transition: 0.3s ease-in-out;
+  min-height: 100vh;
+  width: min(100%, 600px);
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+  &.active {
+    transform: translateX(0%);
+    overflow: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+  }
 }
 header form {
   display: grid;
@@ -166,6 +191,7 @@ header .searchbar i {
 // }
 .fa-3x {
   font-size: calc(2em + 0.3vw);
+  z-index: 2;
 }
 .fa-1_5x {
   font-size: 20px;
@@ -190,22 +216,7 @@ header .searchbar i {
   transform: translateX(-50px) rotate(-10deg);
   opacity: 0;
 }
-nav.categories.active {
-  min-height: 100vh;
-  width: min(100%, 600px);
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  overflow: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;
-  // backdrop-filter: blur(4px);
-  // -webkit-backdrop-filter: blur(4px);
-  // overflow: hidden;
-}
+
 nav.categories.active::-webkit-scrollbar {
   /* WebKit */
   width: 0;
@@ -358,7 +369,7 @@ nav.categories .dropdownList li button:hover {
   &__icon {
     fill: #060146;
     // left: -1rem;
-    z-index: 99;
+    z-index: 2;
   }
 
   &__close {
@@ -393,7 +404,7 @@ nav.categories .dropdownList li button:hover {
   //open state
   &-open input {
     position: absolute;
-    z-index: 1000;
+    z-index: 3;
     padding-inline: 15vw;
     left: var(--positionminus);
     width: var(--position);
@@ -404,12 +415,12 @@ nav.categories .dropdownList li button:hover {
 
   &-open .search__icon {
     left: var(--positionminus);
-    z-index: 1001;
+    z-index: 4;
   }
 
   //when content is in text field show delete button
   &-open svg.search__close {
-    z-index: 1001;
+    z-index: 4;
     fill: #060146;
     transform: translateX(100px);
   }

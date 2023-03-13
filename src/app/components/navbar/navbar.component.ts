@@ -53,7 +53,7 @@ export class NavbarComponent {
   prevItemCount: number = 0;
   animationState: string = 'inactive'; // Add this line
   headerHeight!: any;
-  menuOpened = false;
+  menuOpened!: boolean;
   categories: any[] = [];
   scrollEvent: any;
   clicked = false;
@@ -144,7 +144,11 @@ export class NavbarComponent {
   }
 
   toggleMenu() {
-    this.menuOpened = !this.menuOpened;
+    if (this.menuOpened === null || this.menuOpened === undefined) {
+      this.menuOpened = true;
+    } else {
+      this.menuOpened = !this.menuOpened;
+    }
     if (this.menuOpened) {
       document.body.style.overflow = 'hidden';
     } else {
