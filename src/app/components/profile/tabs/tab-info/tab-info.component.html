@@ -1,6 +1,5 @@
 <div class="container">
   <h1>Mes information personnelles</h1>
-  <button (click)="testConsole()">Console</button>
   <form class="data" [formGroup]="userForm">
     <div class="form-group">
       <label for="nom"
@@ -140,16 +139,20 @@
       >
         <span>{{ message }}</span>
       </button>
-      <button (click)="cancel()" style="background: red" *ngIf="updating">
+      <button class="cancel" (click)="cancel()" *ngIf="updating">
         Annuler
+      </button>
+      <!-- ICI 2E FORMULAIRE CHANGEMENT MDP -->
+    </div>
+    <div class="extra-button">
+      <button
+        class="changePass"
+        (click)="modalPasswordService.open('modal-password')"
+      >
+        Changer de mot de passe
       </button>
     </div>
   </form>
-
-  <!-- ICI 2E FORMULAIRE CHANGEMENT MDP -->
-  <button (click)="modalPasswordService.open('modal-password')">
-    Changer de mot de passe
-  </button>
 </div>
 <app-password-modal id="modal-password">
   <button (click)="modalPasswordService.close()">Close</button>

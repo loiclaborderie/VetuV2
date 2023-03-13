@@ -61,6 +61,7 @@ export class TabInfoComponent {
         this.user = finalData;
         this.userService.updateUser(finalData).subscribe(
           (data: any) => {
+            console.log(data);
             Swal.fire({
               title: 'Les modifications ont bien été effectuées',
               timer: 1500,
