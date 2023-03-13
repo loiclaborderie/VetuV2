@@ -46,6 +46,10 @@ body {
     --mdc-snackbar-container-color: #c07804;
   }
 
+  &.welcome-snackbar {
+    --mdc-snackbar-container-color: #040037;
+  }
+
   &.success-snackbar {
     --mdc-snackbar-container-color: rgb(54, 121, 9);
   }

@@ -2,9 +2,7 @@
   <h1>Mes information personnelles</h1>
   <form class="data" [formGroup]="userForm">
     <div class="form-group">
-      <label for="nom"
-        >Nom<i class="fa-solid fa-circle-info fa-xs"></i> :</label
-      >
+      <label for="nom">Nom :</label>
       <input
         id="nom"
         [readOnly]="!updating"
@@ -62,9 +60,7 @@
     </div>
     <div class="form-group">
       <fieldset>
-        <legend>
-          Votre civilité<i class="fa-solid fa-circle-info fa-xs"></i> :
-        </legend>
+        <legend>Votre civilité :</legend>
 
         <div class="flex">
           <input

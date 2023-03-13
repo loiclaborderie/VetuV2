@@ -14,6 +14,7 @@ import { OrdersService } from 'src/app/services/orders/orders.service';
 import { ProductService } from 'src/app/services/product/product.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { changePasswordResponse } from 'src/app/_interfaces/changePasswordResponse';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-password-modal',
@@ -43,6 +44,13 @@ export class PasswordModalComponent {
     private fb: FormBuilder
   ) {
     this.element = el.nativeElement;
+  }
+
+  passInfo() {
+    Swal.fire({
+      icon: 'info',
+      text: 'Votre mot de passe doit contenir au moins 8 caractères, dont au moins une lettre majuscule, un chiffre et un caractère spécial.',
+    });
   }
 
   passwordPatternValidator(
@@ -130,7 +138,6 @@ export class PasswordModalComponent {
       return;
     }
     console.log(this.userService.userId);
-    alert('this worked');
     const form = document.querySelector('form.password') as HTMLFormElement;
     const formData = new FormData(form) as any;
     const data: { [key: string]: any } = Object.fromEntries(formData.entries());
@@ -139,14 +146,27 @@ export class PasswordModalComponent {
       .changePassword(data)
       .subscribe((data: changePasswordResponse) => {
         if (data.status === false) {
-          this.passwordChangeMsg = data;
+          console.log(data);
+          Swal.fire({
+            icon: 'error',
+            text: data.message,
+            title: 'Veuillez réessayer',
+            timer: 1500,
+          });
           this.submittedGood = false;
         } else {
           // this.cancelPasswordChange();
           this.passwordChangeMsg = data;
+          console.log(data);
+          Swal.fire({
+            icon: 'success',
+            text: data.message,
+            title: 'Modification effectuée',
+            timer: 1500,
+          });
           setTimeout(() => {
             this.close();
-          }, 3000);
+          }, 1500);
         }
       });
   }
