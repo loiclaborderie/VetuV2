@@ -1,6 +1,30 @@
 <div class="jw-modal">
   <div class="jw-modal-body">
-    <div class="container" *ngIf="data">
+    <div class="header">
+      <h2 class="title">Ajouter au panier</h2>
+      <i (click)="close()" class="fa-solid fa-xmark close"></i>
+    </div>
+    <div class="size-container" *ngIf="data">
+      <div class="size" *ngFor="let item of data; let i = index">
+        <!-- <div class="size-title">
+        </div>
+        <div class="size-cta"> -->
+        <button
+          [disabled]="item.stock === 0"
+          (click)="selectSize()"
+          class="size-btn"
+        >
+          <div class="taille">
+            <h3>{{ item.taille }}</h3>
+          </div>
+
+          <span *ngIf="item.stock === 0">Indisponible</span>
+          <span *ngIf="item.stock > 0">{{ item.stock }} en stock</span>
+        </button>
+        <!-- </div> -->
+      </div>
+    </div>
+    <!-- <div class="container" *ngIf="data">
       <h1>{{ data[0].titre }}</h1>
       <p>{{ data[0].description }}</p>
       <p>{{ data[0].prix }}€</p>
@@ -37,7 +61,6 @@
           <span>Ajouter au panier</span>
         </button>
       </div>
-    </div>
-    <ng-content></ng-content>
+    </div> -->
   </div>
 </div>
