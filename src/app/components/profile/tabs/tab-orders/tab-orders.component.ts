@@ -3,11 +3,41 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-tab-orders',
   templateUrl: './tab-orders.component.html',
   styleUrls: ['./tab-orders.component.scss'],
+  animations: [
+    trigger('ngStyle', [
+      state(
+        'open',
+        style({
+          width: '100%',
+          height: '100%',
+          opacity: 1,
+        })
+      ),
+      state(
+        'closed',
+        style({
+          width: '0%',
+          height: '0px',
+          opacity: 0,
+          display: 'none',
+        })
+      ),
+      transition('open => closed', [animate('0.3s')]),
+      transition('closed => open', [animate('0.3s')]),
+    ]),
+  ],
 })
 export class TabOrdersComponent {
   @Input()
@@ -16,6 +46,7 @@ export class TabOrdersComponent {
   ongoingArray!: any;
   orderArray!: any;
   loading: boolean = true;
+  shownArray: boolean[] = [];
 
   console() {
     console.log(this.orderArray);
@@ -28,6 +59,16 @@ export class TabOrdersComponent {
       (acc: number, detail: any) => acc + detail.quantite,
       0
     );
+  }
+
+  showOrderDetails(i: number) {
+    console.log(i);
+    if (this.shownArray[i] === undefined) {
+      this.shownArray[i] = true;
+    } else {
+      this.shownArray[i] = !this.shownArray[i];
+    }
+    console.log(this.shownArray[i]);
   }
 
   // Cette fonction envoie tous les elements du panier dans le localstorage vers la database
@@ -57,6 +98,7 @@ export class TabOrdersComponent {
   }
 
   ngOnInit(): void {
+    console.log(this.user.id);
     if (this.auth.hasntConnectedYet) {
       this.snackBar.open(`Bienvenue ${this.user.prenom}`, 'OK', {
         duration: 1000,
