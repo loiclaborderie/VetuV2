@@ -102,11 +102,30 @@ export class ModalComponent {
           }
         });
     } else {
+      let currentCart = JSON.parse(localStorage.getItem('cart') || 'null');
+      if (currentCart && currentCart !== 'null') {
+        console.log(currentCart);
+        let itemFound = currentCart.filter(
+          (cartItem: any) => item.id === cartItem.id
+        );
+        if (itemFound.length === 1) {
+          if (itemFound[0].quantite >= itemFound[0].stock) {
+            this.close();
+            Swal.fire({
+              text: "Il n'y a plus assez de stock pour ce produit",
+              icon: 'error',
+              timer: 1500,
+              showConfirmButton: false,
+            });
+            return;
+          }
+        }
+      }
+
       this.cartService.addCartItem(item);
       let newCart = this.cartService.getCartItems();
       localStorage.setItem('cart', JSON.stringify(newCart));
       console.log('added to localstorage');
-      item.stock--;
       Swal.fire({
         text: 'Le produit a été ajouté',
         icon: 'success',
