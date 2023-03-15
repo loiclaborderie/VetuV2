@@ -82,10 +82,8 @@ export class AllResultsComponent {
       );
       // Check if the product data is already in cache
       if (cachedData) {
-        alert('Fetched using cached data');
         this.handleProductData(cachedData);
       } else {
-        alert('Fetched using db data');
         // If not, fetch the product data
         if (genre && category) {
           this.productService

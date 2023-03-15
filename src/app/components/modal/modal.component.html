@@ -6,12 +6,9 @@
     </div>
     <div class="size-container" *ngIf="data">
       <div class="size" *ngFor="let item of data; let i = index">
-        <!-- <div class="size-title">
-        </div>
-        <div class="size-cta"> -->
         <button
           [disabled]="item.stock === 0"
-          (click)="selectSize()"
+          (click)="addToCart(item)"
           class="size-btn"
         >
           <div class="taille">
@@ -19,7 +16,9 @@
           </div>
 
           <span *ngIf="item.stock === 0">Indisponible</span>
-          <span *ngIf="item.stock > 0">{{ item.stock }} en stock</span>
+          <span *ngIf="item.stock > 0 && this.user"
+            >{{ item.stock }} en stock</span
+          >
         </button>
         <!-- </div> -->
       </div>

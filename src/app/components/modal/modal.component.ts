@@ -11,6 +11,7 @@ import { CartService } from 'src/app/services/cart/cart.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { ProductService } from 'src/app/services/product/product.service';
+import { UserService } from 'src/app/services/user/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -24,12 +25,13 @@ export class ModalComponent {
   isOpen = false;
   private element: any;
   data: any;
-  form: FormGroup;
   selectedSize!: string;
+  user: any;
 
   constructor(
     private modalService: ModalService,
     private el: ElementRef,
+    private userService: UserService,
     private productService: ProductService,
     private cartService: CartService,
     private orderService: OrdersService,
@@ -37,12 +39,7 @@ export class ModalComponent {
     private fb: FormBuilder
   ) {
     this.element = el.nativeElement;
-    this.form = this.fb.group({
-      size: [
-        'Choisir une taille',
-        [Validators.required, this.notNullValidator],
-      ],
-    });
+    this.user = this.userService.userId || null;
   }
 
   notNullValidator(control: AbstractControl) {
@@ -67,17 +64,12 @@ export class ModalComponent {
     });
   }
 
-  selectSize() {
-    console.log(this.form.value.size);
-  }
-
-  addToCart() {
-    const productData = this.data[+this.form.value.size];
-    console.log(productData);
+  addToCart(item: any) {
+    console.log(item);
     if (localStorage.getItem('user')) {
       // On n'utilise plus le localStorage si l'utilisateur est co
       const content = {
-        id: productData.id,
+        id: item.id,
         quantite: 1,
       };
       this.orderService
@@ -87,18 +79,18 @@ export class ModalComponent {
           console.log(dataFetched);
           if (dataFetched[1] === 200) {
             this.close();
-            this.cartService.addCartItem(productData);
+            this.cartService.addCartItem(item);
             Swal.fire({
               text: 'Le produit a été ajouté',
               icon: 'success',
-              timer: 2000,
+              timer: 1000,
               confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
               background: '#040037',
               color: '#F3F3F3',
               showConfirmButton: false,
             });
-            productData.stock--;
-            console.log(productData.stock);
+            item.stock--;
+            console.log(item.stock);
           } else {
             this.close();
             Swal.fire({
@@ -110,18 +102,23 @@ export class ModalComponent {
           }
         });
     } else {
-      this.cartService.addCartItem(productData);
+      this.cartService.addCartItem(item);
       let newCart = this.cartService.getCartItems();
       localStorage.setItem('cart', JSON.stringify(newCart));
       console.log('added to localstorage');
-      productData.stock--;
-      this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK', {
-        duration: 2500,
-        panelClass: ['add-cart-snackbar'],
+      item.stock--;
+      Swal.fire({
+        text: 'Le produit a été ajouté',
+        icon: 'success',
+        timer: 1000,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
+        background: '#040037',
+        color: '#F3F3F3',
+        showConfirmButton: false,
       });
       this.close();
     }
-    // this.selectedSize = false;
+    console.log(this.data);
   }
 
   ngOnDestroy() {
