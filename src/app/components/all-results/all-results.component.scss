@@ -23,33 +23,45 @@
   margin-bottom: 2rem;
 }
 .pagination ul {
-  display: block;
-  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   margin: 2rem auto;
-  padding-block: 0.3rem;
+  height: min(40px, 10vh);
   width: min(300px, 80%);
-  border-radius: 25px;
+  border-radius: 5px;
   background: rgba(0, 0, 0, 0.05);
+  border: 2px solid rgba(0, 0, 0, 0.75);
   transition: 0.3s ease-in-out;
   li {
-    display: inline;
-    margin-inline: clamp(0.5rem, 1vw, 0.7rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     a {
+      transition: 0.3s ease-in-out;
+      padding: 0.4rem 0.6rem;
       color: hsl(240, 89%, 21%);
+      border-radius: 3px;
       cursor: pointer;
       font-weight: 700;
       font-size: clamp(1rem, 1.7vw, 1.2rem);
       &:hover {
-        color: hsl(240, 89%, 41%);
+        background-color: rgba(6, 6, 101, 0.9);
+        color: #f3f3f3;
+        transform: scale(1.05);
       }
     }
     .selected {
-      color: rgb(35, 34, 34);
+      background: var(--color-blue);
+      color: #f3f3f3;
     }
   }
   &:hover {
     background: rgba(0, 0, 0, 0.1);
   }
+}
+.footer {
+  height: 1px;
 }
 
 .card {

@@ -66,14 +66,13 @@ export class FinalizeOrderComponent {
       );
       this.userService.getUser().subscribe((data: any) => {
         if (data === null) {
-          this.snackBar.open(
-            'Vous devez être connecté pour passer commande',
-            '❕',
-            {
-              duration: 2500,
-              panelClass: ['warning-snack'],
-            }
-          );
+          Swal.fire({
+            title: 'Vous devez être connecté pour passer commande',
+            text: 'Veuillez vous connecter',
+            icon: 'warning',
+            timer: 2000,
+            showConfirmButton: false,
+          });
           this.router.navigate(['/login']);
         }
         this.user = data;
