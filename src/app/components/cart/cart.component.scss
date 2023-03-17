@@ -1,3 +1,9 @@
+* {
+  --h3-size: clamp(1.05rem, 2.5vw, 20px);
+  --h2-size: clamp(1.2rem, 4vw, 30px);
+  --base-size: clamp(0.85rem, 2.3vw, 20px);
+  --small-size: clamp(0.7rem, 2vw, 1rem);
+}
 nav {
   height: 70px;
   display: flex;
@@ -7,7 +13,7 @@ nav {
   a {
     display: block;
     cursor: pointer;
-    font-size: clamp(0.85rem, 2.3vw, 20px);
+    font-size: var(--base-size);
     text-decoration: none;
     color: rgb(23, 23, 23);
     padding-block: clamp(1rem, 3vh, 50px);
@@ -37,7 +43,7 @@ nav {
   grid-row: 1/2;
   box-shadow: inset -1px -1px 0px 1px rgba(0, 0, 0, 0.24);
   h3 {
-    font-size: clamp(1.05rem, 2.5vw, 20px);
+    font-size: var(--h3-size);
     font-weight: 700;
     margin-top: 1rem;
     text-align: center;
@@ -73,7 +79,7 @@ nav {
       border: none;
       background: var(--color-blue);
       color: #f3f3f3;
-      font-size: clamp(0.85rem, 2.5vw, 20px);
+      font-size: var(--base-size);
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease-in-out;
@@ -95,13 +101,13 @@ nav {
 
   .item {
     p {
-      font-size: clamp(0.85rem, 3vw, 20px);
+      font-size: var(--base-size);
     }
     h2 {
-      font-size: clamp(1.2rem, 4vw, 30px);
+      font-size: var(--h2-size);
     }
     h3 {
-      font-size: clamp(1.05rem, 3.5vw, 24px);
+      font-size: var(--h3-size);
     }
     padding-block: 1.5rem;
     display: grid;
@@ -109,11 +115,6 @@ nav {
     @media (max-width: 600px) {
       grid-template-columns: max-content 1fr;
     }
-
-    // @media (max-width: 450px) {
-    //   grid-template-columns: 1fr;
-    //   place-items: center;
-    // }
 
     .block-info {
       padding-left: 1rem;
@@ -176,7 +177,7 @@ nav {
 
     .product-stock {
       p {
-        font-size: clamp(0.7rem, 2vw, 1rem);
+        font-size: var(--small-size);
       }
       &.okay {
         color: hsl(120, 54%, 42%);
@@ -203,17 +204,17 @@ nav {
           overflow: hidden;
           text-align: right;
           padding: 0.2rem 0.5rem 0 0;
-          font-size: clamp(1.2rem, 3.5vw, 24px);
+          font-size: var(--h3-size);
         }
       }
 
       p {
-        font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+        font-size: var(--base-size);
         margin-bottom: 0;
       }
       input {
         width: calc(50px + 3vw);
-        font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+        font-size: var(--base-size);
         padding: 0.6rem;
         outline: none;
         border-radius: 5px;
@@ -245,7 +246,7 @@ nav {
         width: calc(60px + 2vw);
         border: 2px solid var(--color-blue);
         background: transparent;
-        font-size: clamp(0.85rem, 3vw, 20px);
+        font-size: var(--base-size);
         color: rgb(23, 23, 23);
         padding: 0.5rem;
         outline: none;
@@ -299,7 +300,7 @@ nav {
     background: var(--placeholder-bg);
   }
   .h3 {
-    font-size: clamp(1.05rem, 2.9vw, 24px);
+    font-size: var(--h3-size);
   }
   .item {
     span {
