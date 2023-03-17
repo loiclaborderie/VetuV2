@@ -86,7 +86,9 @@ export class NavbarComponent {
     } else {
       console.log(search);
       this.clicked = true;
-      search.focus();
+      setTimeout(() => {
+        search.focus();
+      }, 10);
       console.log('clicked');
     }
   }
