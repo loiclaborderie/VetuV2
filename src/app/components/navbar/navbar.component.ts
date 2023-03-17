@@ -96,8 +96,12 @@ export class NavbarComponent {
     let searchInput = document.querySelector(
       '.search__input'
     ) as HTMLInputElement;
+    let searchDiv = document.querySelector('.search');
     searchInput.value = '';
     this.clicked = false;
+    if (searchDiv?.classList.contains('search-open')) {
+      searchDiv.classList.remove('search-open');
+    }
     console.log('unclicked');
   }
 
