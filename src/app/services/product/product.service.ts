@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ProductService {
   constructor(private http: HttpClient) {}
-  apiUrl = 'http://localhost:8000/produits';
+  apiUrl = 'https://vetu.online/produits';
   getProducts(page: number, sortBy: string) {
     return this.http.get<any[]>(
       `${this.apiUrl}/distinct-reference?page=${page}&sortBy=${sortBy}`

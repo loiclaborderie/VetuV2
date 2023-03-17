@@ -11,7 +11,7 @@ export class UserService {
   user: any;
 
   getUserById(id: number) {
-    return this.http.get(`http://127.0.0.1:8000/user/${id}`);
+    return this.http.get(`https://vetu.online/user/${id}`);
   }
   getUser() {
     if (this.user) {
@@ -44,7 +44,7 @@ export class UserService {
     delete updatedObj.roles;
     delete updatedObj.userIdentifier;
     delete updatedObj.codePostal;
-    return this.http.put(`http://localhost:8000/userUpdate/${id}`, updatedObj);
+    return this.http.put(`https://vetu.online/userUpdate/${id}`, updatedObj);
   }
 
   constructor(private http: HttpClient, private router: Router) {

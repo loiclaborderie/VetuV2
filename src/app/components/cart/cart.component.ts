@@ -231,50 +231,49 @@ export class CartComponent {
     }
   }
 
-  alert() {
-    Swal.fire({
-      title: 'Congratulations',
-      text: 'Your order has been passed',
-      icon: 'success',
-      timer: 2000,
-      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
-      background: '#040037',
-      color: '#F3F3F3',
-      showConfirmButton: false,
-    });
-  }
-
   deleteProduct(index: number) {
     let product: any = this.cartItems[index];
-    if (confirm('voulez vous vraiment supprimer le produit ?')) {
-      console.log('il veut supprimer le produit');
-      console.log(product);
-      console.log(product.id);
-      if (this.orderService.orderId) {
-        this.orderService.deleteProductFromOrder(product).subscribe((data) => {
-          console.log(data);
+
+    Swal.fire({
+      title: 'Voulez-vous vraiment retirer cet article ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Non',
+      confirmButtonText: 'Oui, le retirer',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (this.orderService.orderId) {
+          this.orderService
+            .deleteProductFromOrder(product)
+            .subscribe((data) => {
+              console.log(data);
+              const indexFound = this.cartItems.findIndex(
+                (obj) => obj.id === product.id
+              );
+              if (indexFound !== -1) {
+                this.cartItems.splice(indexFound, 1); // Replace the quantite
+              }
+              Swal.fire('Entendu!', 'Ce produit a bien été retiré.', 'success');
+              this.cartService.setCartItems(this.cartItems);
+              this.calculateTotalPrice();
+            });
+        } else if (localStorage.getItem('cart')) {
           const indexFound = this.cartItems.findIndex(
             (obj) => obj.id === product.id
           );
           if (indexFound !== -1) {
             this.cartItems.splice(indexFound, 1); // Replace the quantite
+            console.log('supprimé du panier');
           }
           this.cartService.setCartItems(this.cartItems);
+          localStorage.setItem('cart', JSON.stringify(this.cartItems));
           this.calculateTotalPrice();
-        });
-      } else if (localStorage.getItem('cart')) {
-        const indexFound = this.cartItems.findIndex(
-          (obj) => obj.id === product.id
-        );
-        if (indexFound !== -1) {
-          this.cartItems.splice(indexFound, 1); // Replace the quantite
-          console.log('supprimé du panier');
+          Swal.fire('Entendu!', 'Ce produit a bien été retiré.', 'success');
         }
-        this.cartService.setCartItems(this.cartItems);
-        localStorage.setItem('cart', JSON.stringify(this.cartItems));
-        this.calculateTotalPrice();
       }
-    }
+    });
   }
 
   calculateTotalPrice() {

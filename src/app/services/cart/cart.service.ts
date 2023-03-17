@@ -53,7 +53,7 @@ export class CartService {
   }
 
   getProductsFromCommandeId(id: number) {
-    return this.http.get(`http://127.0.0.1:8000/detailcommande/get/${id}`);
+    return this.http.get(`https://vetu.online/detailcommande/get/${id}`);
   }
 
   loadCartItemsFromLocalStorage() {

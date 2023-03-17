@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class OrdersService {
-  baseUrl = 'http://127.0.0.1:8000/commande';
+  baseUrl = 'https://vetu.online/commande';
   public orderId: number | null = null;
   loadPastCommandes = false;
   pastOrders: any[] = [];
@@ -19,18 +19,16 @@ export class OrdersService {
   }
 
   getOrdersByUserId(id: number) {
-    return this.http.get(`http://127.0.0.1:8000/getAllcommandesByUser/${id}`);
+    return this.http.get(`https://vetu.online/getAllcommandesByUser/${id}`);
   }
 
   getPastOrdersByUserId(id: number) {
-    return this.http.get(
-      `http://127.0.0.1:8000/getAllPastcommandesByUser/${id}`
-    );
+    return this.http.get(`https://vetu.online/getAllPastcommandesByUser/${id}`);
   }
 
   changeProductQuantityInOrder(item: any) {
     return this.http.patch(
-      `http://127.0.0.1:8000/detailcommande/change/${this.orderId}`,
+      `https://vetu.online/detailcommande/change/${this.orderId}`,
       item
     );
   }
@@ -50,7 +48,7 @@ export class OrdersService {
     };
 
     return this.http.post(
-      `http://127.0.0.1:8000/detailcommande/add/${this.orderId}`,
+      `https://vetu.online/detailcommande/add/${this.orderId}`,
       JSON.stringify(content)
     );
   }
@@ -64,7 +62,7 @@ export class OrdersService {
   }
 
   getCurrentOrderByUser(id: number) {
-    return this.http.get(`http://127.0.0.1:8000/getCurrentOrderByUser/${id}`);
+    return this.http.get(`https://vetu.online/getCurrentOrderByUser/${id}`);
   }
 
   constructor(private http: HttpClient) {
