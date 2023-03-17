@@ -199,6 +199,11 @@ nav {
         display: block;
       }
 
+      .select-quantity {
+        display: flex;
+        align-items: center;
+      }
+
       .block-price {
         .price {
           overflow: hidden;
