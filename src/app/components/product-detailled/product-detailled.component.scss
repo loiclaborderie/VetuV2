@@ -193,6 +193,10 @@ select.select {
   font-size: calc(10px + 0.6vw);
   font-family: "Jost", sans-serif, serif;
   line-height: 170%;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='040037' stroke='040037' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem top 50%;
+  background-size: 1.5rem auto;
   padding-top: 5px;
   padding-left: 17px;
   padding-right: 17px;
@@ -213,6 +217,7 @@ select.select {
   color: #fff;
   background-color: rgb(4, 0, 55);
   transition-duration: 0.45s;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='white' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
 }
 
 .product-details .buy-cart {

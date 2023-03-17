@@ -8,47 +8,56 @@
     </a>
   </nav>
   <div class="recap">
-    <h3>Votre adresse de livraison :</h3>
-    <p>{{ user.adresse }}, {{ user.codePostal }} {{ user.ville }}</p>
-    <h3>A destination de :</h3>
-    <p>{{ user.prenom }} {{ user.nom.toUpperCase() }}</p>
-    <h3>Montant total de votre commande : {{ totalPrice }}€</h3>
-    <h3>Sélectionner un moyen de paiement :</h3>
-    <div class="payment">
-      <div class="payment-method">
-        <input
-          (click)="authorizePayment = true"
-          type="radio"
-          name="payment"
-          id="visa"
-          value="visa"
-        />
-        <label for="visa">Visa</label>
-      </div>
-      <div class="payment-method">
-        <input
-          (click)="authorizePayment = true"
-          type="radio"
-          name="payment"
-          id="amex"
-          value="amex"
-        />
-        <label for="amex">Amercian Express</label>
-      </div>
-      <div class="payment-method">
-        <input
-          (click)="authorizePayment = true"
-          type="radio"
-          name="payment"
-          id="paypal"
-          value="paypal"
-        />
-        <label for="paypal">Paypal</label>
-      </div>
+    <div class="top">
+      <h3 class="title">Détails de la livraison</h3>
     </div>
-    <p>Ce n'est qu'un projet, vous ne pouvez pas vraiment payer.</p>
-    <button (click)="passOrder()" [disabled]="!authorizePayment">
+    <div class="left">
+      <p>{{ user.adresse }}, {{ user.codePostal }} {{ user.ville }}</p>
+      <p>{{ user.prenom }} {{ user.nom.toUpperCase() }}</p>
+    </div>
+    <div class="right">
+      <h3>Total: {{ totalPrice }},00€</h3>
+    </div>
+  </div>
+  <div class="payment">
+    <h3>Sélectionner un moyen de paiement :</h3>
+    <div class="payment-method">
+      <input
+        (click)="authorizePayment = true"
+        type="radio"
+        name="payment"
+        id="visa"
+        value="visa"
+      />
+      <label for="visa">Visa</label>
+    </div>
+    <div class="payment-method">
+      <input
+        (click)="authorizePayment = true"
+        type="radio"
+        name="payment"
+        id="amex"
+        value="amex"
+      />
+      <label for="amex">Amercian Express</label>
+    </div>
+    <div class="payment-method">
+      <input
+        (click)="authorizePayment = true"
+        type="radio"
+        name="payment"
+        id="paypal"
+        value="paypal"
+      />
+      <label for="paypal">Paypal</label>
+    </div>
+  </div>
+  <div class="finalize">
+    <button class="pay" (click)="passOrder()" [disabled]="!authorizePayment">
       Valider le paiement
     </button>
+    <p class="warn">
+      Ce n'est qu'un projet, vous ne pouvez pas vraiment payer.
+    </p>
   </div>
 </div>
