@@ -141,7 +141,7 @@
               </select>
 
               <input
-                [hidden]="!showNumberInput[i] && cartItem.quantite <= 9"
+                *ngIf="showNumberInput[i] || cartItem.quantite > 9"
                 type="number"
                 value="{{ cartItem.quantite }}"
                 (change)="quantity($event, i)"
@@ -150,7 +150,7 @@
 
               <button
                 class="update-quantity"
-                [hidden]="!showNumberInput[i] && cartItem.quantite <= 9"
+                *ngIf="showNumberInput[i] || cartItem.quantite > 9"
               >
                 Update
               </button>

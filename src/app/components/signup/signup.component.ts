@@ -173,7 +173,6 @@ export class SignupComponent {
       );
     } else {
       this.submit3 = true;
-      alert('ERREUR CRITIQUE');
     }
   }
 
