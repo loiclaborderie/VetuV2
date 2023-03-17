@@ -141,7 +141,6 @@
               </select>
 
               <input
-                class="update-quantity"
                 [hidden]="!showNumberInput[i] && cartItem.quantite <= 9"
                 type="number"
                 value="{{ cartItem.quantite }}"
@@ -149,7 +148,10 @@
                 name="{{ cartItem.id }}"
               />
 
-              <button [hidden]="!showNumberInput[i] && cartItem.quantite <= 9">
+              <button
+                class="update-quantity"
+                [hidden]="!showNumberInput[i] && cartItem.quantite <= 9"
+              >
                 Update
               </button>
               <!-- Le bouton est là pour faire joli, ça update peu importe ou on clique -->
