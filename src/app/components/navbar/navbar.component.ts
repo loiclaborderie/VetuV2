@@ -78,13 +78,13 @@ export class NavbarComponent {
       if (search.value) {
         if (search.value.length > 2) {
           this.router.navigate(['/products/search/' + search.value]);
-          search.value = '';
-          this.clicked = false;
+          this.unclick();
         } else {
           console.log('la requete est trop courte');
         }
       }
     } else {
+      console.log(search);
       this.clicked = true;
       search.focus();
       console.log('clicked');
