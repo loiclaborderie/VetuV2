@@ -69,9 +69,13 @@ export class ProductDetailledComponent {
       let newCart = this.cartService.getCartItems();
       localStorage.setItem('cart', JSON.stringify(newCart));
       productData.stock--;
-      this.snackBar.open(`${productData.titre} ajouté au panier`, 'OK', {
-        duration: 2500,
-        panelClass: ['add-cart-snackbar'],
+      Swal.fire({
+        text: 'Le produit a été ajouté',
+        icon: 'success',
+        timer: 1500,
+        background: '#040037',
+        color: '#F3F3F3',
+        showConfirmButton: false,
       });
     }
   }

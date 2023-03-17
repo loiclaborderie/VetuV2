@@ -70,10 +70,10 @@ export class NavbarComponent {
   @ViewChildren('dropdownContainer') dropdownContainers!: QueryList<ElementRef>;
 
   click() {
+    let search = document.querySelector(
+      'input.search__input'
+    ) as HTMLInputElement;
     if (this.clicked) {
-      let search = document.querySelector(
-        'input.search__input'
-      ) as HTMLInputElement;
       console.log(search.value);
       if (search.value) {
         if (search.value.length > 2) {
@@ -86,6 +86,7 @@ export class NavbarComponent {
       }
     } else {
       this.clicked = true;
+      search.focus();
       console.log('clicked');
     }
   }
