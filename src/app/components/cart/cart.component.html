@@ -141,6 +141,7 @@
               </select>
 
               <input
+                class="update-quantity"
                 [hidden]="!showNumberInput[i] && cartItem.quantite <= 9"
                 type="number"
                 value="{{ cartItem.quantite }}"

@@ -223,7 +223,7 @@ nav {
           animation: blink 1s infinite;
         }
       }
-      button {
+      button.update-quantity {
         margin-left: clamp(0.6rem, 3.5vw, 30px);
         cursor: pointer;
         border: none;

@@ -55,8 +55,7 @@ export class LoginComponent {
           Swal.fire({
             icon: 'success',
             title: 'Indentification réussie',
-            text: 'Vous allez être redirigé',
-            confirmButtonText: 'OK',
+            confirmButtonText: 'Continuer',
             timer: 1500,
           });
         },
